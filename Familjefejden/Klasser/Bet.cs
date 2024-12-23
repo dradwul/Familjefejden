@@ -1,4 +1,4 @@
-﻿namespace SpelBet.Bet
+﻿namespace Klasser
 {
     public class Bet
     {

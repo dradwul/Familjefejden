@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Classes
+namespace Klasser
 {
     public class Match
     {
