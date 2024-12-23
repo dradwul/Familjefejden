@@ -130,6 +130,16 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Canada.svg" />
+    <Content Include="Assets\Czech_Republic.svg" />
+    <Content Include="Assets\Finland.svg" />
+    <Content Include="Assets\Germany.svg" />
+    <Content Include="Assets\Kazakhstan.svg" />
+    <Content Include="Assets\Latvia.svg" />
+    <Content Include="Assets\Slovakia.svg" />
+    <Content Include="Assets\Sweden.svg" />
+    <Content Include="Assets\Switzerland.svg" />
+    <Content Include="Assets\USA.svg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
