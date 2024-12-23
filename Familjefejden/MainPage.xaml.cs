@@ -32,5 +32,10 @@ namespace Familjefejden
             var topplistaPopup = new OverlayTopplista();
             await topplistaPopup.ShowAsync();
         }
+
+        private void AvslutaKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Exit();
+        }
     }
 }
