@@ -39,6 +39,7 @@
                 <Button CornerRadius="5" Background="#E10202" Click="AvslutaKnapp_Klickad">Avsluta</Button>
             </StackPanel>
         </Grid>
+       
     </Grid>
 
 </Page>
