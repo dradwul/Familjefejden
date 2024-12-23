@@ -6,9 +6,35 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="#222222">
 
-    <Grid>
 
+    <Grid x:Name="HuvudGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="TopMeny" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Width="Auto" Background="#555555">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Foreground="#8A8A8A" FontSize="22" Margin="10,15,0,0">GRUPP</TextBlock>
+            <Button Height="30" Width="80" Background="#B7FFAD" Foreground="#555555" CornerRadius="5" Margin="90,0,0,25" FontSize="12">Ny Grupp</Button>
+            <ComboBox x:Name="GruppLista" Height="30" Width="160" Margin="10,55,0,0" BorderThickness="0">
+                <ComboBoxItem IsSelected="True">Välj Grupp</ComboBoxItem>
+            </ComboBox>
+
+            <Button Height="40" Width="120" Grid.Column="3" Margin="100,0,0,0" CornerRadius="5" Background="#36BCDA" FontSize="18">≡ Topplista</Button>
+        </Grid>
+
+        <Grid x:Name="BottenMeny" Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
+                <Button Background="Transparent" Foreground="#999999">Resultat</Button>
+                <Button Background="Transparent" Foreground="#999999">Kommande</Button>
+            </StackPanel>
+        </Grid>
     </Grid>
+
 </Page>
