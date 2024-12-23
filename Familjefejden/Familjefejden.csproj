@@ -119,6 +119,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Klasser\Anvandare.cs" />
+    <Compile Include="Klasser\Bet.cs" />
+    <Compile Include="Klasser\Topplista.cs" />
+    <Compile Include="Klasser\Match.cs" />
+    <Compile Include="Klasser\Turnering.cs" />
+    <Compile Include="Klasser\Grupp.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
