@@ -1,4 +1,4 @@
-﻿namespace SpelBet.Topplista
+﻿namespace Klasser
 {
     public class Topplista
     {

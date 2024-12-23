@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
-namespace Turnering.classes
+namespace Klasser
 {
     public class Turnering
     {
