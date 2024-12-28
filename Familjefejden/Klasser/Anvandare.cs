@@ -1,4 +1,6 @@
-﻿namespace Klasser
+﻿using System.Collections.Generic;
+
+namespace Klasser
 {
     public class Anvandare
     {
