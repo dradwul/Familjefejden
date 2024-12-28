@@ -24,36 +24,9 @@
     </ContentDialog.PrimaryButtonStyle>
 
     <Grid>
-        <ListView>
+        <ListView x:Name="topplistaVy">
             <ListViewItem HorizontalContentAlignment="Stretch" FontSize="14">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="1. Placeholder" Grid.Column="0" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                    <TextBlock Text="10" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-                </Grid>
-            </ListViewItem>
-            <ListViewItem HorizontalContentAlignment="Stretch" FontSize="14">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="2. Placeholder" Grid.Column="0" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                    <TextBlock Text="8" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-                </Grid>
-            </ListViewItem>
-            <ListViewItem HorizontalContentAlignment="Stretch" FontSize="14">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="3. Placeholder" Grid.Column="0" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                    <TextBlock Text="5" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-                </Grid>
+                <TextBlock Text="Inget att visa"/>
             </ListViewItem>
         </ListView>
 

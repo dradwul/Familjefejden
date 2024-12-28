@@ -6,6 +6,6 @@ namespace Klasser
     {
         public int Id { get; set; }
         public string Namn { get; set; }
-        public bool ArAdmin { get; set; }
+        public bool? ArAdmin { get; set; }
     }
 }

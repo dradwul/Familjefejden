@@ -9,6 +9,7 @@ namespace Klasser
     {
         public int Id { get; set; }
         public int GruppId { get; set; }
-        public Dictionary<Anvandare, int> AnvandarePoang { get; set; }
+        public int TurneringId { get; set; }
+        public Dictionary<string, int> AnvandarePoang { get; set; } = new Dictionary<string, int>();
     }
 }
