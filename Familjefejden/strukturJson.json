@@ -1,0 +1,73 @@
+﻿[
+
+  // TOPPLISTA
+  {
+    "Topplista": {
+      "Id": 1,
+      "GruppId": 1,
+      "TurneringId": 1,
+      "AnvandarePoang": {
+        "Anders": 26,
+        "Berith": 30,
+        "Calle": 15,
+        "Leo": 350
+      }
+    }
+  },
+
+  // ANVÄNDARE
+  {
+    "Anvandare": {
+      "Id": 1337,
+      "Namn": "Jan-Leo",
+      // BET
+      "Bets": [
+        {
+          "MatchId": 1,
+          "GissningHemma": 2,
+          "GissningBorta": 1
+        },
+        {
+          "MatchId": 2,
+          "GissningHemma": 3,
+          "GissningBorta": 3
+        }
+      ]
+    }
+  },
+
+  // MATCH
+  {
+    "Match": {
+      "Id": 1,
+      "Date": "2012-04-23T18:25:43.511Z",
+      "HemmalagId": 5,
+      "BortalagId": 3,
+      "HemmalagMal": null,
+      "BortalagMal": null
+    }
+  },
+
+  //TURNERING
+  {
+    "Id": 1,
+    "Namn": "JVM2025",
+    "MatchIds": [
+      { "MatchId": 1 },
+      { "MatchId": 2 },
+      { "MatchId": 3 }
+    ]
+  },
+
+  //GRUPP
+  {
+    "Id": 1,
+    "Namn": "Leos Kingar",
+    "MedlemmarId": [
+      { "AnvandareId": 1 },
+      { "AnvandareId": 2 },
+      { "AnvandareId": 3 }
+    ],
+    "TopplistaId": 1
+  }
+]

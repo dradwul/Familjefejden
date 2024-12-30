@@ -3,9 +3,7 @@
     public class Bet
     {
         public int Id { get; set; }
-        public int AnvandareId { get; set; }
-        public int MatchId { get; set; }
-        public string Forutsagelse { get; set; }
-        public int Poang { get; set; }
+        public int GissningHemma { get; set; }
+        public int GissningBorta { get; set; }
     }
 }

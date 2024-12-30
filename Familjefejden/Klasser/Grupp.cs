@@ -6,7 +6,7 @@ namespace Klasser
     {
         public int Id { get; set; }
         public string Namn { get; set; }
-        public List<Anvandare> Medlemmar { get; set; }
+        public List<int> MedlemmarId { get; set; }
         public Topplista Topplista { get; set; }
     }
 }
