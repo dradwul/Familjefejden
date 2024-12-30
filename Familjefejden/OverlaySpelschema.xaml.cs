@@ -57,6 +57,11 @@ namespace Familjefejden
             MatchLista.ItemsSource = items;
             MatchLista2.ItemsSource = items2;
         }
+
+        private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OverlayNyGrupp));
+        }
     }
 
     public class ImageItem
