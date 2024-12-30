@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="Familjefejden.OverlaySpelschema"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Familjefejden"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="#222222">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0">
+            <TextBlock HorizontalAlignment="Center">Datum</TextBlock>
+            <TextBox Height="30" Width="120"></TextBox>
+            <TextBlock HorizontalAlignment="Center">Tid</TextBlock>
+            <TextBox Height="30" Width="120"></TextBox>
+        </StackPanel>
+        
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,400">
+            <TextBlock HorizontalAlignment="Center">Hemma</TextBlock>
+            <ComboBox x:Name="MatchLista">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ImagePath}" Width="200" Height="100" Margin="5"/>
+                            <TextBlock Text="{Binding Text}" VerticalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,500" FontSize="32">VS</TextBlock>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,350">
+            <TextBlock HorizontalAlignment="Center">Borta</TextBlock>
+            <ComboBox x:Name="MatchLista2">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ImagePath}" Width="200" Height="100" Margin="5"/>
+                            <TextBlock Text="{Binding Text}" VerticalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+    
+        <Button Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,300" Background="#0BE400">Lägg till</Button>
+       
+    </Grid>
+</Page>

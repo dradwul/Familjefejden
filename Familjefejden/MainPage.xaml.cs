@@ -17,9 +17,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Familjefejden
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {        
         public MainPage()
@@ -36,6 +33,11 @@ namespace Familjefejden
         private void AvslutaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             Application.Current.Exit();
+        }
+
+        private void NyGrupp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OverlayNyGrupp));
         }
     }
 }
