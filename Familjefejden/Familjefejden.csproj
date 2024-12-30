@@ -148,18 +148,16 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Canada.svg" />
-    <Content Include="Assets\Canada2.png" />
-    <Content Include="Assets\Czech_Republic.svg" />
-    <Content Include="Assets\Czech_Republic1.png" />
-    <Content Include="Assets\Finland.svg" />
-    <Content Include="Assets\Germany.svg" />
-    <Content Include="Assets\Kazakhstan.svg" />
-    <Content Include="Assets\Latvia.svg" />
-    <Content Include="Assets\Slovakia.svg" />
-    <Content Include="Assets\Sweden.svg" />
-    <Content Include="Assets\Switzerland.svg" />
-    <Content Include="Assets\USA.svg" />
+    <Content Include="Assets\Canada.png" />
+    <Content Include="Assets\Czech_Republic.png" />
+    <Content Include="Assets\Finland.png" />
+    <Content Include="Assets\Germany.png" />
+    <Content Include="Assets\Kazakhstan.png" />
+    <Content Include="Assets\Latvia.png" />
+    <Content Include="Assets\Slovakia.png" />
+    <Content Include="Assets\Sweden.png" />
+    <Content Include="Assets\Switzerland.png" />
+    <Content Include="Assets\USA.png" />
     <Content Include="Assets\WelcomeDisplay.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>

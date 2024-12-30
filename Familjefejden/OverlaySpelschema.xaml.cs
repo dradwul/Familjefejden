@@ -29,15 +29,29 @@ namespace Familjefejden
         {
             var items = new List<ImageItem>
             {
-                new ImageItem { ImagePath = "ms-appx:///Assets/Canada2.png", Text = "Kanada" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Czech_Republic.svg", Text = "Tjeckien" },
-                // Lägg till fler bilder och texter här
+                new ImageItem { ImagePath = "ms-appx:///Assets/Canada.png", Text = "Kanada" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Czech_Republic.png", Text = "Tjeckien" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Finland.png", Text = "Finland" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Germany.png", Text = "Tyskland" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Kazakhstan.png", Text = "Kazakhstan" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Latvia.png", Text = "Lettland" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Slovakia.png", Text = "Slovakien" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Sweden.png", Text = "Sverige" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Switzerland.png", Text = "Schweiz" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/USA.png", Text = "USA" }
             };
             var items2 = new List<ImageItem>
             {
-                new ImageItem { ImagePath = "ms-appx:///Assets/Canada2.png", Text = "Kanada" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Czech_Republic1.png", Text = "Tjeckien" },
-                // Lägg till fler bilder och texter här
+                new ImageItem { ImagePath = "ms-appx:///Assets/Canada.png", Text = "Kanada" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Czech_Republic.png", Text = "Tjeckien" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Finland.png", Text = "Finland" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Germany.png", Text = "Tyskland" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Kazakhstan.png", Text = "Kazakhstan" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Latvia.png", Text = "Lettland" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Slovakia.png", Text = "Slovakien" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Sweden.png", Text = "Sverige" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/Switzerland.png", Text = "Schweiz" },
+                new ImageItem { ImagePath = "ms-appx:///Assets/USA.png", Text = "USA" }               
             };
 
             MatchLista.ItemsSource = items;
