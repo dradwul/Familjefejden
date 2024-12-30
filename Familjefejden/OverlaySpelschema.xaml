@@ -6,14 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="#222222">
+    Background="#222222"
+    Language="sv-SE">
+
 
     <Grid>
+        
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0">
             <TextBlock HorizontalAlignment="Center">Datum</TextBlock>
-            <TextBox Height="30" Width="120"></TextBox>
+            <DatePicker x:Name="MatchDag" Height="30" HorizontalAlignment="Center"></DatePicker>
             <TextBlock HorizontalAlignment="Center">Tid</TextBlock>
-            <TextBox Height="30" Width="120"></TextBox>
+            <TimePicker x:Name="MatchStart" HorizontalAlignment="Center" ClockIdentifier="24HourClock"></TimePicker>
         </StackPanel>
         
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,400">
