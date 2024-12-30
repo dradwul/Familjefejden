@@ -6,11 +6,11 @@
       "Id": 1,
       "GruppId": 1,
       "TurneringId": 1,
-      "AnvandarePoang": {
-        "Anders": 26,
-        "Berith": 30,
-        "Calle": 15,
-        "Leo": 350
+      "AnvandareIdPoang": {
+        1: 26,
+        2: 30,
+        3: 15,
+        4: 350
       }
     }
   },
@@ -52,22 +52,14 @@
   {
     "Id": 1,
     "Namn": "JVM2025",
-    "MatchIds": [
-      { "MatchId": 1 },
-      { "MatchId": 2 },
-      { "MatchId": 3 }
-    ]
+    "MatchIds": [ 1, 2, 3]
   },
 
   //GRUPP
   {
     "Id": 1,
     "Namn": "Leos Kingar",
-    "MedlemmarId": [
-      { "AnvandareId": 1 },
-      { "AnvandareId": 2 },
-      { "AnvandareId": 3 }
-    ],
+    "MedlemmarId": [ 1, 2, 3 ],
     "TopplistaId": 1
   }
 ]
