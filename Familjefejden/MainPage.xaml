@@ -40,8 +40,10 @@
             </StackPanel>
         </Grid>
 
-        <Button Click="Testtest_Clicked" Content="TEST: LÄGG TILL NY TOPPLISTA I FILEN" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Padding="25" CornerRadius="5"/>
-
+        <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Content="TEST: Ändra Topplista" Click="TestUppdateraTopplista_Klickad" Padding="15" CornerRadius="5"/>
+            <Button Content="TEST: Ändra Anvandare" Click="TestUppdateraAnvandare_Klickad" Padding="15" CornerRadius="5"/>
+        </StackPanel>
+        
     </Grid>
-
 </Page>

@@ -26,7 +26,7 @@ namespace Familjefejden.Service
             {
                 return new List<Topplista>
                 {
-                    new Topplista { AnvandarePoang = new Dictionary<string, int>() }
+                    new Topplista { AnvandareIdPoang = new Dictionary<string, int>() }
                 };
             }
         }

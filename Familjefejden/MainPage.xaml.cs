@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -24,17 +25,17 @@ namespace Familjefejden
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        TopplistaService topplistaService = new TopplistaService();
+        JsonService jsonService = new JsonService();
 
         public MainPage()
         {
             this.InitializeComponent();
-            InitTopplistaAsync();
+            HamtaDataAsync();
         }      
 
-        private async void InitTopplistaAsync()
+        private async void HamtaDataAsync()
         {
-            await topplistaService.KopieraFilTillLokalMappAsync("topplista.json");
+            await jsonService.KopieraFilTillLokalMappAsync("dataFil.json");
         }
 
         private async void KnappVisaTopplista_Klickad(object sender, RoutedEventArgs e)
@@ -49,32 +50,26 @@ namespace Familjefejden
         }
 
 
-        // // // TESTTEST nedanför
-        private void Testtest_Clicked(object sender, RoutedEventArgs e)
+
+        // // //  TESTKNAPPAR:
+        private async void UppdateraTopplistaAsync()
         {
-            Random random = new Random();
-
-            Topplista nyTopplista = new Topplista
-            {
-                Id = random.Next(15,15000),
-                GruppId = random.Next(0,10),
-                TurneringId = random.Next(0,10),
-                AnvandarePoang = new Dictionary<string, int>
-                {
-                    {"Agda", 40 },
-                    {"Körven", 33 },
-                    {"Tjoffe", 10 },
-                    {"Bulten", 9 },
-                    {"x_DragoNsLayEr12_x", 40 }
-                }
-            };
-
-            LaggTill(nyTopplista);
+            await jsonService.UppdateraTopplistaAsync(5, 3, 2, new Dictionary<string, int> { { "Anvandare1", 10 } });
         }
 
-        private async void LaggTill(Topplista nyTopplista)
+        private void TestUppdateraTopplista_Klickad(object send, RoutedEventArgs e)
         {
-            await topplistaService.LaggTillNyTopplistaIJsonFilenAsync(nyTopplista);
+            UppdateraTopplistaAsync();
+        }
+
+        private async void UppdateraAnvandareAsync()
+        {
+            await jsonService.UppdateraAnvandareAsync(10,"Agda",new List<Bet> { new Bet { Id = 1, GissningHemma = 2, GissningBorta = 3} });
+        }
+
+        private void TestUppdateraAnvandare_Klickad(object send, RoutedEventArgs e)
+        {
+            UppdateraAnvandareAsync();
         }
     }
 }
