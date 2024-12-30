@@ -25,7 +25,7 @@ namespace Familjefejden
     public sealed partial class OverlayTopplista : ContentDialog
     {
         private readonly TopplistaService service = new TopplistaService();
-        private Topplista topplista;
+        private List<Topplista> topplistaLista;
 
         public OverlayTopplista()
         {
@@ -35,10 +35,13 @@ namespace Familjefejden
 
         private async Task InitAsync()
         {
-            topplista = await service.LaddaTopplistaAsync();
-            if (topplista == null)
+            topplistaLista = await service.LaddaTopplistaAsync();
+            if (topplistaLista == null)
             {
-                topplista = new Topplista { AnvandarePoang = new Dictionary<string, int>() };
+                topplistaLista = new List<Topplista>
+                { 
+                    new Topplista { AnvandarePoang = new Dictionary<string, int>() }
+                };
             }
             FormateraTillLista();
         }
@@ -51,11 +54,15 @@ namespace Familjefejden
         {
         }
 
+        // Hämtar just nu en bestämd lista i filen topplista.json ( topplistaLista[0] etc )
         private void FormateraTillLista()
         {
-            var sorteradLista = topplista.AnvandarePoang.OrderByDescending(kvp => kvp.Value);
+            Topplista testListaAttVisa = topplistaLista[1];
+            var sorteradLista = testListaAttVisa.AnvandarePoang.OrderByDescending(kvp => kvp.Value);
             topplistaVy.Items.Clear();
             int placering = 1;
+
+            this.Title = $"TOPPLISTA (ID: {testListaAttVisa.Id})";
 
             foreach(var rad in sorteradLista)
             {

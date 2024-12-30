@@ -39,7 +39,9 @@
                 <Button CornerRadius="5" Background="#E10202" Click="AvslutaKnapp_Klickad">Avsluta</Button>
             </StackPanel>
         </Grid>
-       
+
+        <Button Click="Testtest_Clicked" Content="TEST: LÄGG TILL NY TOPPLISTA I FILEN" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Padding="25" CornerRadius="5"/>
+
     </Grid>
 
 </Page>
