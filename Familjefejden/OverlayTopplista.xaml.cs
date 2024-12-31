@@ -24,9 +24,26 @@ namespace Familjefejden
 {
     public sealed partial class OverlayTopplista : ContentDialog
     {
+        private readonly JsonService service = new JsonService();
+        private Topplista hamtadTopplista;
+
         public OverlayTopplista()
         {
             this.InitializeComponent();
+            InitAsync();
+        }
+
+        private async Task InitAsync()
+        {
+            hamtadTopplista = await service.LaddaTopplistaAsync();
+            if (hamtadTopplista == null)
+            {
+                hamtadTopplista = new Topplista
+                {
+                    AnvandareIdPoang = new Dictionary<string, int>()
+                };
+            }
+            FormateraTillLista();
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -36,5 +53,75 @@ namespace Familjefejden
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
         }
+
+        // Hämtar just nu en bestämd lista i filen topplista.json ( topplistaLista[0] etc )
+        private async void FormateraTillLista()
+        {
+            // Ladda topplista-data
+            var topplista = await service.LaddaTopplistaAsync();
+
+            if (topplista == null || topplista.AnvandareIdPoang.Count == 0)
+            {
+                this.Title = "Inga resultat i topplistan ännu.";
+                topplistaVy.Items.Clear();
+                return;
+            }
+
+            // Sortera topplistan
+            var sorteradLista = topplista.AnvandareIdPoang.OrderByDescending(kvp => kvp.Value);
+
+            topplistaVy.Items.Clear();
+            int placering = 1;
+
+            this.Title = $"TOPPLISTA";
+
+            // Skapa UI-element för varje rad i listan
+            foreach (var rad in sorteradLista)
+            {
+                ListViewItem newListViewItem = new ListViewItem
+                {
+                    HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                    FontSize = 14
+                };
+
+                Grid grid = new Grid();
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
+                TextBlock textPlacering = new TextBlock
+                {
+                    Text = $"{placering}.",
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(10, 0, 10, 0)
+                };
+                Grid.SetColumn(textPlacering, 0);
+
+                TextBlock textLeft = new TextBlock
+                {
+                    Text = rad.Key.ToString(), // Nyckeln är användarens namn eller ID
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(10, 0, 0, 0)
+                };
+                Grid.SetColumn(textLeft, 1);
+
+                TextBlock textRight = new TextBlock
+                {
+                    Text = rad.Value.ToString(), // Värdet är poängen
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    Margin = new Thickness(0, 0, 10, 0)
+                };
+                Grid.SetColumn(textRight, 2);
+
+                grid.Children.Add(textPlacering);
+                grid.Children.Add(textLeft);
+                grid.Children.Add(textRight);
+                newListViewItem.Content = grid;
+                topplistaVy.Items.Add(newListViewItem);
+
+                placering++;
+            }
+        }
+
     }
 }

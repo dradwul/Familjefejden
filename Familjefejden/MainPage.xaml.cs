@@ -54,22 +54,34 @@ namespace Familjefejden
         // // //  TESTKNAPPAR:
         private async void UppdateraTopplistaAsync()
         {
-            await jsonService.UppdateraTopplistaAsync(5, 3, 2, new Dictionary<string, int> { { "Anvandare1", 10 } });
+            await jsonService.UppdateraTopplistaAsync(new Dictionary<string, int> { { "Anvandare1", 10 }, { "Anvandare1000", 178 }, { "Anvandare007", 3 } });
         }
 
-        private void TestUppdateraTopplista_Klickad(object send, RoutedEventArgs e)
+        private void TestUppdateraTopplista_Klickad(object sender, RoutedEventArgs e)
         {
             UppdateraTopplistaAsync();
         }
 
-        private async void UppdateraAnvandareAsync()
+        private async void UppdateraAnvandaresBetsAsync()
         {
-            await jsonService.UppdateraAnvandareAsync(10,"Agda",new List<Bet> { new Bet { Id = 1, GissningHemma = 2, GissningBorta = 3} });
+            await jsonService.UppdateraAnvandaresBetsAsync(10, new List<Bet> { new Bet { Id = 1, MatchId = 1, GissningHemma = 2, GissningBorta = 3 } });
+            await jsonService.UppdateraAnvandaresBetsAsync(2, new List<Bet> { new Bet { Id = 2, MatchId = 1, GissningHemma = 2, GissningBorta = 3 } });
+            await jsonService.UppdateraAnvandaresBetsAsync(1, new List<Bet> { new Bet { Id = 3, MatchId = 1, GissningHemma = 2, GissningBorta = 12} });
         }
 
-        private void TestUppdateraAnvandare_Klickad(object send, RoutedEventArgs e)
+        private void TestUppdateraAnvandaresBets_Klickad(object sender, RoutedEventArgs e)
         {
-            UppdateraAnvandareAsync();
+            UppdateraAnvandaresBetsAsync();
+        }
+
+        private async void LaggTillAnvandareAsync()
+        {
+            await jsonService.LaggaTillNyAnvandareAsync("Brutus");
+            await jsonService.LaggaTillNyAnvandareAsync("Gösta");
+        }
+        private void TestLaggTillAnvandare_Klickad(object sender, RoutedEventArgs e)
+        {
+            LaggTillAnvandareAsync();
         }
     }
 }

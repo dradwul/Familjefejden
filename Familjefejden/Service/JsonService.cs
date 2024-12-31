@@ -12,6 +12,28 @@ namespace Familjefejden.Service
 {
     public class JsonService
     {
+
+//////////////////// Filhantering
+        private async Task SparaTillFilAsync(string sektionNamn, object data)
+        {
+            var allData = await LaddaAllDataFranFilAsync();
+
+            // Ersätter sektion:
+            for (int i = 0; i < allData.Count; i++)
+            {
+                if (allData[i].ContainsKey(sektionNamn))
+                {
+                    allData[i][sektionNamn] = data;
+                    break;
+                }
+            }
+
+            StorageFolder dataMapp = ApplicationData.Current.LocalFolder;
+            StorageFile dataFil = await dataMapp.GetFileAsync("dataFil.json");
+            string json = JsonConvert.SerializeObject(allData, Formatting.Indented);
+            await FileIO.WriteTextAsync(dataFil, json);
+        }
+
         /// <summary>
         /// Laddar all data från dataFilen. Inklusive Anvandare, topplistor osv.
         /// </summary>
@@ -73,54 +95,80 @@ namespace Familjefejden.Service
             return new object();
         }
 
-        public async Task UppdateraTopplistaAsync(int topplistaId, int gruppId, int turneringId, Dictionary<string, int> anvandareIdPoang)
+//////////////////// Hantering av Topplista
+        // UPPDATERA TOPPLISTA
+        public async Task UppdateraTopplistaAsync(Dictionary<string, int> anvandareIdPoang)
         {
             var topplistaData = await HamtaSpecifikDataAsync("Topplista");
 
             if (topplistaData is Newtonsoft.Json.Linq.JObject topplista)
             {
-                topplista["Id"] = topplistaId;
-                topplista["GruppId"] = gruppId;
-                topplista["TurneringId"] = turneringId;
                 topplista["AnvandareIdPoang"] = Newtonsoft.Json.Linq.JObject.FromObject(anvandareIdPoang);
 
                 await SparaTillFilAsync("Topplista", topplista);
             }
         }
 
-        public async Task UppdateraAnvandareAsync(int anvandareId, string namn, List<Bet> bets)
+        public async Task<Topplista> LaddaTopplistaAsync()
+        {
+            try
+            {
+                var topplistaData = await HamtaSpecifikDataAsync("Topplista");
+
+                if (topplistaData is Newtonsoft.Json.Linq.JObject topplistaJson)
+                {
+                    return topplistaJson.ToObject<Topplista>();
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Kunde inte ladda topplistan.");
+            }
+
+            return new Topplista { AnvandareIdPoang = new Dictionary<string, int>() };
+        }
+
+        //////////////////// Hantering av Användare
+        // BETS
+        public async Task UppdateraAnvandaresBetsAsync(int anvandareId, List<Bet> bets)
         {
             var anvandareData = await HamtaSpecifikDataAsync("Anvandare");
 
-            if(anvandareData is Newtonsoft.Json.Linq.JObject anvandare)
+            if(anvandareData is Newtonsoft.Json.Linq.JArray anvandareLista)
             {
-                anvandare["Id"] = anvandareId;
-                anvandare["Namn"] = namn;
-                var betsJson = Newtonsoft.Json.Linq.JArray.FromObject(bets);
-                anvandare["Bets"] = betsJson;
-
-                await SparaTillFilAsync("Anvandare", anvandare);
-            }
-        }
-
-        private async Task SparaTillFilAsync(string sektionNamn, object data)
-        {
-            var allData = await LaddaAllDataFranFilAsync();
-
-            // Ersätter sektion:
-            for(int i = 0; i < allData.Count; i++)
-            {
-                if (allData[i].ContainsKey(sektionNamn))
+                foreach(var item in anvandareLista)
                 {
-                    allData[i][sektionNamn] = data;
-                    break;
+                    if(item is Newtonsoft.Json.Linq.JObject anvandare && (int)anvandare["Id"] == anvandareId)
+                    {
+                        anvandare["Bets"] = Newtonsoft.Json.Linq.JArray.FromObject(bets);
+
+                        await SparaTillFilAsync("Anvandare", anvandareLista);
+                        return;
+                    }
                 }
             }
-
-            StorageFolder dataMapp = ApplicationData.Current.LocalFolder;
-            StorageFile dataFil = await dataMapp.GetFileAsync("dataFil.json");
-            string json = JsonConvert.SerializeObject(allData, Formatting.Indented);
-            await FileIO.WriteTextAsync(dataFil, json);
         }
+
+        // LÄGG TILL ANVÄNDARE
+        public async Task LaggaTillNyAnvandareAsync(string namn)
+        {
+            var anvandareData = await HamtaSpecifikDataAsync("Anvandare");
+
+            if(anvandareData is Newtonsoft.Json.Linq.JArray anvandareLista)
+            {
+                var nyAnvandare = new
+                {
+                    Id = anvandareLista.Count > 0 ? (int)anvandareLista.Last["Id"] + 1 : 1,
+                    Namn = namn,
+                    Bets = new List<Bet>()
+                };
+
+                anvandareLista.Add(Newtonsoft.Json.Linq.JObject.FromObject(nyAnvandare));
+
+                await SparaTillFilAsync("Anvandare", anvandareLista);
+            }
+        }
+
+        
     }
 }

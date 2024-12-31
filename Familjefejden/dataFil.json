@@ -1,34 +1,12 @@
 ﻿[
   {
-    "Topplista": {
-      "Id": 0,
-      "GruppId": 0,
-      "TurneringId": 0,
-      "AnvandareIdPoang": { }
-    }
-  },
-
-
-  {
-    "Anvandare": {
+    "Grupp": {
       "Id": 0,
       "Namn": "",
-      "Bets": []
+      "MedlemmarId": [],
+      "TopplistaId": 0
     }
   },
-
-
-  {
-    "Match": {
-      "Id": 0,
-      "Date": "",
-      "HemmalagId": 0,
-      "BortalagId": 0,
-      "HemmalagMal": null,
-      "BortalagMal": null
-    }
-  },
-
 
   {
     "Turnering": {
@@ -38,13 +16,28 @@
     }
   },
 
+  {
+    "Topplista": {
+      "AnvandareIdPoang": {}
+    }
+  },
+
 
   {
-    "Grupp": {
-      "Id": 0,
-      "Namn": "",
-      "MedlemmarId": [],
-      "TopplistaId": 0
-    }
+    "Anvandare": []
+  },
+
+
+  {
+    "Match": [
+      {
+        "Id": 0,
+        "Date": "",
+        "HemmalagId": 0,
+        "BortalagId": 0,
+        "HemmalagMal": null,
+        "BortalagMal": null
+      }
+    ]
   }
 ]
