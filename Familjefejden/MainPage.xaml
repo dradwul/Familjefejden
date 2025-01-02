@@ -41,11 +41,12 @@
         </Grid>
 
         <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="TEST json: + Lägg till Grupp" Click="TestaLaggaTillGrupp_Klickad" Padding="15" CornerRadius="5"/>
-            <Button Content="TEST json: + Lägg till Turnering" Click="TestaLaggaTillTurnering_Klickad" Padding="15" CornerRadius="5"/>
-            <Button Content="TEST json: + Lägg till Anvandare" Click="TestaLaggaTillAnvandare_Klickad" Padding="15" CornerRadius="5"/>
-            <Button Content="TEST json: + Lägg till Lag" Click="TestaLaggaTillLag_Klickad" Padding="15" CornerRadius="5"/>
-            <Button Content="TEST json: + Lägg till Match" Click="TestaLaggaTillMatch_Klickad" Padding="15" CornerRadius="5"/>
+            <Button Content="TEST json: + Lägg till Grupp" Click="TestaLaggaTillGrupp_Klickad" Margin="2"/>
+            <Button Content="TEST json: + Lägg till Turnering" Click="TestaLaggaTillTurnering_Klickad" Margin="2"/>
+            <Button Content="TEST json: + Lägg till Anvandare" Click="TestaLaggaTillAnvandare_Klickad" Margin="2"/>
+            <Button Content="TEST json: + Lägg till Lag" Click="TestaLaggaTillLag_Klickad" Margin="2"/>
+            <Button Content="TEST json: + Lägg till Match" Click="TestaLaggaTillMatch_Klickad" Margin="2"/>
+            <Button Content="TEST json: + Lägg till Bet" Click="TestaLaggaTillBet_Klickad" Margin="2"/>
         </StackPanel>
         
     </Grid>

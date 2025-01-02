@@ -88,5 +88,18 @@ namespace Familjefejden
             Match nyMatch = turneringService.SkapaMatch(datum, random.Next(0,10), random.Next(0, 10));
             await jsonService.LaggTillMatchAsync(nyMatch);
         }
+
+        private async void TestaLaggaTillBet_Klickad(object sender, RoutedEventArgs e)
+        {
+            // Testar felhantering med slumpade IDn för användare och match
+            Random random = new Random();
+            int anvandareId = random.Next(0, 6);
+            int matchId = random.Next(0, 10); 
+            int hemmaMal = random.Next(0, 8);
+            int bortaMal = random.Next(0, 8);
+            Debug.WriteLine($"[anvId:{anvandareId}|matchId:{matchId}|resultat:{hemmaMal}-{bortaMal}]");
+            Bet nyttBet = gruppService.LaggBetPaMatch(matchId, hemmaMal, bortaMal);
+            await jsonService.LaggTillBetAsync(anvandareId, nyttBet);
+        }
     }
 }

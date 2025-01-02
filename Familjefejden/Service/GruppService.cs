@@ -24,5 +24,15 @@ namespace Familjefejden.Service
                 TotalPoang = 0
             };
         }
+
+        public Bet LaggBetPaMatch(int matchId,int gissningHemma, int gissningBorta)
+        {
+            return new Bet
+            {
+                MatchId = matchId,
+                GissningHemma = gissningHemma,
+                GissningBorta = gissningBorta
+            };
+        }
     }
 }

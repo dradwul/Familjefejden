@@ -260,6 +260,42 @@ namespace Familjefejden.Service
             return false;
         }
 
+        public async Task<bool> LaggTillBetAsync(int anvandareId, Bet nyttBet)
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+            if(gruppData is JObject gruppObjekt)
+            {
+                var anvandareLista = gruppObjekt["Anvandare"] as JArray;
+                if(anvandareLista != null)
+                {
+                    var anvandare = anvandareLista
+                        .FirstOrDefault(a => (int)a["Id"] == anvandareId) as JObject;
+
+                    if(anvandare != null)
+                    {
+                        var anvandarensBets = anvandare["Bets"] as JArray;
+
+                        bool betFinns = anvandarensBets
+                            .Any(bet => (int)bet["MatchId"] == nyttBet.MatchId);
+
+                        if (betFinns)
+                        {
+                            Debug.WriteLine("Bet för detta matchId finns för detta användarId");
+                            return false;
+                        }
+
+                        var nyttBetJson = JObject.FromObject(nyttBet);
+                        anvandarensBets.Add(nyttBetJson);
+
+                        anvandare["Bets"] = anvandarensBets;
+
+                        await SparaTillFilAsync("Grupp", gruppObjekt);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
         ////////////////////////////////////////////////////////////
         // UPPDATERINGS-METODER ÄR INTE TESTADE ÄN
