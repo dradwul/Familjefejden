@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DummyData.cs" />
     <Compile Include="Klasser\Anvandare.cs" />
     <Compile Include="Klasser\Bet.cs" />
     <Compile Include="Klasser\Topplista.cs" />

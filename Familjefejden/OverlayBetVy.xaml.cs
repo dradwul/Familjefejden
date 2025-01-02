@@ -25,9 +25,34 @@ namespace Familjefejden
         public OverlayBetVy()
         {
             this.InitializeComponent();
+            LoadDummyData();
         }
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
+        }
+        private void LoadDummyData()
+        {
+            var matches = DummyData.GetDummyMatches();
+            var flags = DummyData.GetCountryFlags();
+
+            var matchViewModels = new List<dynamic>();
+            foreach (var match in matches)
+            {
+                matchViewModels.Add(new
+                {
+                    match.Team1,
+                    match.Team2,
+                    Team1Flag = flags[match.Team1],
+                    Team2Flag = flags[match.Team2]
+                });
+            }
+
+            MatchBettingLista.ItemsSource = matchViewModels;
+        }
+
+        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
         }
