@@ -109,24 +109,6 @@ namespace Familjefejden.Service
             }
         }
 
-        public async Task<Topplista> LaddaTopplistaAsync()
-        {
-            try
-            {
-                var topplistaData = await HamtaSpecifikDataAsync("Topplista");
-
-                if (topplistaData is Newtonsoft.Json.Linq.JObject topplistaJson)
-                {
-                    return topplistaJson.ToObject<Topplista>();
-                }
-            }
-            catch
-            {
-                Debug.WriteLine("Kunde inte ladda topplistan.");
-            }
-
-            return new Topplista { AnvandareIdPoang = new Dictionary<string, int>() };
-        }
 
         //////////////////// Hantering av Användare
         // BETS
@@ -169,6 +151,85 @@ namespace Familjefejden.Service
             }
         }
 
-        
+
+        /*  /// /// ///  ------------  \\\ \\\ \\\
+        // ||| ||| |||     NY SKIT     ||| ||| |||
+        /  \\\ \\\ \\\  ------------  /// /// /// */
+
+        // UPPDATERA GRUPP
+        public async Task LaggaTillNyGruppAsync(Grupp nyGrupp)
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+
+            if (gruppData is Newtonsoft.Json.Linq.JObject gruppObjekt)
+            {
+                gruppObjekt["Id"] = nyGrupp.Id;
+                gruppObjekt["Namn"] = nyGrupp.Namn;
+                gruppObjekt["Anvandare"] = Newtonsoft.Json.Linq.JArray.FromObject(nyGrupp.Medlemmar);
+
+                await SparaTillFilAsync("Grupp", gruppObjekt);
+            }
+        }
+
+        // SKAPA TURNERING
+        public async Task LaggaTillNyTurneringAsync(Turnering nyTurnering)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+
+            if (turneringData is Newtonsoft.Json.Linq.JObject turneringObjekt)
+            {
+                turneringObjekt["Id"] = nyTurnering.Id;
+                turneringObjekt["Namn"] = nyTurnering.Namn;
+                turneringObjekt["Matcher"] = Newtonsoft.Json.Linq.JArray.FromObject(nyTurnering.Matcher);
+                turneringObjekt["Lag"] = Newtonsoft.Json.Linq.JArray.FromObject(nyTurnering.Lag);
+
+                await SparaTillFilAsync("Turnering", turneringObjekt);
+            }
+        }
+
+        // UPPDATERA GRUPP
+        public async Task UppdateraGruppAsync(int gruppId, Grupp uppdateradGrupp)
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+
+            if (gruppData is Newtonsoft.Json.Linq.JArray gruppLista)
+            {
+                foreach (var item in gruppLista)
+                {
+                    if (item is Newtonsoft.Json.Linq.JObject grupp && (int)grupp["Id"] == gruppId)
+                    {
+                        grupp["Namn"] = uppdateradGrupp.Namn;
+                        grupp["Medlemmar"] = Newtonsoft.Json.Linq.JArray.FromObject(uppdateradGrupp.Medlemmar);
+
+                        await SparaTillFilAsync("Grupp", gruppLista);
+                        return;
+                    }
+                }
+            }
+        }
+
+        // UPPDATERA TURNERING
+        public async Task UppdateraTurneringAsync(int turneringId, Turnering uppdateradTurnering)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+
+            if (turneringData is Newtonsoft.Json.Linq.JArray turneringLista)
+            {
+                foreach (var item in turneringLista)
+                {
+                    if (item is Newtonsoft.Json.Linq.JObject turnering && (int)turnering["Id"] == turneringId)
+                    {
+                        turnering["Namn"] = uppdateradTurnering.Namn;
+                        turnering["Matcher"] = Newtonsoft.Json.Linq.JArray.FromObject(uppdateradTurnering.Matcher);
+                        turnering["Lag"] = Newtonsoft.Json.Linq.JArray.FromObject(uppdateradTurnering.Lag);
+
+                        await SparaTillFilAsync("Turnering", turneringLista);
+                        return;
+                    }
+                }
+            }
+        }
+
+
     }
 }

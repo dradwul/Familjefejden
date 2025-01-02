@@ -1,43 +1,9 @@
 ﻿[
   {
-    "Grupp": {
-      "Id": 0,
-      "Namn": "",
-      "MedlemmarId": [],
-      "TopplistaId": 0
-    }
+    "Grupp": {}
   },
 
   {
-    "Turnering": {
-      "Id": 0,
-      "Namn": "",
-      "MatchIds": []
-    }
-  },
-
-  {
-    "Topplista": {
-      "AnvandareIdPoang": {}
-    }
-  },
-
-
-  {
-    "Anvandare": []
-  },
-
-
-  {
-    "Match": [
-      {
-        "Id": 0,
-        "Date": "",
-        "HemmalagId": 0,
-        "BortalagId": 0,
-        "HemmalagMal": null,
-        "BortalagMal": null
-      }
-    ]
+    "Turnering": {}
   }
 ]

@@ -41,9 +41,10 @@
         </Grid>
 
         <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="TEST: Ändra Topplista" Click="TestUppdateraTopplista_Klickad" Padding="15" CornerRadius="5"/>
-            <Button Content="TEST: Uppdatera Användares Bets" Click="TestUppdateraAnvandaresBets_Klickad" Padding="15" CornerRadius="5"/>
-            <Button Content="TEST: Lägg till ny Anvandare" Click="TestLaggTillAnvandare_Klickad" Padding="15" CornerRadius="5"/>
+            <Button Content="TEST: TestaMetoder" Click="TestaMetoder_Klickad" Padding="15" CornerRadius="5"/>
+
+            <Button Content="TEST json: TestLaggaTillGrupp" Click="TestLaggaTillGrupp_Klickad" Padding="15" CornerRadius="5"/>
+            <Button Content="TEST json: TestLaggaTillTurnering" Click="TestLaggaTillTurnering_Klickad" Padding="15" CornerRadius="5"/>
         </StackPanel>
         
     </Grid>

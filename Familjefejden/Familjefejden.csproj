@@ -121,7 +121,7 @@
     </Compile>
     <Compile Include="Klasser\Anvandare.cs" />
     <Compile Include="Klasser\Bet.cs" />
-    <Compile Include="Klasser\Topplista.cs" />
+    <Compile Include="Klasser\Lag.cs" />
     <Compile Include="Klasser\Match.cs" />
     <Compile Include="Klasser\Turnering.cs" />
     <Compile Include="Klasser\Grupp.cs" />
@@ -135,7 +135,9 @@
       <DependentUpon>OverlayTopplista.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\GruppService.cs" />
     <Compile Include="Service\JsonService.cs" />
+    <Compile Include="Service\TurneringService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -181,11 +183,6 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.3</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="topplista.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="dataFil.json">

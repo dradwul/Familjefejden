@@ -25,7 +25,6 @@ namespace Familjefejden
     public sealed partial class OverlayTopplista : ContentDialog
     {
         private readonly JsonService service = new JsonService();
-        private Topplista hamtadTopplista;
 
         public OverlayTopplista()
         {
@@ -35,15 +34,7 @@ namespace Familjefejden
 
         private async Task InitAsync()
         {
-            hamtadTopplista = await service.LaddaTopplistaAsync();
-            if (hamtadTopplista == null)
-            {
-                hamtadTopplista = new Topplista
-                {
-                    AnvandareIdPoang = new Dictionary<string, int>()
-                };
-            }
-            FormateraTillLista();
+            //FormateraTillLista();
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -55,7 +46,7 @@ namespace Familjefejden
         }
 
         // Hämtar just nu en bestämd lista i filen topplista.json ( topplistaLista[0] etc )
-        private async void FormateraTillLista()
+        /*private async void FormateraTillLista()
         {
             // Ladda topplista-data
             var topplista = await service.LaddaTopplistaAsync();
@@ -121,7 +112,6 @@ namespace Familjefejden
 
                 placering++;
             }
-        }
-
+        }*/
     }
 }

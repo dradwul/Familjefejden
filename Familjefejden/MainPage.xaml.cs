@@ -1,7 +1,10 @@
-﻿using Familjefejden.Service;
+﻿using Familjefejden.Klasser;
+using Familjefejden.Service;
 using Klasser;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,6 +29,8 @@ namespace Familjefejden
     public sealed partial class MainPage : Page
     {
         JsonService jsonService = new JsonService();
+        GruppService gruppService = new GruppService();
+        TurneringService turneringService = new TurneringService();
 
         public MainPage()
         {
@@ -52,36 +57,29 @@ namespace Familjefejden
 
 
         // // //  TESTKNAPPAR:
-        private async void UppdateraTopplistaAsync()
+        private void TestaMetoder_Klickad(object sender, RoutedEventArgs e)
         {
-            await jsonService.UppdateraTopplistaAsync(new Dictionary<string, int> { { "Anvandare1", 10 }, { "Anvandare1000", 178 }, { "Anvandare007", 3 } });
+            List<Match> nyMatchlista = new List<Match>(turneringService.SkapaListaMedMatcher());
+            Turnering nyTurnering = turneringService.NyTurnering(nyMatchlista);
+
+            Grupp nyGrupp = gruppService.SkapaGrupp();
         }
 
-        private void TestUppdateraTopplista_Klickad(object sender, RoutedEventArgs e)
+        private async void TestLaggaTillGrupp_Klickad(object sender, RoutedEventArgs e)
         {
-            UppdateraTopplistaAsync();
+            var nyGrupp = gruppService.SkapaGrupp();
+
+            await jsonService.LaggaTillNyGruppAsync(nyGrupp);
+            Debug.WriteLine("Ny grupp tillagd.");
         }
 
-        private async void UppdateraAnvandaresBetsAsync()
+        private async void TestLaggaTillTurnering_Klickad(object sender, RoutedEventArgs e)
         {
-            await jsonService.UppdateraAnvandaresBetsAsync(10, new List<Bet> { new Bet { Id = 1, MatchId = 1, GissningHemma = 2, GissningBorta = 3 } });
-            await jsonService.UppdateraAnvandaresBetsAsync(2, new List<Bet> { new Bet { Id = 2, MatchId = 1, GissningHemma = 2, GissningBorta = 3 } });
-            await jsonService.UppdateraAnvandaresBetsAsync(1, new List<Bet> { new Bet { Id = 3, MatchId = 1, GissningHemma = 2, GissningBorta = 12} });
-        }
+            var nyMatchlista = turneringService.SkapaListaMedMatcher();
+            var nyTurnering = turneringService.NyTurnering(nyMatchlista);
 
-        private void TestUppdateraAnvandaresBets_Klickad(object sender, RoutedEventArgs e)
-        {
-            UppdateraAnvandaresBetsAsync();
-        }
-
-        private async void LaggTillAnvandareAsync()
-        {
-            await jsonService.LaggaTillNyAnvandareAsync("Brutus");
-            await jsonService.LaggaTillNyAnvandareAsync("Gösta");
-        }
-        private void TestLaggTillAnvandare_Klickad(object sender, RoutedEventArgs e)
-        {
-            LaggTillAnvandareAsync();
+            await jsonService.LaggaTillNyTurneringAsync(nyTurnering);
+            Debug.WriteLine("Ny turnering tillagd.");
         }
     }
 }
