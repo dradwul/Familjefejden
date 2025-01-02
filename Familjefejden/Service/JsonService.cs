@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.UI.Xaml.Documents;
 
 namespace Familjefejden.Service
 {
@@ -305,14 +304,14 @@ namespace Familjefejden.Service
         {
             var gruppData = await HamtaSpecifikDataAsync("Grupp");
 
-            if (gruppData is Newtonsoft.Json.Linq.JArray gruppLista)
+            if (gruppData is JArray gruppLista)
             {
                 foreach (var item in gruppLista)
                 {
-                    if (item is Newtonsoft.Json.Linq.JObject grupp && (int)grupp["Id"] == gruppId)
+                    if (item is JObject grupp && (int)grupp["Id"] == gruppId)
                     {
                         grupp["Namn"] = uppdateradGrupp.Namn;
-                        grupp["Medlemmar"] = Newtonsoft.Json.Linq.JArray.FromObject(uppdateradGrupp.Medlemmar);
+                        grupp["Medlemmar"] = JArray.FromObject(uppdateradGrupp.Medlemmar);
 
                         await SparaTillFilAsync("Grupp", gruppLista);
                         return;
@@ -320,5 +319,33 @@ namespace Familjefejden.Service
                 }
             }
         }
+
+        public async Task UppdateraPoangForAnvandareAsync(int anvandareId, int poangAttLaggaTill)
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+
+            if (gruppData is JObject gruppObjekt)
+            {
+                var anvandareLista = gruppObjekt["Anvandare"] as JArray;
+
+                if (anvandareLista != null)
+                {
+                    foreach (var anvandare in anvandareLista)
+                    {
+                        if ((int)anvandare["Id"] == anvandareId)
+                        {
+                            anvandare["TotalPoang"] = (int)anvandare["TotalPoang"] + poangAttLaggaTill;
+
+                            gruppObjekt["Anvandare"] = anvandareLista;
+                            await SparaTillFilAsync("Grupp", gruppObjekt);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            throw new Exception("Användare med angiver ID hittades inte.");
+        }
+
     }
 }

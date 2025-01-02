@@ -101,5 +101,10 @@ namespace Familjefejden
             Bet nyttBet = gruppService.LaggBetPaMatch(matchId, hemmaMal, bortaMal);
             await jsonService.LaggTillBetAsync(anvandareId, nyttBet);
         }
+
+        private async void LaggTillPoangForAnvandarIdEtt_Klickad(object sender, RoutedEventArgs e)
+        {
+            await jsonService.UppdateraPoangForAnvandareAsync(1, 25);
+        }
     }
 }

@@ -47,6 +47,7 @@
             <Button Content="TEST json: + Lägg till Lag" Click="TestaLaggaTillLag_Klickad" Margin="2"/>
             <Button Content="TEST json: + Lägg till Match" Click="TestaLaggaTillMatch_Klickad" Margin="2"/>
             <Button Content="TEST json: + Lägg till Bet" Click="TestaLaggaTillBet_Klickad" Margin="2"/>
+            <Button Content="TEST json: + Lägg till Poäng för användarId 1" Click="LaggTillPoangForAnvandarIdEtt_Klickad" Margin="2"/>
         </StackPanel>
         
     </Grid>
