@@ -57,29 +57,36 @@ namespace Familjefejden
 
 
         // // //  TESTKNAPPAR:
-        private void TestaMetoder_Klickad(object sender, RoutedEventArgs e)
+        private async void TestaLaggaTillGrupp_Klickad(object sender, RoutedEventArgs e)
         {
-            List<Match> nyMatchlista = new List<Match>(turneringService.SkapaListaMedMatcher());
-            Turnering nyTurnering = turneringService.NyTurnering(nyMatchlista);
-
-            Grupp nyGrupp = gruppService.SkapaGrupp();
+            Grupp nyGrupp = gruppService.SkapaGrupp("OOP2-Familjefejden");
+            await jsonService.LaggTillNyGruppAsync(nyGrupp);
         }
 
-        private async void TestLaggaTillGrupp_Klickad(object sender, RoutedEventArgs e)
+        private async void TestaLaggaTillTurnering_Klickad(object sender, RoutedEventArgs e)
         {
-            var nyGrupp = gruppService.SkapaGrupp();
-
-            await jsonService.LaggaTillNyGruppAsync(nyGrupp);
-            Debug.WriteLine("Ny grupp tillagd.");
-        }
-
-        private async void TestLaggaTillTurnering_Klickad(object sender, RoutedEventArgs e)
-        {
-            var nyMatchlista = turneringService.SkapaListaMedMatcher();
-            var nyTurnering = turneringService.NyTurnering(nyMatchlista);
-
+            Turnering nyTurnering = turneringService.SkapaTurnering("JVM2025");
             await jsonService.LaggaTillNyTurneringAsync(nyTurnering);
-            Debug.WriteLine("Ny turnering tillagd.");
+        }
+
+        private async void TestaLaggaTillAnvandare_Klickad(object sender, RoutedEventArgs e)
+        {
+            Anvandare nyAnvandare = gruppService.SkapaAnvandare("TestAnvändare");
+            await jsonService.LaggTillAnvandareIGrupp(nyAnvandare);
+        }
+
+        private async void TestaLaggaTillLag_Klickad(object sender, RoutedEventArgs e)
+        {
+            Lag nyttLag = turneringService.SkapaLag("TestLag");
+            await jsonService.LaggTillLagAsync(nyttLag);
+        }
+
+        private async void TestaLaggaTillMatch_Klickad(object sender, RoutedEventArgs e)
+        {
+            DateTime datum = DateTime.UtcNow;
+            Random random = new Random();
+            Match nyMatch = turneringService.SkapaMatch(datum, random.Next(0,10), random.Next(0, 10));
+            await jsonService.LaggTillMatchAsync(nyMatch);
         }
     }
 }

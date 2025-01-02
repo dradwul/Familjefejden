@@ -1,9 +1,12 @@
-﻿using Klasser;
+﻿using Familjefejden.Klasser;
+using Klasser;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Xaml.Documents;
@@ -95,97 +98,171 @@ namespace Familjefejden.Service
             return new object();
         }
 
-//////////////////// Hantering av Topplista
-        // UPPDATERA TOPPLISTA
-        public async Task UppdateraTopplistaAsync(Dictionary<string, int> anvandareIdPoang)
-        {
-            var topplistaData = await HamtaSpecifikDataAsync("Topplista");
-
-            if (topplistaData is Newtonsoft.Json.Linq.JObject topplista)
-            {
-                topplista["AnvandareIdPoang"] = Newtonsoft.Json.Linq.JObject.FromObject(anvandareIdPoang);
-
-                await SparaTillFilAsync("Topplista", topplista);
-            }
-        }
-
-
-        //////////////////// Hantering av Användare
-        // BETS
-        public async Task UppdateraAnvandaresBetsAsync(int anvandareId, List<Bet> bets)
-        {
-            var anvandareData = await HamtaSpecifikDataAsync("Anvandare");
-
-            if(anvandareData is Newtonsoft.Json.Linq.JArray anvandareLista)
-            {
-                foreach(var item in anvandareLista)
-                {
-                    if(item is Newtonsoft.Json.Linq.JObject anvandare && (int)anvandare["Id"] == anvandareId)
-                    {
-                        anvandare["Bets"] = Newtonsoft.Json.Linq.JArray.FromObject(bets);
-
-                        await SparaTillFilAsync("Anvandare", anvandareLista);
-                        return;
-                    }
-                }
-            }
-        }
-
-        // LÄGG TILL ANVÄNDARE
-        public async Task LaggaTillNyAnvandareAsync(string namn)
-        {
-            var anvandareData = await HamtaSpecifikDataAsync("Anvandare");
-
-            if(anvandareData is Newtonsoft.Json.Linq.JArray anvandareLista)
-            {
-                var nyAnvandare = new
-                {
-                    Id = anvandareLista.Count > 0 ? (int)anvandareLista.Last["Id"] + 1 : 1,
-                    Namn = namn,
-                    Bets = new List<Bet>()
-                };
-
-                anvandareLista.Add(Newtonsoft.Json.Linq.JObject.FromObject(nyAnvandare));
-
-                await SparaTillFilAsync("Anvandare", anvandareLista);
-            }
-        }
-
 
         /*  /// /// ///  ------------  \\\ \\\ \\\
         // ||| ||| |||     NY SKIT     ||| ||| |||
         /  \\\ \\\ \\\  ------------  /// /// /// */
 
-        // UPPDATERA GRUPP
-        public async Task LaggaTillNyGruppAsync(Grupp nyGrupp)
+        // GRUPP-HANTERING
+        // Just nu får gruppen id 1 iom att vi bara har en grupp i nuläget
+        public async Task<bool> LaggTillNyGruppAsync(Grupp nyGrupp)
         {
             var gruppData = await HamtaSpecifikDataAsync("Grupp");
 
-            if (gruppData is Newtonsoft.Json.Linq.JObject gruppObjekt)
+            if (gruppData is JObject gruppObjekt)
             {
-                gruppObjekt["Id"] = nyGrupp.Id;
-                gruppObjekt["Namn"] = nyGrupp.Namn;
-                gruppObjekt["Anvandare"] = Newtonsoft.Json.Linq.JArray.FromObject(nyGrupp.Medlemmar);
+                if (!string.IsNullOrEmpty((string)gruppObjekt["Namn"]))
+                {
+                    return false;
+                }
 
+                gruppObjekt["Id"] = 1;
+                gruppObjekt["Namn"] = nyGrupp.Namn;
+                gruppObjekt["Anvandare"] = JArray.FromObject(nyGrupp.Medlemmar);
                 await SparaTillFilAsync("Grupp", gruppObjekt);
+                return true;
             }
+            return false;
         }
 
+        // LÄGG TILL ANVÄNDARE
+        public async Task<bool> LaggTillAnvandareIGrupp(Anvandare nyAnvandare)
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+            if (gruppData is JObject gruppObjekt)
+            {
+                if (string.IsNullOrEmpty((string)gruppObjekt["Namn"]))
+                {
+                    return false;
+                }
+
+                var befintligaAnvandare = gruppObjekt["Anvandare"] as JArray ?? new JArray();
+
+                int maxId = befintligaAnvandare
+                    .Select(a => (int)a["Id"])
+                    .DefaultIfEmpty(0)
+                    .Max();
+
+                nyAnvandare.Id = maxId + 1;
+
+                var nyAnvandareJson = JObject.FromObject(nyAnvandare);
+                if (!befintligaAnvandare.Any(m => JToken.DeepEquals(m, nyAnvandareJson)))
+                {
+                    befintligaAnvandare.Add(nyAnvandareJson);
+                }
+                else
+                {
+                    return false;
+                }
+
+                gruppObjekt["Anvandare"] = befintligaAnvandare;
+                await SparaTillFilAsync("Grupp", gruppObjekt);
+                return true;
+            }
+            return false;
+        }
+
+
         // SKAPA TURNERING
-        public async Task LaggaTillNyTurneringAsync(Turnering nyTurnering)
+        public async Task<bool> LaggaTillNyTurneringAsync(Turnering nyTurnering)
         {
             var turneringData = await HamtaSpecifikDataAsync("Turnering");
 
-            if (turneringData is Newtonsoft.Json.Linq.JObject turneringObjekt)
+            if (turneringData is JObject turneringObjekt)
             {
-                turneringObjekt["Id"] = nyTurnering.Id;
+                if (!string.IsNullOrEmpty((string)turneringObjekt["Namn"]))
+                {
+                    return false;
+                }
+
+                turneringObjekt["Id"] = 1;
                 turneringObjekt["Namn"] = nyTurnering.Namn;
-                turneringObjekt["Matcher"] = Newtonsoft.Json.Linq.JArray.FromObject(nyTurnering.Matcher);
-                turneringObjekt["Lag"] = Newtonsoft.Json.Linq.JArray.FromObject(nyTurnering.Lag);
+                turneringObjekt["Matcher"] = JArray.FromObject(nyTurnering.Matcher);
+                turneringObjekt["Lag"] = JArray.FromObject(nyTurnering.Lag);
 
                 await SparaTillFilAsync("Turnering", turneringObjekt);
+                return true;
             }
+            return false;
         }
+
+        // LÄGG TILL Lag
+        public async Task<bool> LaggTillLagAsync(Lag nyttLag)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+            if (turneringData is JObject turneringObjekt)
+            {
+                if (string.IsNullOrEmpty((string)turneringObjekt["Namn"]))
+                {
+                    return false;
+                }
+
+                var befintligaLag = turneringObjekt["Lag"] as JArray ?? new JArray();
+
+                int maxId = befintligaLag
+                    .Select(a => (int)a["Id"])
+                    .DefaultIfEmpty(0)
+                    .Max();
+
+                nyttLag.Id = maxId + 1;
+
+                var nyttLagJson = JObject.FromObject(nyttLag);
+                if (!befintligaLag.Any(m => JToken.DeepEquals(m, nyttLagJson)))
+                {
+                    befintligaLag.Add(nyttLagJson);
+                }
+                else
+                {
+                    return false;
+                }
+
+                turneringObjekt["Lag"] = befintligaLag;
+                await SparaTillFilAsync("Turnering", turneringObjekt);
+                return true;
+            }
+            return false;
+        }
+
+        // LÄGG TILL MATCH
+        public async Task<bool> LaggTillMatchAsync(Match nyMatch)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+            if (turneringData is JObject turneringObjekt)
+            {
+                if (string.IsNullOrEmpty((string)turneringObjekt["Namn"]))
+                {
+                    return false;
+                }
+
+                var befintligaMatcher = turneringObjekt["Matcher"] as JArray ?? new JArray();
+
+                int maxId = befintligaMatcher
+                    .Select(a => (int)a["Id"])
+                    .DefaultIfEmpty(0)
+                    .Max();
+
+                nyMatch.Id = maxId + 1;
+
+                var nyMatchJson = JObject.FromObject(nyMatch);
+                if (!befintligaMatcher.Any(m => JToken.DeepEquals(m, nyMatchJson)))
+                {
+                    befintligaMatcher.Add(nyMatchJson);
+                }
+                else
+                {
+                    return false;
+                }
+
+                turneringObjekt["Matcher"] = befintligaMatcher;
+                await SparaTillFilAsync("Turnering", turneringObjekt);
+                return true;
+            }
+            return false;
+        }
+
+
+        ////////////////////////////////////////////////////////////
+        // UPPDATERINGS-METODER ÄR INTE TESTADE ÄN
 
         // UPPDATERA GRUPP
         public async Task UppdateraGruppAsync(int gruppId, Grupp uppdateradGrupp)
@@ -207,29 +284,5 @@ namespace Familjefejden.Service
                 }
             }
         }
-
-        // UPPDATERA TURNERING
-        public async Task UppdateraTurneringAsync(int turneringId, Turnering uppdateradTurnering)
-        {
-            var turneringData = await HamtaSpecifikDataAsync("Turnering");
-
-            if (turneringData is Newtonsoft.Json.Linq.JArray turneringLista)
-            {
-                foreach (var item in turneringLista)
-                {
-                    if (item is Newtonsoft.Json.Linq.JObject turnering && (int)turnering["Id"] == turneringId)
-                    {
-                        turnering["Namn"] = uppdateradTurnering.Namn;
-                        turnering["Matcher"] = Newtonsoft.Json.Linq.JArray.FromObject(uppdateradTurnering.Matcher);
-                        turnering["Lag"] = Newtonsoft.Json.Linq.JArray.FromObject(uppdateradTurnering.Lag);
-
-                        await SparaTillFilAsync("Turnering", turneringLista);
-                        return;
-                    }
-                }
-            }
-        }
-
-
     }
 }
