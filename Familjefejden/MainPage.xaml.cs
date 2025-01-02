@@ -22,7 +22,38 @@ namespace Familjefejden
         public MainPage()
         {
             this.InitializeComponent();
-        }      
+            LoadData(); //Dummy metod
+        }
+        // DUMMY METOD för att fylle RESULTAT och KOMMANDE listorna med matcher
+        private void LoadData()
+        {
+            var allMatches = DummyData.GetDummyMatches();
+            var finishedMatches = DummyData.GetFinishedMatches();
+            var flags = DummyData.GetCountryFlags();
+
+            var resultatMatches = finishedMatches.Where(m => m.Date < DateTime.Now).ToList();
+            var kommandeMatches = allMatches.Where(m => m.Date >= DateTime.Now).ToList();      
+
+            ResultatMatcher.ItemsSource = resultatMatches.Select(match => new
+            {
+                match.Team1,
+                match.Team2,
+                Team1Flag = flags[match.Team1],
+                Team2Flag = flags[match.Team2],                
+                Date = match.Date.ToString("dd/MM/yyyy"),
+                ResultatHemma = $"{match.Team1Score}",
+                ResultatBorta = $"{match.Team2Score}"
+            }).ToList();
+
+            KommandeMatcher.ItemsSource = kommandeMatches.Select(match => new
+            {
+                match.Team1,
+                match.Team2,
+                Team1Flag = flags[match.Team1],
+                Team2Flag = flags[match.Team2],
+                Date = match.Date.ToString("dd/MM/yyyy")
+            }).ToList();
+        }
 
         private async void KnappVisaTopplista_Klickad(object sender, RoutedEventArgs e)
         {

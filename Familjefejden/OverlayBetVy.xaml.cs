@@ -28,10 +28,6 @@ namespace Familjefejden
             LoadDummyData();
         }
 
-        private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MainPage));
-        }
         private void LoadDummyData()
         {
             var matches = DummyData.GetDummyMatches();
@@ -50,6 +46,10 @@ namespace Familjefejden
             }
 
             MatchBettingLista.ItemsSource = matchViewModels;
+        }
+        private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
         }
 
         private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)

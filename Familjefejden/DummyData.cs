@@ -28,6 +28,17 @@ namespace Familjefejden
             };
         }
 
+        public static List<Match> GetFinishedMatches()
+        {
+            return new List<Match>
+            {
+                new Match { Id = 1, Team1 = "Sverige", Team2 = "Finland", Team1Score = 2, Team2Score = 1, Date = DateTime.Now.AddDays(-1) },
+                new Match { Id = 2, Team1 = "USA", Team2 = "Kanada", Team1Score = 4, Team2Score = 2, Date = DateTime.Now.AddDays(-2) },
+                new Match { Id = 3, Team1 = "Tjeckien", Team2 = "Slovakien", Team1Score = 7, Team2Score = 4, Date = DateTime.Now.AddDays(-3) },
+
+            };
+        }
+
         public static Dictionary<string, string> GetCountryFlags()
         {
             return new Dictionary<string, string>
