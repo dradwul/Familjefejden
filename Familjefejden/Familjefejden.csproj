@@ -128,6 +128,9 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OverlayBetVy.xaml.cs">
+      <DependentUpon>OverlayBetVy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OverlayNyGrupp.xaml.cs">
       <DependentUpon>OverlayNyGrupp.xaml</DependentUpon>
     </Compile>
@@ -169,6 +172,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OverlayBetVy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OverlayNyGrupp.xaml">
       <SubType>Designer</SubType>

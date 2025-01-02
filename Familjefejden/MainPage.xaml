@@ -35,8 +35,12 @@
                 <Button Background="Transparent" Foreground="#999999">Kommande</Button>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10">
                 <Button CornerRadius="5" Background="#E10202" Click="AvslutaKnapp_Klickad">Avsluta</Button>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10">
+                <Button Height="30" Width="100" CornerRadius="5" Background="#0BE400" Click="BetKnapp_Klickad">Placera bet</Button>
             </StackPanel>
         </Grid>
        

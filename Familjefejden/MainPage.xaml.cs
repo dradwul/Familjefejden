@@ -39,5 +39,10 @@ namespace Familjefejden
         {
             Frame.Navigate(typeof(OverlayNyGrupp));
         }
+
+        private void BetKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OverlayBetVy));
+        }
     }
 }
