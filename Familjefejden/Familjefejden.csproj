@@ -132,6 +132,12 @@
     <Compile Include="OverlayBetVy.xaml.cs">
       <DependentUpon>OverlayBetVy.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OverlayLaggaTillLag.xaml.cs">
+      <DependentUpon>OverlayLaggaTillLag.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OverlayNyaSpelare.xaml.cs">
+      <DependentUpon>OverlayNyaSpelare.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OverlayNyGrupp.xaml.cs">
       <DependentUpon>OverlayNyGrupp.xaml</DependentUpon>
     </Compile>
@@ -152,8 +158,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Austria.png" />
     <Content Include="Assets\Canada.png" />
     <Content Include="Assets\Czech_Republic.png" />
+    <Content Include="Assets\Denmark.png" />
     <Content Include="Assets\Finland.png" />
     <Content Include="Assets\Germany.png" />
     <Content Include="Assets\Kazakhstan.png" />
@@ -175,6 +183,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="OverlayBetVy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OverlayLaggaTillLag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OverlayNyaSpelare.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

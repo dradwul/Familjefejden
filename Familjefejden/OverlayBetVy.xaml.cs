@@ -17,31 +17,28 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Familjefejden
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class OverlayBetVy : Page
     {
         public OverlayBetVy()
         {
             this.InitializeComponent();
-            LoadDummyData();
+            LaddaDummyData();
         }
 
-        private void LoadDummyData()
+        private void LaddaDummyData()
         {
-            var matches = DummyData.GetDummyMatches();
-            var flags = DummyData.GetCountryFlags();
+            var matcher = DummyData.GetDummyMatches();
+            var flaggor = DummyData.GetCountryFlags();
 
             var matchViewModels = new List<dynamic>();
-            foreach (var match in matches)
+            foreach (var match in matcher)
             {
                 matchViewModels.Add(new
                 {
                     match.Team1,
                     match.Team2,
-                    Team1Flag = flags[match.Team1],
-                    Team2Flag = flags[match.Team2]
+                    Team1Flaggor = flaggor[match.Team1],
+                    Team2Flaggor = flaggor[match.Team2]
                 });
             }
 

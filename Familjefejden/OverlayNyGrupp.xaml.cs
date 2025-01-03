@@ -24,11 +24,19 @@ namespace Familjefejden
             this.InitializeComponent();
         }
 
-        private void NySpelare_Klickad(object sender, RoutedEventArgs e)
+        private void NyGrupp_Klickad(object sender, RoutedEventArgs e)
         {
-            var nySpelare = NySpelare.Text;
-            SpelarLista.Text += nySpelare + "\n";
-            NySpelare.Text = String.Empty;
+            var nyGrupp = NyGrupp.Text;
+            var valdTurnering = TurneringsLista.Text;
+            if (!string.IsNullOrEmpty(nyGrupp) && !string.IsNullOrEmpty(valdTurnering))
+            {
+                GruppNamn.Text = $"{nyGrupp} har skapats för {valdTurnering}";
+            }
+            else
+            {
+                GruppNamn.Text = "Vänligen ange ett gruppnamn och välj en turnering";
+            }
+            NyGrupp.Text = string.Empty;
         }
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
@@ -38,7 +46,8 @@ namespace Familjefejden
 
         private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(OverlaySpelschema));
+            //TODO: HANTERA SÅ MAN INTE KAN TRYCKA VIDARE INNAN MAN SKAPAT EN GRUPP OCH VALT TURNERING
+            Frame.Navigate(typeof(OverlayNyaSpelare));
         }
     }
 }

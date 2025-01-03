@@ -27,35 +27,35 @@ namespace Familjefejden
 
         private void OverlaySpelschema_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var items = new List<ImageItem>
+            var lagBild = new List<ImageItem>
             {
-                new ImageItem { ImagePath = "ms-appx:///Assets/Canada.png", Text = "Kanada" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Czech_Republic.png", Text = "Tjeckien" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Finland.png", Text = "Finland" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Germany.png", Text = "Tyskland" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Kazakhstan.png", Text = "Kazakhstan" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Latvia.png", Text = "Lettland" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Slovakia.png", Text = "Slovakien" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Sweden.png", Text = "Sverige" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Switzerland.png", Text = "Schweiz" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/USA.png", Text = "USA" }
+                new ImageItem { FlagBild = "ms-appx:///Assets/Canada.png", Text = "Kanada" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Czech_Republic.png", Text = "Tjeckien" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Finland.png", Text = "Finland" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Germany.png", Text = "Tyskland" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Kazakhstan.png", Text = "Kazakhstan" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Latvia.png", Text = "Lettland" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Slovakia.png", Text = "Slovakien" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Sweden.png", Text = "Sverige" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Switzerland.png", Text = "Schweiz" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/USA.png", Text = "USA" }
             };
-            var items2 = new List<ImageItem>
+            var lagBild2 = new List<ImageItem>
             {
-                new ImageItem { ImagePath = "ms-appx:///Assets/Canada.png", Text = "Kanada" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Czech_Republic.png", Text = "Tjeckien" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Finland.png", Text = "Finland" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Germany.png", Text = "Tyskland" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Kazakhstan.png", Text = "Kazakhstan" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Latvia.png", Text = "Lettland" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Slovakia.png", Text = "Slovakien" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Sweden.png", Text = "Sverige" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/Switzerland.png", Text = "Schweiz" },
-                new ImageItem { ImagePath = "ms-appx:///Assets/USA.png", Text = "USA" }               
+                new ImageItem { FlagBild = "ms-appx:///Assets/Canada.png", Text = "Kanada" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Czech_Republic.png", Text = "Tjeckien" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Finland.png", Text = "Finland" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Germany.png", Text = "Tyskland" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Kazakhstan.png", Text = "Kazakhstan" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Latvia.png", Text = "Lettland" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Slovakia.png", Text = "Slovakien" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Sweden.png", Text = "Sverige" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/Switzerland.png", Text = "Schweiz" },
+                new ImageItem { FlagBild = "ms-appx:///Assets/USA.png", Text = "USA" }               
             };
 
-            MatchLista.ItemsSource = items;
-            MatchLista2.ItemsSource = items2;
+            MatchLista.ItemsSource = lagBild;
+            MatchLista2.ItemsSource = lagBild2;
         }
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
@@ -66,7 +66,7 @@ namespace Familjefejden
 
     public class ImageItem
     {
-        public string ImagePath { get; set; }
+        public string FlagBild { get; set; }
         public string Text { get; set; }
     }
 }
