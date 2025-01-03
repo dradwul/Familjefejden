@@ -60,7 +60,7 @@ namespace Familjefejden
 
         private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(OverlaySpelschema));
         }
 
         private async void TillagdKnapp_KlickadAsync(object sender, RoutedEventArgs e)

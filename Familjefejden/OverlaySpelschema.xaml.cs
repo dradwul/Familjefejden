@@ -60,7 +60,7 @@ namespace Familjefejden
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(OverlayNyGrupp));
+            Frame.Navigate(typeof(OverlayLaggaTillLag));
         }
     }
 
