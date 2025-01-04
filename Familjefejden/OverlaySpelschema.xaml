@@ -67,7 +67,7 @@
             <!-- Lägga in en ListView som visar alla tillagda matcher, det skall även finnas funktion för att
             ta bort tillagda matcher ifall man gör fel -->
             <StackPanel Orientation="Horizontal">
-                <ListView x:Name="¨ListaSpelschema">
+                <ListView x:Name="ListaSpelschema">
 
                 </ListView>
             </StackPanel>
