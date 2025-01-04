@@ -34,29 +34,29 @@
                 <TimePicker x:Name="MatchStart" HorizontalAlignment="Center" ClockIdentifier="24HourClock"></TimePicker>
             </StackPanel>
 
-            <Button Height="35" Width="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,300" Background="#0BE400" CornerRadius="5">Lägg till</Button>
-            
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,450">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,380">
                 <TextBlock HorizontalAlignment="Center">Hemma</TextBlock>
                 <ComboBox x:Name="MatchLista" BorderThickness="0" PlaceholderText="Välj Lag">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{Binding lagBild}" Width="200" Height="100" Margin="5"/>
+                                <Image Source="{Binding FlagBild}" Width="200" Height="100" Margin="5"/>
                                 <TextBlock Text="{Binding Text}" VerticalAlignment="Center" Foreground="White"/>
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,500" FontSize="32">VS</TextBlock>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,350">
+
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,450" FontSize="32">VS</TextBlock>
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,300">
                 <TextBlock HorizontalAlignment="Center">Borta</TextBlock>
                 <ComboBox x:Name="MatchLista2" BorderThickness="0" PlaceholderText="Välj Lag">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{Binding lagBild2}" Width="200" Height="100" Margin="5"/>
+                                <Image Source="{Binding FlagBild}" Width="200" Height="100" Margin="5"/>
                                 <TextBlock Text="{Binding Text}" VerticalAlignment="Center" Foreground="White"/>
                             </StackPanel>
                         </DataTemplate>
@@ -66,13 +66,16 @@
 
             <!-- Lägga in en ListView som visar alla tillagda matcher, det skall även finnas funktion för att
             ta bort tillagda matcher ifall man gör fel -->
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,200">TODO:</TextBlock>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,180">FIXA EN LISTVIEW ELLER LIKNANDE FÖR ATT VISA ALLA TILLAGDA MATCHER HÄR</TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <ListView x:Name="¨ListaSpelschema">
 
+                </ListView>
+            </StackPanel>
 
+            <Button Height="35" Width="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,250" Background="#0BE400" CornerRadius="5" Click="LaggTillLagKnapp_Klickad">Lägg till</Button>
+
+            <Button Height="35" Width="80" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Background="#0BE400" CornerRadius="5" Click="AccepteraKnapp_Klickad">Acceptera</Button>
 
         </Grid>
-
-        
     </Grid>
 </Page>

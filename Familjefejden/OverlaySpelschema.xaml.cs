@@ -62,6 +62,16 @@ namespace Familjefejden
         {
             Frame.Navigate(typeof(OverlayLaggaTillLag));
         }
+
+        private void LaggTillLagKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            //TODO: Logik för att lägga till lag i listview
+        }
+
+        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
+        }
     }
 
     public class ImageItem
