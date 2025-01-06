@@ -35,10 +35,10 @@ namespace Familjefejden
             {
                 matchViewModels.Add(new
                 {
-                    match.Team1,
-                    match.Team2,
-                    Team1Flaggor = flaggor[match.Team1],
-                    Team2Flaggor = flaggor[match.Team2]
+                    match.HemmalagId,
+                    match.BortalagId,
+                    Team1Flaggor = flaggor[match.HemmalagId],
+                    Team2Flaggor = flaggor[match.BortalagId]
                 });
             }
 

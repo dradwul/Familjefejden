@@ -47,21 +47,21 @@ namespace Familjefejden
 
             ResultatMatcher.ItemsSource = resultatMatcher.Select(match => new
             {
-                match.Team1,
-                match.Team2,
-                Team1Flaggor = flaggor[match.Team1],
-                Team2Flaggor = flaggor[match.Team2],                
+                match.HemmalagId,
+                match.BortalagId,
+                Team1Flaggor = flaggor[match.HemmalagId],
+                Team2Flaggor = flaggor[match.BortalagId],                
                 Date = match.Date.ToString("dd/MM/yyyy"),
-                ResultatHemma = $"{match.Team1Score}",
-                ResultatBorta = $"{match.Team2Score}"
+                ResultatHemma = $"{match.HemmalagMal}",
+                ResultatBorta = $"{match.BortalagMal}"
             }).ToList();
 
             KommandeMatcher.ItemsSource = kommandeMatcher.Select(match => new
             {
-                match.Team1,
-                match.Team2,
-                Team1Flaggor = flaggor[match.Team1],
-                Team2Flaggor = flaggor[match.Team2],
+                match.HemmalagId,
+                match.BortalagId,
+                Team1Flaggor = flaggor[match.HemmalagId],
+                Team2Flaggor = flaggor[match.BortalagId],
                 Datum = match.Date.ToString("dd/MM/yyyy")
             }).ToList();
         }
@@ -133,6 +133,7 @@ namespace Familjefejden
         private async void LaggTillPoangForAnvandarIdEtt_Klickad(object sender, RoutedEventArgs e)
         {
             await jsonService.UppdateraPoangForAnvandareAsync(1, 25);
+        }
         private void NyGrupp_Klickad(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(OverlayNyGrupp));
