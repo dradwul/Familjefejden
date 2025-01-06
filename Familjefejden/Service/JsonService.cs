@@ -125,7 +125,7 @@ namespace Familjefejden.Service
         }
 
         // LÄGG TILL ANVÄNDARE
-        public async Task<bool> LaggTillAnvandareIGrupp(Anvandare nyAnvandare)
+        public async Task<bool> LaggTillAnvandareIGruppAsync(Anvandare nyAnvandare)
         {
             var gruppData = await HamtaSpecifikDataAsync("Grupp");
             if (gruppData is JObject gruppObjekt)
@@ -296,10 +296,9 @@ namespace Familjefejden.Service
             return false;
         }
 
-        ////////////////////////////////////////////////////////////
-        // UPPDATERINGS-METODER ÄR INTE TESTADE ÄN
 
         // UPPDATERA GRUPP
+        // OBS OBS EJ TESTAD
         public async Task UppdateraGruppAsync(int gruppId, Grupp uppdateradGrupp)
         {
             var gruppData = await HamtaSpecifikDataAsync("Grupp");
@@ -320,6 +319,7 @@ namespace Familjefejden.Service
             }
         }
 
+        // UPPDATERA POÄNG FÖR ANVÄNDARE
         public async Task UppdateraPoangForAnvandareAsync(int anvandareId, int poangAttLaggaTill)
         {
             var gruppData = await HamtaSpecifikDataAsync("Grupp");
@@ -344,8 +344,7 @@ namespace Familjefejden.Service
                 }
             }
 
-            throw new Exception("Användare med angiver ID hittades inte.");
+            throw new Exception("Användare med angivet ID hittades inte.");
         }
-
     }
 }

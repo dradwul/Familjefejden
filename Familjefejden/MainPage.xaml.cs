@@ -72,7 +72,7 @@ namespace Familjefejden
         private async void TestaLaggaTillAnvandare_Klickad(object sender, RoutedEventArgs e)
         {
             Anvandare nyAnvandare = gruppService.SkapaAnvandare("TestAnvändare");
-            await jsonService.LaggTillAnvandareIGrupp(nyAnvandare);
+            await jsonService.LaggTillAnvandareIGruppAsync(nyAnvandare);
         }
 
         private async void TestaLaggaTillLag_Klickad(object sender, RoutedEventArgs e)
