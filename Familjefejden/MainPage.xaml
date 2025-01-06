@@ -38,7 +38,7 @@
             <!-- En tabview för att kunna växla mellan resultat och kommande matcher -->
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="30,10,0,0">
                 <Pivot Width="350">
-                    <PivotItem Header="Resultat">
+                    <PivotItem Header="Resultat" Width="400">
                         <ListView x:Name="ResultatMatcher">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -50,16 +50,16 @@
                                         </Grid.ColumnDefinitions>
                                         <!--DUMMYVÄRDEN HÄR NEDANFÖR-->
                                         <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
-                                        <Image Source="{Binding Team1Flaggor}" Width="50" Height="50" Grid.Column="0" Margin="0,20,0,10"/>
-                                        <TextBlock Text="{Binding Team1}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="{Binding ResultatHemma}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,20" FontSize="22"/>
+                                        <Image Source="{Binding Team1Flaggor}" Width="100" Height="100" Grid.Column="0" Margin="0,20,0,10"/>
+                                        <TextBlock Text="{Binding HemmalagId}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{Binding ResultatHemma}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,-30,30" FontSize="28"/>
                                         
-                                        <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0"/>
-                                        <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,35,0,0"/>
+                                        <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+                                        <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0" FontSize="18"/>
                                         
-                                        <TextBlock Text="{Binding Team2}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="{Binding ResultatBorta}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,20" FontSize="22"/>
-                                        <Image Source="{Binding Team2Flaggor}" Width="50" Height="50" Grid.Column="2" Margin="0,20,0,10"/>
+                                        <TextBlock Text="{Binding BortalagId}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{Binding ResultatBorta}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="-30,0,0,30" FontSize="28"/>
+                                        <Image Source="{Binding Team2Flaggor}" Width="100" Height="100" Grid.Column="2" Margin="0,20,0,10"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -78,14 +78,15 @@
                                         </Grid.ColumnDefinitions>
                                         <!--DUMMYVÄRDEN HÄR NEDANFÖR-->
                                         <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
-                                        <Image Source="{Binding Team1Flaggor}" Width="50" Height="50" Grid.Column="0" Margin="0,20,0,10"/>
-                                        <TextBlock Text="{Binding Team1}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                        <Image Source="{Binding Team1Flaggor}" Width="100" Height="100" Grid.Column="0" Margin="0,20,0,10"/>
+                                        <TextBlock Text="{Binding HemmalagId}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                                         
-                                        <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="16"/>
-                                        <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,35,0,0"/>
+                                        <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Margin="0,0,0,30"/>
+                                        <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,35,0,15"/>
+                                        <TextBlock Text="{Binding Tid}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,70,0,0" FontSize="16"/>
 
-                                        <TextBlock Text="{Binding Team2}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                                        <Image Source="{Binding Team2Flaggor}" Width="50" Height="50" Grid.Column="2" Margin="0,20,0,10"/>
+                                        <TextBlock Text="{Binding BortalagId}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                        <Image Source="{Binding Team2Flaggor}" Width="100" Height="100" Grid.Column="2" Margin="0,20,0,10"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -103,7 +104,7 @@
             </StackPanel>
         </Grid>
 
-        <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
             <Button Content="TEST json: + Lägg till Grupp" Click="TestaLaggaTillGrupp_Klickad" Margin="2"/>
             <Button Content="TEST json: + Lägg till Turnering" Click="TestaLaggaTillTurnering_Klickad" Margin="2"/>
             <Button Content="TEST json: + Lägg till Anvandare" Click="TestaLaggaTillAnvandare_Klickad" Margin="2"/>

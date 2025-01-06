@@ -16,15 +16,15 @@ namespace Familjefejden
         {
             return new List<Match>
             {
-                new Match { Id = 1, HemmalagId = 1, BortalagId = 2, Date = DateTime.Now.AddDays(1) },
-                new Match { Id = 2, HemmalagId = 3, BortalagId = 4, Date = DateTime.Now.AddDays(2) },
-                new Match { Id = 3, HemmalagId = 5, BortalagId = 6, Date = DateTime.Now.AddDays(3) },
-                new Match { Id = 4, HemmalagId = 10, BortalagId = 2, Date = DateTime.Now.AddDays(1) },
-                new Match { Id = 2, HemmalagId = 7, BortalagId = 8, Date = DateTime.Now.AddDays(2) },
-                new Match { Id = 3, HemmalagId = 9, BortalagId = 1, Date = DateTime.Now.AddDays(3) },
-                new Match { Id = 2, HemmalagId = 7, BortalagId = 3, Date = DateTime.Now.AddDays(2) },
-                new Match { Id = 3, HemmalagId = 5, BortalagId = 1, Date = DateTime.Now.AddDays(3) },
-                new Match { Id = 2, HemmalagId = 4, BortalagId = 8, Date = DateTime.Now.AddDays(2) }
+                new Match { Id = 1, HemmalagId = 1, BortalagId = 2, Date = new DateTime(2025, 12, 26, 19, 0, 0) },
+                new Match { Id = 2, HemmalagId = 3, BortalagId = 4, Date = new DateTime(2025, 12, 26, 23, 30, 0) },
+                new Match { Id = 3, HemmalagId = 5, BortalagId = 6, Date = new DateTime(2025, 12, 28, 19, 0, 0) },
+                new Match { Id = 4, HemmalagId = 10, BortalagId = 2, Date = new DateTime(2025, 12, 29, 01, 30, 0) },
+                new Match { Id = 2, HemmalagId = 7, BortalagId = 8, Date = new DateTime(2025, 12, 27, 19, 0, 0) },
+                new Match { Id = 3, HemmalagId = 9, BortalagId = 1, Date = new DateTime(2025, 12, 27, 23, 0, 0) },
+                new Match { Id = 2, HemmalagId = 7, BortalagId = 3, Date = new DateTime(2025, 12, 31, 19, 0, 0) },
+                new Match { Id = 3, HemmalagId = 5, BortalagId = 1, Date = new DateTime(2025, 12, 31, 23, 0, 0) },
+                new Match { Id = 2, HemmalagId = 4, BortalagId = 8, Date = new DateTime(2026, 1, 1, 19, 0, 0) }
             };
         }
 
@@ -32,9 +32,9 @@ namespace Familjefejden
         {
             return new List<Match>
             {
-                new Match { Id = 1, HemmalagId = 1, BortalagId = 2, HemmalagMal = 2, BortalagMal = 1, Date = DateTime.Now.AddDays(-1) },
-                new Match { Id = 2, HemmalagId = 3, BortalagId = 4, HemmalagMal = 4, BortalagMal = 2, Date = DateTime.Now.AddDays(-2) },
-                new Match { Id = 3, HemmalagId = 5, BortalagId = 6, HemmalagMal = 7, BortalagMal = 4, Date = DateTime.Now.AddDays(-3) },
+                new Match { Id = 1, HemmalagId = 1, BortalagId = 2, HemmalagMal = 2, BortalagMal = 1, Date = new DateTime(2024, 12, 28, 19, 0, 0) },
+                new Match { Id = 2, HemmalagId = 3, BortalagId = 4, HemmalagMal = 4, BortalagMal = 2, Date = new DateTime(2024, 12, 26, 19, 0, 0) },
+                new Match { Id = 3, HemmalagId = 5, BortalagId = 6, HemmalagMal = 7, BortalagMal = 4, Date = new DateTime(2025, 1, 1, 19, 0, 0) },
 
             };
         }

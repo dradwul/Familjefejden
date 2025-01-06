@@ -42,8 +42,17 @@ namespace Familjefejden
             var avslutadeMatcher = DummyData.GetFinishedMatches();
             var flaggor = DummyData.GetCountryFlags();
 
-            var resultatMatcher = avslutadeMatcher.Where(m => m.Date < DateTime.Now).ToList();
-            var kommandeMatcher = allaMatcher.Where(m => m.Date >= DateTime.Now).ToList();      
+            var resultatMatcher = avslutadeMatcher
+                .Where(m => m.Date < DateTime.Now)
+                .OrderByDescending(m => m.Date.Date)
+                .ThenBy(m => m.Date.TimeOfDay)
+                .ToList();
+
+            var kommandeMatcher = allaMatcher
+                .Where(m => m.Date >= DateTime.Now)
+                .OrderBy(m => m.Date.Date)
+                .ThenBy(m => m.Date.TimeOfDay)
+                .ToList();
 
             ResultatMatcher.ItemsSource = resultatMatcher.Select(match => new
             {
@@ -51,7 +60,8 @@ namespace Familjefejden
                 match.BortalagId,
                 Team1Flaggor = flaggor[match.HemmalagId],
                 Team2Flaggor = flaggor[match.BortalagId],                
-                Date = match.Date.ToString("dd/MM/yyyy"),
+                Datum = match.Date.ToString("dd/MM/yyyy"),
+                Tid = match.Date.ToString("HH:mm"),
                 ResultatHemma = $"{match.HemmalagMal}",
                 ResultatBorta = $"{match.BortalagMal}"
             }).ToList();
@@ -62,7 +72,8 @@ namespace Familjefejden
                 match.BortalagId,
                 Team1Flaggor = flaggor[match.HemmalagId],
                 Team2Flaggor = flaggor[match.BortalagId],
-                Datum = match.Date.ToString("dd/MM/yyyy")
+                Datum = match.Date.ToString("dd/MM/yyyy"),
+                Tid = match.Date.ToString("HH:mm")
             }).ToList();
         }
 
