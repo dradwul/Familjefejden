@@ -23,9 +23,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Familjefejden
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         JsonService jsonService = new JsonService();
@@ -36,7 +33,38 @@ namespace Familjefejden
         {
             this.InitializeComponent();
             HamtaDataAsync();
-        }      
+            LaddaData(); //Dummy metod
+        }
+        // DUMMY METOD för att fylle RESULTAT och KOMMANDE listorna med matcher
+        private void LaddaData()
+        {
+            var allaMatcher = DummyData.GetDummyMatches();
+            var avslutadeMatcher = DummyData.GetFinishedMatches();
+            var flaggor = DummyData.GetCountryFlags();
+
+            var resultatMatcher = avslutadeMatcher.Where(m => m.Date < DateTime.Now).ToList();
+            var kommandeMatcher = allaMatcher.Where(m => m.Date >= DateTime.Now).ToList();      
+
+            ResultatMatcher.ItemsSource = resultatMatcher.Select(match => new
+            {
+                match.Team1,
+                match.Team2,
+                Team1Flaggor = flaggor[match.Team1],
+                Team2Flaggor = flaggor[match.Team2],                
+                Date = match.Date.ToString("dd/MM/yyyy"),
+                ResultatHemma = $"{match.Team1Score}",
+                ResultatBorta = $"{match.Team2Score}"
+            }).ToList();
+
+            KommandeMatcher.ItemsSource = kommandeMatcher.Select(match => new
+            {
+                match.Team1,
+                match.Team2,
+                Team1Flaggor = flaggor[match.Team1],
+                Team2Flaggor = flaggor[match.Team2],
+                Datum = match.Date.ToString("dd/MM/yyyy")
+            }).ToList();
+        }
 
         private async void HamtaDataAsync()
         {
@@ -105,6 +133,14 @@ namespace Familjefejden
         private async void LaggTillPoangForAnvandarIdEtt_Klickad(object sender, RoutedEventArgs e)
         {
             await jsonService.UppdateraPoangForAnvandareAsync(1, 25);
+        private void NyGrupp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OverlayNyGrupp));
+        }
+
+        private void BetKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OverlayBetVy));
         }
     }
 }

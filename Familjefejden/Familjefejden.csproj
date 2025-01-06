@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DummyData.cs" />
     <Compile Include="Klasser\Anvandare.cs" />
     <Compile Include="Klasser\Bet.cs" />
     <Compile Include="Klasser\Lag.cs" />
@@ -127,6 +128,21 @@
     <Compile Include="Klasser\Grupp.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OverlayBetVy.xaml.cs">
+      <DependentUpon>OverlayBetVy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OverlayLaggaTillLag.xaml.cs">
+      <DependentUpon>OverlayLaggaTillLag.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OverlayNyaSpelare.xaml.cs">
+      <DependentUpon>OverlayNyaSpelare.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OverlayNyGrupp.xaml.cs">
+      <DependentUpon>OverlayNyGrupp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OverlaySpelschema.xaml.cs">
+      <DependentUpon>OverlaySpelschema.xaml</DependentUpon>
     </Compile>
     <Compile Include="OverlayStart.xaml.cs">
       <DependentUpon>OverlayStart.xaml</DependentUpon>
@@ -145,16 +161,18 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Canada.svg" />
-    <Content Include="Assets\Czech_Republic.svg" />
-    <Content Include="Assets\Finland.svg" />
-    <Content Include="Assets\Germany.svg" />
-    <Content Include="Assets\Kazakhstan.svg" />
-    <Content Include="Assets\Latvia.svg" />
-    <Content Include="Assets\Slovakia.svg" />
-    <Content Include="Assets\Sweden.svg" />
-    <Content Include="Assets\Switzerland.svg" />
-    <Content Include="Assets\USA.svg" />
+    <Content Include="Assets\Austria.png" />
+    <Content Include="Assets\Canada.png" />
+    <Content Include="Assets\Czech_Republic.png" />
+    <Content Include="Assets\Denmark.png" />
+    <Content Include="Assets\Finland.png" />
+    <Content Include="Assets\Germany.png" />
+    <Content Include="Assets\Kazakhstan.png" />
+    <Content Include="Assets\Latvia.png" />
+    <Content Include="Assets\Slovakia.png" />
+    <Content Include="Assets\Sweden.png" />
+    <Content Include="Assets\Switzerland.png" />
+    <Content Include="Assets\USA.png" />
     <Content Include="Assets\WelcomeDisplay.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
@@ -166,6 +184,26 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OverlayBetVy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OverlayLaggaTillLag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OverlayNyaSpelare.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OverlayNyGrupp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OverlaySpelschema.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OverlayStart.xaml">
       <SubType>Designer</SubType>

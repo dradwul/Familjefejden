@@ -17,16 +17,28 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Familjefejden
 {
-    public sealed partial class OverlayStart : Page
+    public sealed partial class OverlayNyaSpelare : Page
     {
-        public OverlayStart()
+        public OverlayNyaSpelare()
         {
             this.InitializeComponent();
         }
 
-        private void SpelaKnapp_Klickad(object sender, RoutedEventArgs e)
+        private void NySpelare_Klickad(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            var nySpelare = NySpelare.Text;
+            SpelarLista.Text += nySpelare + "\n";
+            NySpelare.Text = String.Empty;
+        }
+
+        private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OverlayNyGrupp));
+        }
+
+        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OverlayLaggaTillLag));
         }
     }
 }

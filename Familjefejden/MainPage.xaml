@@ -15,28 +15,91 @@
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
 
+        <!-- Topmenyn med den ljusare grå boarden -->
         <Grid x:Name="TopMeny" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Width="Auto" Background="#555555">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Foreground="#8A8A8A" FontSize="22" Margin="10,15,0,0">GRUPP</TextBlock>
-            <Button Height="30" Width="80" Background="#B7FFAD" Foreground="#555555" CornerRadius="5" Margin="90,0,0,25" FontSize="12">Ny Grupp</Button>
-            <ComboBox x:Name="GruppLista" Height="30" Width="160" Margin="10,55,0,0" BorderThickness="0">
-                <ComboBoxItem IsSelected="True">Välj Grupp</ComboBoxItem>
+            <Button Height="30" Width="80" Background="#B7FFAD" Foreground="#555555" CornerRadius="5" Margin="90,0,0,25" FontSize="12" Click="NyGrupp_Klickad">Ny Grupp</Button>
+            <ComboBox x:Name="GruppLista" Height="30" Width="160" Margin="10,55,0,0" BorderThickness="0" PlaceholderText="Välj Grupp">
+                
             </ComboBox>
 
             <Button Height="40" Width="120" Grid.Column="3" HorizontalAlignment="Right" Margin="10" CornerRadius="5" Background="#36BCDA" FontSize="18" Click="KnappVisaTopplista_Klickad">≡ Topplista</Button>
         </Grid>
-
+        <!-- Bottenmenyn med funktionalitet och diverse element -->
         <Grid x:Name="BottenMeny" Grid.Row="1">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
-                <Button Background="Transparent" Foreground="#999999">Resultat</Button>
-                <Button Background="Transparent" Foreground="#999999">Kommande</Button>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <!-- En tabview för att kunna växla mellan resultat och kommande matcher -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="30,10,0,0">
+                <Pivot Width="350">
+                    <PivotItem Header="Resultat">
+                        <ListView x:Name="ResultatMatcher">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        <!--DUMMYVÄRDEN HÄR NEDANFÖR-->
+                                        <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
+                                        <Image Source="{Binding Team1Flaggor}" Width="50" Height="50" Grid.Column="0" Margin="0,20,0,10"/>
+                                        <TextBlock Text="{Binding Team1}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{Binding ResultatHemma}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,20" FontSize="22"/>
+                                        
+                                        <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                                        <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,35,0,0"/>
+                                        
+                                        <TextBlock Text="{Binding Team2}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{Binding ResultatBorta}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,20" FontSize="22"/>
+                                        <Image Source="{Binding Team2Flaggor}" Width="50" Height="50" Grid.Column="2" Margin="0,20,0,10"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </PivotItem>
+
+                    <PivotItem Header="Kommande">
+                        <ListView x:Name="KommandeMatcher">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        <!--DUMMYVÄRDEN HÄR NEDANFÖR-->
+                                        <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
+                                        <Image Source="{Binding Team1Flaggor}" Width="50" Height="50" Grid.Column="0" Margin="0,20,0,10"/>
+                                        <TextBlock Text="{Binding Team1}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                        
+                                        <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="16"/>
+                                        <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,35,0,0"/>
+
+                                        <TextBlock Text="{Binding Team2}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                        <Image Source="{Binding Team2Flaggor}" Width="50" Height="50" Grid.Column="2" Margin="0,20,0,10"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </PivotItem>
+                </Pivot>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10">
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10">
                 <Button CornerRadius="5" Background="#E10202" Click="AvslutaKnapp_Klickad">Avsluta</Button>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10">
+                <Button Height="30" Width="100" CornerRadius="5" Background="#0BE400" Click="BetKnapp_Klickad">Placera bet</Button>
             </StackPanel>
         </Grid>
 
