@@ -2,6 +2,7 @@
 using Familjefejden.Service;
 using Klasser;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -89,6 +90,7 @@ namespace Familjefejden
         {
             Grupp nyGrupp = gruppService.SkapaGrupp("OOP2-Familjefejden");
             await jsonService.LaggTillNyGruppAsync(nyGrupp);
+            UppdateraGruppLista();
         }
 
         private async void TestaLaggaTillTurnering_Klickad(object sender, RoutedEventArgs e)
@@ -115,6 +117,8 @@ namespace Familjefejden
             Random random = new Random();
             Match nyMatch = turneringService.SkapaMatch(datum, random.Next(0,10), random.Next(0, 10));
             await jsonService.LaggTillMatchAsync(nyMatch);
+            // Gruppvisning
+            UppdateraMatcher();
         }
 
         private async void TestaLaggaTillBet_Klickad(object sender, RoutedEventArgs e)
@@ -143,5 +147,43 @@ namespace Familjefejden
         {
             Frame.Navigate(typeof(OverlayBetVy));
         }
+        private async void UppdateraGruppLista()
+        {
+            var gruppData = await jsonService.HamtaSpecifikDataAsync("Grupp");
+
+            if (gruppData is JObject gruppObjekt)
+            {
+                var grupper = new List<Grupp>
+        {
+            new Grupp
+            {
+                Id = (int)gruppObjekt["Id"],
+                Namn = (string)gruppObjekt["Namn"],
+                Medlemmar = gruppObjekt["Anvandare"].ToObject<List<Anvandare>>()
+            }
+        };
+
+                GruppLista.ItemsSource = grupper.Select(g => g.Namn).ToList();
+            }
+        }
+        private async void UppdateraMatcher()
+        {
+            var turneringData = await jsonService.HamtaSpecifikDataAsync("Turnering");
+
+            if (turneringData is JObject turneringObjekt)
+            {
+                var matcher = turneringObjekt["Matcher"].ToObject<List<Match>>();
+                var flaggor = DummyData.GetCountryFlags();
+
+                KommandeMatcher.ItemsSource = matcher.Select(m => new
+                {
+                    Team1 = flaggor[m.HemmalagId],
+                    Team2 = flaggor[m.BortalagId],
+                    Datum = m.Date.ToString("dd/MM/yyyy")
+                }).ToList();
+            }
+        }
     }
 }
+
+
