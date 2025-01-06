@@ -19,7 +19,7 @@ namespace Familjefejden
                 new Match { Id = 1, HemmalagId = 1, BortalagId = 2, Date = DateTime.Now.AddDays(1) },
                 new Match { Id = 2, HemmalagId = 3, BortalagId = 4, Date = DateTime.Now.AddDays(2) },
                 new Match { Id = 3, HemmalagId = 5, BortalagId = 6, Date = DateTime.Now.AddDays(3) },
-                new Match { Id = 1, HemmalagId = 10, BortalagId = 2, Date = DateTime.Now.AddDays(1) },
+                new Match { Id = 4, HemmalagId = 10, BortalagId = 2, Date = DateTime.Now.AddDays(1) },
                 new Match { Id = 2, HemmalagId = 7, BortalagId = 8, Date = DateTime.Now.AddDays(2) },
                 new Match { Id = 3, HemmalagId = 9, BortalagId = 1, Date = DateTime.Now.AddDays(3) },
                 new Match { Id = 2, HemmalagId = 7, BortalagId = 3, Date = DateTime.Now.AddDays(2) },
@@ -54,6 +54,69 @@ namespace Familjefejden
                 { 9, "ms-appx:///Assets/Kazakhstan.png" },
                 { 10, "ms-appx:///Assets/Switzerland.png" }
             };
+        }
+
+        public static List<Anvandare> GetDummyUsers()
+        {
+            return new List<Anvandare>
+    {
+        new Anvandare
+        {
+            Id = 1,
+            Namn = "Användare 1",
+            Bets = new List<Bet>
+            {
+                new Bet { MatchId = 1, GissningHemma = 2, GissningBorta = 1 },
+                new Bet { MatchId = 2, GissningHemma = 3, GissningBorta = 2 },
+                new Bet { MatchId = 3, GissningHemma = 1, GissningBorta = 4 },
+                new Bet { MatchId = 4, GissningHemma = 3, GissningBorta = 2 }
+            },
+            TotalPoang = 10,
+            ArAdmin = false
+        },
+        new Anvandare
+        {
+            Id = 2,
+            Namn = "Användare 2",
+            Bets = new List<Bet>
+            {
+                new Bet { MatchId = 1, GissningHemma = 1, GissningBorta = 1 },
+                new Bet { MatchId = 2, GissningHemma = 0, GissningBorta = 2 },
+                new Bet { MatchId = 3, GissningHemma = 3, GissningBorta = 1 },
+                new Bet { MatchId = 4, GissningHemma = 1, GissningBorta = 2 }
+            },
+            TotalPoang = 15,
+            ArAdmin = true
+        },
+        new Anvandare
+        {
+            Id = 3,
+            Namn = "Användare 3",
+            Bets = new List<Bet>
+            {
+                new Bet { MatchId = 1, GissningHemma = 2, GissningBorta = 3 },
+                new Bet { MatchId = 2, GissningHemma = 1, GissningBorta = 0 },
+                new Bet { MatchId = 3, GissningHemma = 5, GissningBorta = 1 },
+                new Bet { MatchId = 4, GissningHemma = 0, GissningBorta = 5 }
+            },
+            TotalPoang = 20,
+            ArAdmin = false
+        },
+        new Anvandare
+        {
+            Id = 4,
+            Namn = "Användare 4",
+            Bets = new List<Bet>
+            {
+                new Bet { MatchId = 1, GissningHemma = 3, GissningBorta = 1 },
+                new Bet { MatchId = 2, GissningHemma = 2, GissningBorta = 2 },
+                new Bet { MatchId = 3, GissningHemma = 2, GissningBorta = 2 },
+                new Bet { MatchId = 4, GissningHemma = 6, GissningBorta = 3 }
+            },
+            TotalPoang = 25,
+            ArAdmin = false
+        }
+    };
         }
     }
 }
