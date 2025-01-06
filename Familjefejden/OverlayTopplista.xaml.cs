@@ -35,7 +35,6 @@ namespace Familjefejden
 
         private async Task InitAsync()
         {
-            string testaHamtaNamn = await service.HamtaLagnamnFranLagId(1);
             FormateraTillLista();
         }
 
