@@ -3,6 +3,6 @@
     public class Lag
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Namn { get; set; }
     }
 }

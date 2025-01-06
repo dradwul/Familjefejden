@@ -32,7 +32,7 @@ namespace Familjefejden.Service
 
         public Lag SkapaLag(string namn)
         {
-            return new Lag { Name = namn };
+            return new Lag { Namn = namn };
         }
     }
 }

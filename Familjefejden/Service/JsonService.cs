@@ -346,5 +346,29 @@ namespace Familjefejden.Service
 
             throw new Exception("Användare med angivet ID hittades inte.");
         }
+
+
+        // EJ TESTAD: HÄMTA LAGNAMN FRÅN LAGID
+        public async Task<string> HamtaLagnamnFranLagId(int lagId)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+
+            if (turneringData is JObject turneringObjekt)
+            {
+                var lagLista = turneringObjekt["Lag"] as JArray;
+
+                if (lagLista != null)
+                {
+                    foreach (var lag in lagLista)
+                    {
+                        if ((int)lag["Id"] == lagId)
+                        {
+                            return (string)lag["Namn"];
+                        }
+                    }
+                }
+            }
+            return null;
+        }
     }
 }
