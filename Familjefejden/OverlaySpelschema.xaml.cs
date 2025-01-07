@@ -59,8 +59,8 @@ namespace Familjefejden
                 new ImageItem { FlagBild = "ms-appx:///Assets/USA.png", Text = "USA" }               
             };
 
-            MatchLista.ItemsSource = lagBild;
-            MatchLista2.ItemsSource = lagBild2;
+            MatchListaHemma.ItemsSource = lagBild;
+            MatchListaBorta.ItemsSource = lagBild2;
         }
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
