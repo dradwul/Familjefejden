@@ -147,7 +147,7 @@ namespace Familjefejden
         }
         private void NyGrupp_Klickad(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(OverlayNyGrupp));
+            Frame.Navigate(typeof(OverlayHanteraGrupp));
         }
 
         private void NyTurnering_Klickad(object sender, RoutedEventArgs e)

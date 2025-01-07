@@ -138,11 +138,8 @@
     <Compile Include="OverlayLaggaTillLag.xaml.cs">
       <DependentUpon>OverlayLaggaTillLag.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OverlayNyaSpelare.xaml.cs">
-      <DependentUpon>OverlayNyaSpelare.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="OverlayNyGrupp.xaml.cs">
-      <DependentUpon>OverlayNyGrupp.xaml</DependentUpon>
+    <Compile Include="OverlayHanteraGrupp.xaml.cs">
+      <DependentUpon>OverlayHanteraGrupp.xaml</DependentUpon>
     </Compile>
     <Compile Include="OverlayReglerPoang.xaml.cs">
       <DependentUpon>OverlayReglerPoang.xaml</DependentUpon>
@@ -203,11 +200,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OverlayNyaSpelare.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="OverlayNyGrupp.xaml">
+    <Page Include="OverlayHanteraGrupp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

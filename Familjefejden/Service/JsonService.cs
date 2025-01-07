@@ -124,6 +124,20 @@ namespace Familjefejden.Service
             return false;
         }
 
+        public async Task<bool> KollaOmDetRedanFinnsEnGrupp()
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+
+            if (gruppData is JObject gruppObjekt)
+            {
+                if (!string.IsNullOrEmpty((string)gruppObjekt["Namn"]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         // LÄGG TILL ANVÄNDARE
         public async Task<bool> LaggTillAnvandareIGruppAsync(Anvandare nyAnvandare)
         {
@@ -416,6 +430,20 @@ namespace Familjefejden.Service
                 if ((int)turneringObjekt["Id"] == turneringId)
                 {
                     return (string)turneringObjekt["Namn"];
+                }
+            }
+            return null;
+        }
+
+        public async Task<string> HamtaGruppnamnFranId(int gruppId)
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+
+            if (gruppData is JObject gruppObjekt)
+            {
+                if ((int)gruppObjekt["Id"] == gruppId)
+                {
+                    return (string)gruppObjekt["Namn"];
                 }
             }
             return null;
