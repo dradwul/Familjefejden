@@ -144,6 +144,9 @@
     <Compile Include="OverlayNyGrupp.xaml.cs">
       <DependentUpon>OverlayNyGrupp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OverlayReglerPoang.xaml.cs">
+      <DependentUpon>OverlayReglerPoang.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OverlaySpelschema.xaml.cs">
       <DependentUpon>OverlaySpelschema.xaml</DependentUpon>
     </Compile>
@@ -205,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OverlayNyGrupp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OverlayReglerPoang.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

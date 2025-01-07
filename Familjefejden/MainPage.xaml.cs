@@ -159,5 +159,11 @@ namespace Familjefejden
         {
             Frame.Navigate(typeof(OverlayBetVy));
         }
+
+        private async void ReglerKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            var hjalpDialog = new OverlayReglerPoang();
+            await hjalpDialog.ShowAsync();
+        }
     }
 }
