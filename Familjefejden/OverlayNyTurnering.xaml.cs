@@ -37,7 +37,7 @@ namespace Familjefejden
             Frame.Navigate(typeof(MainPage));
         }
 
-        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        private void NastaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             // HÄMTA VÄRDE FRÅN COMBOBOX HÄR:
             // STATISKT VÄRDE ATM
@@ -46,8 +46,6 @@ namespace Familjefejden
             jsonService.LaggaTillNyTurneringAsync(nyTurnering);
 
             Frame.Navigate(typeof(OverlayLaggaTillLag));
-            // LÄGG TILL MATCHER OSV, VILL SOVA SÅ JAG KOLLAR FLÖDET MER IMORGON ASDF ASDF
-            // pisstrött och improduktiv så fakk it, godnatt
         }
     }
 }

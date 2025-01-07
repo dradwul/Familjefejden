@@ -64,7 +64,7 @@ namespace Familjefejden
             Frame.Navigate(typeof(MainPage));
         }
 
-        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        private void NastaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(OverlaySpelschema));
         }
