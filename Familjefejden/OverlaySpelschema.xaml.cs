@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Familjefejden.Service;
+using Klasser;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,6 +21,9 @@ namespace Familjefejden
 {
     public sealed partial class OverlaySpelschema : Page
     {
+        TurneringService turneringService = new TurneringService();
+        JsonService jsonService = new JsonService();
+
         public OverlaySpelschema()
         {
             this.InitializeComponent();
@@ -63,9 +68,12 @@ namespace Familjefejden
             Frame.Navigate(typeof(OverlayLaggaTillLag));
         }
 
-        private void LaggTillLagKnapp_Klickad(object sender, RoutedEventArgs e)
+        private void LaggTillMatchKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             //TODO: Logik för att lägga till lag i listview
+            //TODO: Logik för att spara match i json
+            //Match nyMatch = turneringService.SkapaMatch(datum, hemmalagId, bortalagId);
+            //jsonService.LaggTillMatchAsync(nyMatch);
         }
 
         private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)

@@ -150,6 +150,11 @@ namespace Familjefejden
             Frame.Navigate(typeof(OverlayNyGrupp));
         }
 
+        private void NyTurnering_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OverlayNyTurnering));
+        }
+
         private void BetKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(OverlayBetVy));

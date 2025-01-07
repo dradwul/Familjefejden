@@ -19,37 +19,35 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Familjefejden
 {
-    public sealed partial class OverlayNyaSpelare : Page
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class OverlayNyTurnering : Page
     {
-        GruppService gruppService = new GruppService();
+        TurneringService turneringService = new TurneringService();
         JsonService jsonService = new JsonService();
 
-        public OverlayNyaSpelare()
+        public OverlayNyTurnering()
         {
             this.InitializeComponent();
         }
 
-        private void NySpelare_Klickad(object sender, RoutedEventArgs e)
-        {
-            var nySpelare = NySpelare.Text;
-
-            if (!string.IsNullOrEmpty(nySpelare))
-            {
-                Anvandare nySpelareAttSpara = gruppService.SkapaAnvandare(nySpelare);
-                jsonService.LaggTillAnvandareIGruppAsync(nySpelareAttSpara);
-                SpelarLista.Text += nySpelare + "\n";
-                NySpelare.Text = String.Empty;
-            }
-        }
-
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(OverlayNyGrupp));
+            Frame.Navigate(typeof(MainPage));
         }
 
         private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            // HÄMTA VÄRDE FRÅN COMBOBOX HÄR:
+            // STATISKT VÄRDE ATM
+            string turneringensNamn = "JVM";
+            Turnering nyTurnering = turneringService.SkapaTurnering(turneringensNamn);
+            jsonService.LaggaTillNyTurneringAsync(nyTurnering);
+
+            Frame.Navigate(typeof(OverlayLaggaTillLag));
+            // LÄGG TILL MATCHER OSV, VILL SOVA SÅ JAG KOLLAR FLÖDET MER IMORGON ASDF ASDF
+            // pisstrött och improduktiv så fakk it, godnatt
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Familjefejden.Klasser;
+using Familjefejden.Service;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -22,6 +24,8 @@ namespace Familjefejden
 {
     public sealed partial class OverlayLaggaTillLag : Page
     {
+        TurneringService turneringService = new TurneringService();
+        JsonService jsonService = new JsonService();
         private ObservableCollection<LagItem> tillagdaLag;
 
         public OverlayLaggaTillLag()
@@ -80,6 +84,8 @@ namespace Familjefejden
                 }
                 else
                 {
+                    Lag nyttLag = turneringService.SkapaLag(valtForemal.Text);
+                    await jsonService.LaggTillLagAsync(nyttLag);
                     tillagdaLag.Add(new LagItem { LagFlagga = valtForemal.FlagBild, Lag = valtForemal.Text });
                 }
             }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Familjefejden.Service;
+using Klasser;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,6 +21,9 @@ namespace Familjefejden
 {
     public sealed partial class OverlayNyGrupp : Page
     {
+        GruppService gruppService = new GruppService();
+        JsonService jsonService = new JsonService();
+
         public OverlayNyGrupp()
         {
             this.InitializeComponent();
@@ -26,15 +31,18 @@ namespace Familjefejden
 
         private void NyGrupp_Klickad(object sender, RoutedEventArgs e)
         {
-            var nyGrupp = NyGrupp.Text;
-            var valdTurnering = TurneringsLista.Text;
-            if (!string.IsNullOrEmpty(nyGrupp) && !string.IsNullOrEmpty(valdTurnering))
+            var nyGruppNamn = NyGrupp.Text;
+
+            if (!string.IsNullOrEmpty(nyGruppNamn))
             {
-                GruppNamn.Text = $"{nyGrupp} har skapats för {valdTurnering}";
+                GruppNamn.Text = $"{nyGruppNamn} har skapats!";
+                Grupp nyGrupp = gruppService.SkapaGrupp(nyGruppNamn);
+                jsonService.LaggTillNyGruppAsync(nyGrupp);
+                Frame.Navigate(typeof(OverlayNyaSpelare));
             }
             else
             {
-                GruppNamn.Text = "Vänligen ange ett gruppnamn och välj en turnering";
+                GruppNamn.Text = "Vänligen ange ett gruppnamn";
             }
             NyGrupp.Text = string.Empty;
         }
@@ -42,12 +50,6 @@ namespace Familjefejden
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
-        }
-
-        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
-        {
-            //TODO: HANTERA SÅ MAN INTE KAN TRYCKA VIDARE INNAN MAN SKAPAT EN GRUPP OCH VALT TURNERING
-            Frame.Navigate(typeof(OverlayNyaSpelare));
         }
     }
 }
