@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -31,6 +32,8 @@ namespace Familjefejden
         {
             this.InitializeComponent();
             this.Loaded += OverlaySpelschema_Loaded;
+            MatchDag.Date = DateTimeOffset.Now;
+            MatchStart.Time = TimeSpan.Zero;
         }
 
         private void OverlaySpelschema_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -88,6 +91,12 @@ namespace Familjefejden
 
             int hemmalagId = await jsonService.HamtaLagIdFranNamn(hemmalagNamn);
             int bortalagId = await jsonService.HamtaLagIdFranNamn(bortalagNamn);
+            if(hemmalagId == bortalagId)
+            {
+                var dialog = new MessageDialog($"Vänligen ange olika lag");
+                await dialog.ShowAsync();
+                return;
+            }
             if(hemmalagId == -1)
             {
                 var dialog = new MessageDialog($"{hemmalagNamn} hittas inte i databasen.");
@@ -109,6 +118,11 @@ namespace Familjefejden
             var matchItem = new ListViewItem();
             matchItem.Content = $"{hemmalagNamn} - {bortalagNamn} {matchTid}";
             ListaSpelschema.Items.Add(matchItem);
+
+            MatchDag.Date = DateTimeOffset.Now;
+            MatchStart.Time = TimeSpan.Zero;
+            Hemmalag.SelectedIndex = -1;
+            Bortalag.SelectedIndex = -1;
         }
 
         private DateTime GetSelectedDateTime()
