@@ -62,5 +62,10 @@ namespace Familjefejden
         {
             Frame.Navigate(typeof(MainPage));
         }
+
+        private void NySpelare_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            LaggTillSpelareKnapp.IsEnabled = !string.IsNullOrEmpty(NySpelare.Text);
+        }
     }
 }

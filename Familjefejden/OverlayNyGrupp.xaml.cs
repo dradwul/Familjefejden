@@ -51,5 +51,10 @@ namespace Familjefejden
         {
             Frame.Navigate(typeof(MainPage));
         }
+
+        private void NyGrupp_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            LaggTillGruppKnapp.IsEnabled = !string.IsNullOrEmpty(NyGrupp.Text);
+        }
     }
 }
