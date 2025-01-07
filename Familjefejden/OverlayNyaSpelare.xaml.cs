@@ -23,22 +23,33 @@ namespace Familjefejden
     {
         GruppService gruppService = new GruppService();
         JsonService jsonService = new JsonService();
+        private List<Anvandare> spelarLista = new List<Anvandare>();
 
         public OverlayNyaSpelare()
         {
             this.InitializeComponent();
+            LaddaInBefintligaSpelare();
         }
 
-        private void NySpelare_Klickad(object sender, RoutedEventArgs e)
+        private async void LaddaInBefintligaSpelare()
         {
-            var nySpelare = NySpelare.Text;
+            spelarLista = await jsonService.HamtaAllaAnvandareAsync();
+            SpelarListView.ItemsSource = spelarLista;
+        }
 
+        private async void NySpelare_Klickad(object sender, RoutedEventArgs e)
+        {
+            var nySpelare = NySpelare.Text.Trim();
             if (!string.IsNullOrEmpty(nySpelare))
             {
-                Anvandare nySpelareAttSpara = gruppService.SkapaAnvandare(nySpelare);
-                jsonService.LaggTillAnvandareIGruppAsync(nySpelareAttSpara);
-                SpelarLista.Text += nySpelare + "\n";
-                NySpelare.Text = String.Empty;
+                var nySpelareAttSpara = gruppService.SkapaAnvandare(nySpelare);
+                await jsonService.LaggTillAnvandareIGruppAsync(nySpelareAttSpara);
+
+                spelarLista.Add(nySpelareAttSpara);
+                SpelarListView.ItemsSource = null;
+                SpelarListView.ItemsSource = spelarLista;
+
+                NySpelare.Text = string.Empty;
             }
         }
 

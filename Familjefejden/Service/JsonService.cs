@@ -434,5 +434,19 @@ namespace Familjefejden.Service
             }
             return new List<Lag>();
         }
+
+        public async Task<List<Anvandare>> HamtaAllaAnvandareAsync()
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+            if (gruppData is JObject gruppObjekt)
+            {
+                var anvandareLista = gruppObjekt["Anvandare"] as JArray;
+                if (anvandareLista != null)
+                {
+                    return anvandareLista.Select(anvandare => anvandare.ToObject<Anvandare>()).ToList();
+                }
+            }
+            return new List<Anvandare>();
+        }
     }
 }
