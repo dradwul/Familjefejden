@@ -370,6 +370,28 @@ namespace Familjefejden.Service
             return null;
         }
 
+        public async Task<int> HamtaLagIdFranNamn(string lagnamn)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+
+            if (turneringData is JObject turneringObjekt)
+            {
+                var lagLista = turneringObjekt["Lag"] as JArray;
+
+                if (lagLista != null)
+                {
+                    foreach (var lag in lagLista)
+                    {
+                        if ((string)lag["Namn"] == lagnamn)
+                        {
+                            return (int)lag["Id"];
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
         public async Task<bool> KontrolleraOmLagFinns(string lagnamn)
         {
             var turneringData = await HamtaSpecifikDataAsync("Turnering");

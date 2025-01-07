@@ -37,13 +37,13 @@ namespace Familjefejden
             Frame.Navigate(typeof(MainPage));
         }
 
-        private void NastaKnapp_Klickad(object sender, RoutedEventArgs e)
+        private async void NastaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             // HÄMTA VÄRDE FRÅN COMBOBOX HÄR:
             // STATISKT VÄRDE ATM
             string turneringensNamn = "JVM";
             Turnering nyTurnering = turneringService.SkapaTurnering(turneringensNamn);
-            jsonService.LaggaTillNyTurneringAsync(nyTurnering);
+            await jsonService.LaggaTillNyTurneringAsync(nyTurnering);
 
             Frame.Navigate(typeof(OverlayLaggaTillLag));
         }

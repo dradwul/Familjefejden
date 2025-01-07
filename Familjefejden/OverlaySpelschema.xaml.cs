@@ -1,4 +1,5 @@
-﻿using Familjefejden.Service;
+﻿using Familjefejden.Klasser;
+using Familjefejden.Service;
 using Klasser;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace Familjefejden
     {
         TurneringService turneringService = new TurneringService();
         JsonService jsonService = new JsonService();
+        List<Match> matcherAttLaggaTill = new List<Match>();
 
         public OverlaySpelschema()
         {
@@ -59,8 +61,8 @@ namespace Familjefejden
                 new ImageItem { FlagBild = "ms-appx:///Assets/USA.png", Text = "USA" }               
             };
 
-            MatchLista.ItemsSource = lagBild;
-            MatchLista2.ItemsSource = lagBild2;
+            Hemmalag.ItemsSource = lagBild;
+            Bortalag.ItemsSource = lagBild2;
         }
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
@@ -68,16 +70,45 @@ namespace Familjefejden
             Frame.Navigate(typeof(OverlayLaggaTillLag));
         }
 
-        private void LaggTillMatchKnapp_Klickad(object sender, RoutedEventArgs e)
+        private async void LaggTillMatchKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             //TODO: Logik för att lägga till lag i listview
-            //TODO: Logik för att spara match i json
-            //Match nyMatch = turneringService.SkapaMatch(datum, hemmalagId, bortalagId);
-            //jsonService.LaggTillMatchAsync(nyMatch);
+
+            // FELHANTERING MED LAGNAMN OCH ID MÅSTE GÅS IGENOM HÄR 
+            // OBS OBS GLÖM EJ ATT FIXA DETTA
+            string hemmalagNamn = "";
+            string bortalagNamn = "";
+            DateTime matchTid = new DateTime();
+
+            if (Hemmalag.SelectedItem is ImageItem hemmalagItem && Bortalag.SelectedItem is ImageItem bortalagItem)
+            {
+                hemmalagNamn = hemmalagItem.Text;
+                bortalagNamn = bortalagItem.Text;
+
+                matchTid = GetSelectedDateTime();
+            }
+
+            int hemmalagId = await jsonService.HamtaLagIdFranNamn(hemmalagNamn);
+            int bortalagId = await jsonService.HamtaLagIdFranNamn(bortalagNamn);
+
+            Match nyMatch = turneringService.SkapaMatch(matchTid, hemmalagId, bortalagId);
+            matcherAttLaggaTill.Add(nyMatch);
         }
 
-        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        private DateTime GetSelectedDateTime()
         {
+            var datum = MatchDag.Date.DateTime;
+            var tid = MatchStart.Time;
+
+            return new DateTime(datum.Year, datum.Month, datum.Day, tid.Hours, tid.Minutes, 0, DateTimeKind.Utc);
+        }
+
+        private async void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            foreach(Match match in matcherAttLaggaTill)
+            {
+                await jsonService.LaggTillMatchAsync(match);
+            }
             Frame.Navigate(typeof(MainPage));
         }
     }
