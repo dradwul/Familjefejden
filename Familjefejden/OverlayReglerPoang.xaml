@@ -9,7 +9,8 @@
     Title="HJÄLP"
     Background="#222222"
     PrimaryButtonText="OK"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    PrimaryButtonStyle="{StaticResource PopupHjalpKnapp}">
 
     <Grid>
         <StackPanel>
