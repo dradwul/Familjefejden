@@ -47,6 +47,14 @@ namespace Familjefejden
             SpelarListView.ItemsSource = spelarLista;
         }
 
+        private void NySpelare_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                NySpelare_Klickad(sender, e);
+            }
+        }
+
         private void NySpelare_Klickad(object sender, RoutedEventArgs e)
         {
             var nySpelare = NySpelare.Text.Trim();

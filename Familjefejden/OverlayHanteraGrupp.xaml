@@ -55,7 +55,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="NySpelare" PlaceholderText="Skriv spelarens namn" Height="40"  Margin="0,0,10,0" BorderThickness="0" SelectionChanged="NySpelare_SelectionChanged"/>
+                    <TextBox x:Name="NySpelare" KeyDown="NySpelare_KeyDown" PlaceholderText="Skriv spelarens namn" Height="40"  Margin="0,0,10,0" BorderThickness="0" SelectionChanged="NySpelare_SelectionChanged"/>
                     <Button Grid.Column="1" Name="LaggTillSpelareKnapp" Click="NySpelare_Klickad" Height="40" Background="#36BCDA" CornerRadius="5" IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <FontIcon FontFamily="Segoe MDL2 Assets"  Glyph="&#xE710;"  Margin="0,0,8,0"/>
