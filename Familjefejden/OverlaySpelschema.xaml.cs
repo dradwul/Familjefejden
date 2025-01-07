@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -73,10 +74,6 @@ namespace Familjefejden
 
         private async void LaggTillMatchKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            //TODO: Logik för att lägga till lag i listview
-
-            // TODO: FELHANTERING MED LAGNAMN OCH ID MÅSTE GÅS IGENOM HÄR 
-            // OBS OBS GLÖM EJ ATT FIXA DETTA
             string hemmalagNamn = "";
             string bortalagNamn = "";
             DateTime matchTid = new DateTime();
@@ -91,9 +88,27 @@ namespace Familjefejden
 
             int hemmalagId = await jsonService.HamtaLagIdFranNamn(hemmalagNamn);
             int bortalagId = await jsonService.HamtaLagIdFranNamn(bortalagNamn);
+            if(hemmalagId == -1)
+            {
+                var dialog = new MessageDialog($"{hemmalagNamn} hittas inte i databasen.");
+                await dialog.ShowAsync();
+                return;
+            }
+            if (bortalagId == -1)
+            {
+                var dialog = new MessageDialog($"{bortalagNamn} hittas inte i databasen.");
+                await dialog.ShowAsync();
+                return;
+            }
 
             Match nyMatch = turneringService.SkapaMatch(matchTid, hemmalagId, bortalagId);
             matcherAttLaggaTill.Add(nyMatch);
+
+            // TODO: Lägg till i ListView
+            // Provisorisk lösning
+            var matchItem = new ListViewItem();
+            matchItem.Content = $"{hemmalagNamn} - {bortalagNamn} {matchTid}";
+            ListaSpelschema.Items.Add(matchItem);
         }
 
         private DateTime GetSelectedDateTime()
