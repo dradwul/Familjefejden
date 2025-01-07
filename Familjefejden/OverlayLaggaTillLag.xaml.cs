@@ -61,7 +61,7 @@ namespace Familjefejden
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(OverlayNyTurnering));
         }
 
         private void NastaKnapp_Klickad(object sender, RoutedEventArgs e)

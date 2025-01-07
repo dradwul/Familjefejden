@@ -29,15 +29,15 @@
         <Grid x:Name="BottenMeny" Grid.Row="1">
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,10">
-                <ComboBox x:Name="TurneringsLista" Height="30" Width="130" PlaceholderText="Välj turnering">
+                <ComboBox x:Name="TurneringsLista" Height="30" Width="130" PlaceholderText="Välj turnering" SelectionChanged="TurneringsLista_SelectionChanged">
                     <ComboBoxItem Content="JVM"/>
                     <!-- Fixa så man kan välja mellan olika turneringar med hjälp av ID? -->
-                    <ComboBoxItem Content="A-VM (NYI)"/>
+                    <ComboBoxItem Content="A-VM (NYI)" IsEnabled="False"/>
                 </ComboBox>
             </StackPanel>
 
-            <Button Height="30" Width="100" CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20" 
-                    Background="#0BE400" Click="NastaKnapp_Klickad">Nästa ➔</Button>
+            <Button x:Name="NastaKnapp" Height="30" Width="100" CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20" 
+                    Background="#0BE400" Click="NastaKnapp_Klickad" IsEnabled="False">Nästa ➔</Button>
         </Grid>
 
     </Grid>
