@@ -34,6 +34,7 @@ namespace Familjefejden
 
         private void OverlaySpelschema_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            // TODO: Metod för att bara hämta lag som är med i turneringen
             var lagBild = new List<ImageItem>
             {
                 new ImageItem { FlagBild = "ms-appx:///Assets/Canada.png", Text = "Kanada" },
@@ -74,7 +75,7 @@ namespace Familjefejden
         {
             //TODO: Logik för att lägga till lag i listview
 
-            // FELHANTERING MED LAGNAMN OCH ID MÅSTE GÅS IGENOM HÄR 
+            // TODO: FELHANTERING MED LAGNAMN OCH ID MÅSTE GÅS IGENOM HÄR 
             // OBS OBS GLÖM EJ ATT FIXA DETTA
             string hemmalagNamn = "";
             string bortalagNamn = "";
