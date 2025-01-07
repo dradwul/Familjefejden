@@ -27,47 +27,45 @@ namespace Familjefejden
         TurneringService turneringService = new TurneringService();
         JsonService jsonService = new JsonService();
         List<Match> matcherAttLaggaTill = new List<Match>();
+        List<Lag> allaLagIDatabasen = new List<Lag>();
+
+        public static readonly List<ImageItem> allaLagBilder = new List<ImageItem>
+        {
+            new ImageItem { FlagBild = "ms-appx:///Assets/Canada.png", Text = "Kanada" },
+            new ImageItem { FlagBild = "ms-appx:///Assets/Czech_Republic.png", Text = "Tjeckien" },
+            new ImageItem { FlagBild = "ms-appx:///Assets/Finland.png", Text = "Finland" },
+            new ImageItem { FlagBild = "ms-appx:///Assets/Germany.png", Text = "Tyskland" },
+            new ImageItem { FlagBild = "ms-appx:///Assets/Kazakhstan.png", Text = "Kazakhstan" },
+            new ImageItem { FlagBild = "ms-appx:///Assets/Latvia.png", Text = "Lettland" },
+            new ImageItem { FlagBild = "ms-appx:///Assets/Slovakia.png", Text = "Slovakien" },
+            new ImageItem { FlagBild = "ms-appx:///Assets/Sweden.png", Text = "Sverige" },
+            new ImageItem { FlagBild = "ms-appx:///Assets/Switzerland.png", Text = "Schweiz" },
+            new ImageItem { FlagBild = "ms-appx:///Assets/USA.png", Text = "USA" }
+        };
 
         public OverlaySpelschema()
         {
             this.InitializeComponent();
+            HamtaAllaLagFranDatabas();
             this.Loaded += OverlaySpelschema_Loaded;
             MatchDag.Date = DateTimeOffset.Now;
             MatchStart.Time = TimeSpan.Zero;
         }
 
-        private void OverlaySpelschema_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OverlaySpelschema_Loaded(object sender, RoutedEventArgs e)
         {
-            // TODO: Metod för att bara hämta lag som är med i turneringen
-            var lagBild = new List<ImageItem>
-            {
-                new ImageItem { FlagBild = "ms-appx:///Assets/Canada.png", Text = "Kanada" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Czech_Republic.png", Text = "Tjeckien" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Finland.png", Text = "Finland" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Germany.png", Text = "Tyskland" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Kazakhstan.png", Text = "Kazakhstan" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Latvia.png", Text = "Lettland" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Slovakia.png", Text = "Slovakien" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Sweden.png", Text = "Sverige" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Switzerland.png", Text = "Schweiz" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/USA.png", Text = "USA" }
-            };
-            var lagBild2 = new List<ImageItem>
-            {
-                new ImageItem { FlagBild = "ms-appx:///Assets/Canada.png", Text = "Kanada" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Czech_Republic.png", Text = "Tjeckien" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Finland.png", Text = "Finland" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Germany.png", Text = "Tyskland" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Kazakhstan.png", Text = "Kazakhstan" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Latvia.png", Text = "Lettland" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Slovakia.png", Text = "Slovakien" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Sweden.png", Text = "Sverige" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Switzerland.png", Text = "Schweiz" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/USA.png", Text = "USA" }               
-            };
+            var filtreradeLagBilder = allaLagBilder
+                .Where(image => allaLagIDatabasen
+                .Any(lag => lag.Namn == image.Text))
+                .ToList();
 
-            Hemmalag.ItemsSource = lagBild;
-            Bortalag.ItemsSource = lagBild2;
+            Hemmalag.ItemsSource = filtreradeLagBilder;
+            Bortalag.ItemsSource = filtreradeLagBilder;
+        }
+
+        private async void HamtaAllaLagFranDatabas()
+        {
+            allaLagIDatabasen = await jsonService.HamtaAllaLagAsync();
         }
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
@@ -115,8 +113,10 @@ namespace Familjefejden
 
             // TODO: Lägg till i ListView
             // Provisorisk lösning
-            var matchItem = new ListViewItem();
-            matchItem.Content = $"{hemmalagNamn} - {bortalagNamn} {matchTid}";
+            var matchItem = new ListViewItem
+            {
+                Content = $"{hemmalagNamn} - {bortalagNamn} ( {matchTid} )"
+            };
             ListaSpelschema.Items.Add(matchItem);
 
             MatchDag.Date = DateTimeOffset.Now;

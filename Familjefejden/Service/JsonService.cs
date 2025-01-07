@@ -420,5 +420,19 @@ namespace Familjefejden.Service
             }
             return null;
         }
+
+        public async Task<List<Lag>> HamtaAllaLagAsync()
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+            if (turneringData is JObject turneringObjekt)
+            {
+                var lagLista = turneringObjekt["Lag"] as JArray;
+                if (lagLista != null)
+                {
+                    return lagLista.Select(lag => lag.ToObject<Lag>()).ToList();
+                }
+            }
+            return new List<Lag>();
+        }
     }
 }
