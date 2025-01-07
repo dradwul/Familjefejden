@@ -37,7 +37,7 @@ namespace Familjefejden
             TillagdaLag.ItemsSource = tillagdaLag;
         }
 
-        private void OverlayLaggaTillLag_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OverlayLaggaTillLag_Loaded(object sender, RoutedEventArgs e)
         {
             var bildText = new List<ImageItem>
             {
@@ -84,9 +84,17 @@ namespace Familjefejden
                 }
                 else
                 {
-                    Lag nyttLag = turneringService.SkapaLag(valtForemal.Text);
-                    await jsonService.LaggTillLagAsync(nyttLag);
-                    tillagdaLag.Add(new LagItem { LagFlagga = valtForemal.FlagBild, Lag = valtForemal.Text });
+                    if (await jsonService.KontrolleraOmLagFinns(valtForemal.Text))
+                    {
+                        var dialog = new MessageDialog("Laget finns redan tillagt i databas.");
+                        await dialog.ShowAsync();
+                    }
+                    else
+                    {
+                        Lag nyttLag = turneringService.SkapaLag(valtForemal.Text);
+                        await jsonService.LaggTillLagAsync(nyttLag);
+                        tillagdaLag.Add(new LagItem { LagFlagga = valtForemal.FlagBild, Lag = valtForemal.Text });
+                    }
                 }
             }
         }
