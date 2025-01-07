@@ -20,7 +20,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Foreground="#8A8A8A" FontSize="22" Margin="10,15,0,0">SKAPA NY GRUPP</TextBlock>
+            <TextBlock Foreground="#8A8A8A" FontSize="22" Margin="10,15,0,0">SKAPA NY TURNERING</TextBlock>
             <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,10" Click="TillbakaKnapp_Klickad"
                     Height="30" Width="80" Background="#36BCDA" CornerRadius="5">Tillbaka</Button>
         </Grid>

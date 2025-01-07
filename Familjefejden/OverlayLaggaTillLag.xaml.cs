@@ -37,7 +37,7 @@ namespace Familjefejden
             TillagdaLag.ItemsSource = tillagdaLag;
         }
 
-        private void OverlayLaggaTillLag_Loaded(object sender, RoutedEventArgs e)
+        private async void OverlayLaggaTillLag_Loaded(object sender, RoutedEventArgs e)
         {
             var bildText = new List<ImageItem>
             {
@@ -55,11 +55,13 @@ namespace Familjefejden
                 new ImageItem { FlagBild = "ms-appx:///Assets/Austria.png", Text = "Österrike" }
             };
             LagLista.ItemsSource = bildText;
+
+            TurneringNamn.Text = await jsonService.HamtaTurneringsnamnFranId(1);
         }
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(OverlayNyaSpelare));
+            Frame.Navigate(typeof(MainPage));
         }
 
         private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)

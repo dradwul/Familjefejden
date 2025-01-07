@@ -384,5 +384,19 @@ namespace Familjefejden.Service
             }
             return false;
         }
+
+        public async Task<string> HamtaTurneringsnamnFranId(int turneringId)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+
+            if (turneringData is JObject turneringObjekt)
+            {
+                if ((int)turneringObjekt["Id"] == turneringId)
+                {
+                    return (string)turneringObjekt["Namn"];
+                }
+            }
+            return null;
+        }
     }
 }
