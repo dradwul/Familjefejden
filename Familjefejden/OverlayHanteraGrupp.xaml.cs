@@ -126,8 +126,53 @@ namespace Familjefejden
             else
             {
                 KollaGruppInputIkon.Foreground = new SolidColorBrush(Windows.UI.Colors.Gray);
+            }   
+        }
+
+        private async void TaBortSpelare_Klickad(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button != null && button.Tag != null)
+            {
+                int spelarId = (int)button.Tag;
+                var spelareAttTaBort = spelarLista.FirstOrDefault(s => s.Id == spelarId);
+
+                if (spelareAttTaBort != null)
+                {
+                    var bekraftaDialog = new ContentDialog
+                    {
+                        Title = "Bekräfta borttagning",
+                        Content = $"Är du säker på att du vill ta bort {spelareAttTaBort.Namn}?",
+                        PrimaryButtonText = "Ja",
+                        CloseButtonText = "Avbryt",
+                        DefaultButton = ContentDialogButton.Close
+                    };
+
+                    var result = await bekraftaDialog.ShowAsync();
+
+                    if (result == ContentDialogResult.Primary)
+                    {
+                        bool borttagen = await jsonService.TaBortAnvandareIGruppAsync(spelarId);
+
+                        if (borttagen)
+                        {
+                            spelarLista.Remove(spelareAttTaBort);
+                            SpelarListView.ItemsSource = null;
+                            SpelarListView.ItemsSource = spelarLista;
+                        }
+                        else
+                        {
+                            var errorDialog = new ContentDialog
+                            {
+                                Title = "Fel",
+                                Content = "Kunde inte ta bort spelaren.",
+                                CloseButtonText = "Ok"
+                            };
+                            await errorDialog.ShowAsync();
+                        }
+                    }
+                }
             }
-            
         }
     }
 }

@@ -175,6 +175,33 @@ namespace Familjefejden.Service
             return false;
         }
 
+        // TA BORT ANVÄNDARE
+        public async Task<bool> TaBortAnvandareIGruppAsync(int anvandarId)
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+            if (gruppData is JObject gruppObjekt)
+            {
+                if (string.IsNullOrEmpty((string)gruppObjekt["Namn"]))
+                {
+                    return false;
+                }
+
+                var befintligaAnvandare = gruppObjekt["Anvandare"] as JArray ?? new JArray();
+                var anvandareAttTaBort = befintligaAnvandare.FirstOrDefault(a => (int)a["Id"] == anvandarId);
+
+                if (anvandareAttTaBort == null)
+                {
+                    return false;
+                }
+
+                befintligaAnvandare.Remove(anvandareAttTaBort);
+                gruppObjekt["Anvandare"] = befintligaAnvandare;
+
+                await SparaTillFilAsync("Grupp", gruppObjekt);
+                return true;
+            }
+            return false;
+        }
 
         // SKAPA TURNERING
         public async Task<bool> LaggaTillNyTurneringAsync(Turnering nyTurnering)
