@@ -26,33 +26,33 @@ namespace Familjefejden
     {
         TurneringService turneringService = new TurneringService();
         JsonService jsonService = new JsonService();
-        private ObservableCollection<LagItem> tillagdaLag;
+        private ObservableCollection<LagForemal> tillagdaLag;
 
         public OverlayLaggaTillLag()
         {
             this.InitializeComponent();
             this.Loaded += OverlayLaggaTillLag_Loaded;
 
-            tillagdaLag = new ObservableCollection<LagItem>();
+            tillagdaLag = new ObservableCollection<LagForemal>();
             TillagdaLag.ItemsSource = tillagdaLag;
         }
 
         private void OverlayLaggaTillLag_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var bildText = new List<ImageItem>
+            var bildText = new List<LagForemal>
             {
-                new ImageItem { FlagBild = "ms-appx:///Assets/Canada.png", Text = "Kanada" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Czech_Republic.png", Text = "Tjeckien" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Finland.png", Text = "Finland" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Germany.png", Text = "Tyskland" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Kazakhstan.png", Text = "Kazakhstan" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Latvia.png", Text = "Lettland" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Slovakia.png", Text = "Slovakien" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Sweden.png", Text = "Sverige" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Switzerland.png", Text = "Schweiz" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/USA.png", Text = "USA" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Denmark.png", Text = "Danmark" },
-                new ImageItem { FlagBild = "ms-appx:///Assets/Austria.png", Text = "Österrike" }
+                new LagForemal { LagFlagga = "ms-appx:///Assets/Canada.png", Lag = "Kanada" },
+                new LagForemal { LagFlagga = "ms-appx:///Assets/Finland.png", Lag = "Finland" },
+                new LagForemal { LagFlagga = "ms-appx:///Assets/Czech_Republic.png", Lag = "Tjeckien" },
+                new LagForemal { LagFlagga = "ms-appx:///Assets/Germany.png", Lag = "Tyskland" },
+                new LagForemal { LagFlagga = "ms-appx:///Assets/Kazakhstan.png", Lag = "Kazakhstan" },
+                new LagForemal { LagFlagga = "ms-appx:///Assets/Latvia.png", Lag = "Lettland" },
+                new LagForemal { LagFlagga = "ms-appx:///Assets/Slovakia.png", Lag = "Slovakien" },
+                new LagForemal { LagFlagga = "ms-appx:///Assets/Sweden.png", Lag = "Sverige" },
+                new LagForemal { LagFlagga = "ms-appx:///Assets/Switzerland.png", Lag = "Schweiz" },
+                new LagForemal { LagFlagga = "ms-appx:///Assets/USA.png", Lag = "USA" },
+                new LagForemal { LagFlagga = "ms-appx:///Assets/Denmark.png", Lag = "Danmark" },
+                new LagForemal { LagFlagga = "ms-appx:///Assets/Austria.png", Lag = "Österrike" }
             };
             LagLista.ItemsSource = bildText;
         }
@@ -69,10 +69,10 @@ namespace Familjefejden
 
         private async void TillagdKnapp_KlickadAsync(object sender, RoutedEventArgs e)
         {
-            var valtForemal = LagLista.SelectedItem as ImageItem;
+            var valtForemal = LagLista.SelectedItem as LagForemal;
             if (valtForemal != null)
             {
-                if (tillagdaLag.Any(l => l.Lag == valtForemal.Text))
+                if (tillagdaLag.Any(l => l.Lag == valtForemal.Lag))
                 {
                     var dialog = new MessageDialog("Laget är redan tillagt.");
                     await dialog.ShowAsync();
@@ -84,9 +84,9 @@ namespace Familjefejden
                 }
                 else
                 {
-                    Lag nyttLag = turneringService.SkapaLag(valtForemal.Text);
+                    Lag nyttLag = turneringService.SkapaLag(valtForemal.Lag);
                     await jsonService.LaggTillLagAsync(nyttLag);
-                    tillagdaLag.Add(new LagItem { LagFlagga = valtForemal.FlagBild, Lag = valtForemal.Text });
+                    tillagdaLag.Add(new LagForemal { LagFlagga = valtForemal.LagFlagga, Lag = valtForemal.Lag });
                 }
             }
         }
@@ -94,17 +94,11 @@ namespace Familjefejden
         private void TabortKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             var knapp = sender as Button;
-            var lagForemal = knapp.DataContext as LagItem;
+            var lagForemal = knapp.DataContext as LagForemal;
             if (lagForemal != null)
             {
                 tillagdaLag.Remove(lagForemal);
             }
         }
-    }
-
-    public class LagItem
-    {
-        public string LagFlagga { get; set; }
-        public string Lag { get; set; }
     }
 }

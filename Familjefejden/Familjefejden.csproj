@@ -119,6 +119,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Klasser\DatumKonvertering.cs" />
+    <Compile Include="Klasser\TidsKonvertering.cs" />
+    <Compile Include="Klasser\LagForemal.cs" />
     <Compile Include="OverlayNyTurnering.xaml.cs">
       <DependentUpon>OverlayNyTurnering.xaml</DependentUpon>
     </Compile>

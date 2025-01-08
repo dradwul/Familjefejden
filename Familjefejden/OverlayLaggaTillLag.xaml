@@ -32,8 +32,8 @@
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{Binding FlagBild}" Width="200" Height="100" Margin="5"/>
-                                <TextBlock Text="{Binding Text}" VerticalAlignment="Center" Foreground="White"/>
+                                <Image Source="{Binding LagFlagga}" Width="200" Height="100" Margin="5"/>
+                                <TextBlock Text="{Binding Lag}" VerticalAlignment="Center" Foreground="White"/>
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
