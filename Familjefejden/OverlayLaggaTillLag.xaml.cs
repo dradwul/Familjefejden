@@ -86,16 +86,16 @@ namespace Familjefejden
                 }
                 else
                 {
-                    if (await jsonService.KontrolleraOmLagFinns(valtForemal.Text))
+                    if (await jsonService.KontrolleraOmLagFinns(valtForemal.Lag))
                     {
                         var dialog = new MessageDialog("Laget finns redan tillagt i databas.");
                         await dialog.ShowAsync();
                     }
                     else
                     {
-                        Lag nyttLag = turneringService.SkapaLag(valtForemal.Text);
+                        Lag nyttLag = turneringService.SkapaLag(valtForemal.Lag);
                         await jsonService.LaggTillLagAsync(nyttLag);
-                        tillagdaLag.Add(new LagItem { LagFlagga = valtForemal.FlagBild, Lag = valtForemal.Text });
+                        tillagdaLag.Add(new LagForemal { LagFlagga = valtForemal.LagFlagga, Lag = valtForemal.Lag });
                     }
                 }
             }

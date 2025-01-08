@@ -32,7 +32,7 @@ namespace Familjefejden
         public OverlaySpelschema()
         {
             this.InitializeComponent();
-            HamtaAllaLagFranDatabas();
+            //HamtaAllaLagFranDatabas();
             this.Loaded += OverlaySpelschema_Loaded;
 
             tillagdaMatcher = new ObservableCollection<MatchForemal>();
@@ -68,8 +68,8 @@ namespace Familjefejden
                 new LagForemal { LagFlagga = "ms-appx:///Assets/USA.png", Lag = "USA" }
             };
 
-            MatchListaHemma.ItemsSource = lagBildHemma;
-            MatchListaBorta.ItemsSource = lagBildBorta;
+            Hemmalag.ItemsSource = lagBildHemma;
+            Bortalag.ItemsSource = lagBildBorta;
         }
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
@@ -79,9 +79,60 @@ namespace Familjefejden
 
         private async void LaggTillMatchKnapp_Klickad(object sender, RoutedEventArgs e)
         {
+            var valtLagHemma = Hemmalag.SelectedItem as LagForemal;
+            var valtLagBorta = Bortalag.SelectedItem as LagForemal;
+
+            if(valtLagHemma != null && valtLagBorta != null)
+            {
+                var datum = MatchDag.Date.DateTime.Date;
+                var tid = MatchStart.Time;
+                var matchDatum = new DateTime(datum.Year, datum.Month, datum.Day, tid.Hours, tid.Minutes, 0);
+
+                int hemmalagId = await jsonService.HamtaLagIdFranNamn(valtLagHemma.Lag);
+                int bortalagId = await jsonService.HamtaLagIdFranNamn(valtLagBorta.Lag);
+
+                if(hemmalagId == -1 || bortalagId == -1)
+                {
+                    var dialog = new MessageDialog("Ett av lagen kunde inte hittas");
+                    await dialog.ShowAsync();
+                    return;
+                }
+
+                Match nyMatch = turneringService.SkapaMatch(matchDatum, hemmalagId, bortalagId);
+
+                bool laggaTillMatch = await jsonService.LaggTillMatchAsync(nyMatch);
+                if(!laggaTillMatch)
+                {
+                    var dialog = new MessageDialog("Matchen kunde inte läggas till");
+                    await dialog.ShowAsync();
+                    return;
+                }
+
+                tillagdaMatcher.Add(new MatchForemal
+                {
+                    HemmaLagFlagga = valtLagHemma.LagFlagga,
+                    HemmaLag = valtLagHemma.Lag,
+                    BortaLagFlagga = valtLagBorta.LagFlagga,
+                    BortaLag = valtLagBorta.Lag,
+                    Datum = datum,
+                    Tid = tid
+                });
+
+                Hemmalag.SelectedItem = null;
+                Bortalag.SelectedItem = null;
+
+                AccepteraKnapp.IsEnabled = true;
+            }
+            else
+            {
+                var dialog = new MessageDialog("Vänligen välj både hemmalag och bortalag.");
+                await dialog.ShowAsync();
+            }
+           
+
             //TODO: Logik för att lägga till lag i listview
             //TODO: Logik för att spara match i json
-            //Match nyMatch = turneringService.SkapaMatch(datum, hemmalagId, bortalagId);
+            //Match nyMatch = turneringService.SkapaMatch(Datum, hemmalagId, bortalagId);
             //jsonService.LaggTillMatchAsync(nyMatch);
 
             //var dialog = new MessageDialog("Laget är redan tillagt.");
@@ -93,24 +144,24 @@ namespace Familjefejden
             //Lag nyttLag = turneringService.SkapaLag(valtForemal.Lag);
             //await jsonService.LaggTillLagAsync(nyttLag);
 
-            var valtForemalHemma = MatchListaHemma.SelectedItem as LagForemal;
-            var valtForemalBorta = MatchListaBorta.SelectedItem as LagForemal;
+            //var valtForemalHemma = Hemmalag.SelectedItem as LagForemal;
+            //var valtForemalBorta = Bortalag.SelectedItem as LagForemal;
 
-            if (valtForemalHemma != null && valtForemalBorta != null)
-            {
-                var datum = MatchDag.Date.DateTime.Date; // Endast datumdelen
-                var tid = MatchStart.Time;
+            //if (valtForemalHemma != null && valtForemalBorta != null)
+            //{
+            //    var datum = MatchDag.Date.DateTime.Date; // Endast datumdelen
+            //    var tid = MatchStart.Time;
 
-                tillagdaMatcher.Add(new MatchForemal
-                {
-                    HemmaLagFlagga = valtForemalHemma.LagFlagga,
-                    HemmaLag = valtForemalHemma.Lag,
-                    BortaLagFlagga = valtForemalBorta.LagFlagga,
-                    BortaLag = valtForemalBorta.Lag,
-                    Datum = datum,
-                    Tid = tid
-                });
-            }
+            //    tillagdaMatcher.Add(new MatchForemal
+            //    {
+            //        HemmaLagFlagga = valtForemalHemma.LagFlagga,
+            //        HemmaLag = valtForemalHemma.Lag,
+            //        BortaLagFlagga = valtForemalBorta.LagFlagga,
+            //        BortaLag = valtForemalBorta.Lag,
+            //        Datum = datum,
+            //        Tid = tid
+            //    });
+            //}
         }
 
         private DateTime GetSelectedDateTime()
@@ -123,10 +174,11 @@ namespace Familjefejden
 
         private async void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            foreach(Match match in matcherAttLaggaTill)
-            {
-                await jsonService.LaggTillMatchAsync(match);
-            }
+            //foreach(Match match in matcherAttLaggaTill)
+            //{
+            //    await jsonService.LaggTillMatchAsync(match);
+            //}
+
             Frame.Navigate(typeof(MainPage));
         }
 
