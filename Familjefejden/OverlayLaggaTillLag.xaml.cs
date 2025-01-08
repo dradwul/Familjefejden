@@ -37,7 +37,7 @@ namespace Familjefejden
             TillagdaLag.ItemsSource = tillagdaLag;
         }
 
-        private void OverlayLaggaTillLag_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void OverlayLaggaTillLag_Loaded(object sender, RoutedEventArgs e)
         {
             var bildText = new List<LagForemal>
             {
@@ -55,14 +55,16 @@ namespace Familjefejden
                 new LagForemal { LagFlagga = "ms-appx:///Assets/Austria.png", Lag = "Österrike" }
             };
             LagLista.ItemsSource = bildText;
+
+            TurneringNamn.Text = await jsonService.HamtaTurneringsnamnFranId(1);
         }
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(OverlayNyaSpelare));
+            Frame.Navigate(typeof(OverlayNyTurnering));
         }
 
-        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        private void NastaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(OverlaySpelschema));
         }
@@ -84,9 +86,17 @@ namespace Familjefejden
                 }
                 else
                 {
-                    Lag nyttLag = turneringService.SkapaLag(valtForemal.Lag);
-                    await jsonService.LaggTillLagAsync(nyttLag);
-                    tillagdaLag.Add(new LagForemal { LagFlagga = valtForemal.LagFlagga, Lag = valtForemal.Lag });
+                    if (await jsonService.KontrolleraOmLagFinns(valtForemal.Text))
+                    {
+                        var dialog = new MessageDialog("Laget finns redan tillagt i databas.");
+                        await dialog.ShowAsync();
+                    }
+                    else
+                    {
+                        Lag nyttLag = turneringService.SkapaLag(valtForemal.Text);
+                        await jsonService.LaggTillLagAsync(nyttLag);
+                        tillagdaLag.Add(new LagItem { LagFlagga = valtForemal.FlagBild, Lag = valtForemal.Text });
+                    }
                 }
             }
         }

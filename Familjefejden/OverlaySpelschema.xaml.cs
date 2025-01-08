@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -31,13 +32,14 @@ namespace Familjefejden
         public OverlaySpelschema()
         {
             this.InitializeComponent();
+            HamtaAllaLagFranDatabas();
             this.Loaded += OverlaySpelschema_Loaded;
 
             tillagdaMatcher = new ObservableCollection<MatchForemal>();
             ListaSpelschema.ItemsSource = tillagdaMatcher;
         }
 
-        private void OverlaySpelschema_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OverlaySpelschema_Loaded(object sender, RoutedEventArgs e)
         {
             var lagBildHemma = new List<LagForemal>
             {
@@ -75,7 +77,7 @@ namespace Familjefejden
             Frame.Navigate(typeof(OverlayLaggaTillLag));
         }
 
-        private void LaggTillMatchKnapp_Klickad(object sender, RoutedEventArgs e)
+        private async void LaggTillMatchKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             //TODO: Logik för att lägga till lag i listview
             //TODO: Logik för att spara match i json
@@ -111,8 +113,20 @@ namespace Familjefejden
             }
         }
 
-        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        private DateTime GetSelectedDateTime()
         {
+            var datum = MatchDag.Date.DateTime;
+            var tid = MatchStart.Time;
+
+            return new DateTime(datum.Year, datum.Month, datum.Day, tid.Hours, tid.Minutes, 0, DateTimeKind.Utc);
+        }
+
+        private async void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            foreach(Match match in matcherAttLaggaTill)
+            {
+                await jsonService.LaggTillMatchAsync(match);
+            }
             Frame.Navigate(typeof(MainPage));
         }
 

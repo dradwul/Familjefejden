@@ -15,7 +15,7 @@ namespace Familjefejden.Service
     public class JsonService
     {
 
-//////////////////// Filhantering
+        //////////////////// Filhantering
         private async Task SparaTillFilAsync(string sektionNamn, object data)
         {
             var allData = await LaddaAllDataFranFilAsync();
@@ -89,7 +89,7 @@ namespace Familjefejden.Service
             // Hitta rätt sektion
             foreach (var objekt in data)
             {
-                if(objekt.ContainsKey(sektionNamn))
+                if (objekt.ContainsKey(sektionNamn))
                 {
                     return objekt[sektionNamn];
                 }
@@ -120,6 +120,20 @@ namespace Familjefejden.Service
                 gruppObjekt["Anvandare"] = JArray.FromObject(nyGrupp.Medlemmar);
                 await SparaTillFilAsync("Grupp", gruppObjekt);
                 return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> KollaOmDetRedanFinnsEnGrupp()
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+
+            if (gruppData is JObject gruppObjekt)
+            {
+                if (!string.IsNullOrEmpty((string)gruppObjekt["Namn"]))
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -262,15 +276,15 @@ namespace Familjefejden.Service
         public async Task<bool> LaggTillBetAsync(int anvandareId, Bet nyttBet)
         {
             var gruppData = await HamtaSpecifikDataAsync("Grupp");
-            if(gruppData is JObject gruppObjekt)
+            if (gruppData is JObject gruppObjekt)
             {
                 var anvandareLista = gruppObjekt["Anvandare"] as JArray;
-                if(anvandareLista != null)
+                if (anvandareLista != null)
                 {
                     var anvandare = anvandareLista
                         .FirstOrDefault(a => (int)a["Id"] == anvandareId) as JObject;
 
-                    if(anvandare != null)
+                    if (anvandare != null)
                     {
                         var anvandarensBets = anvandare["Bets"] as JArray;
 
@@ -348,7 +362,6 @@ namespace Familjefejden.Service
         }
 
 
-        // EJ TESTAD: HÄMTA LAGNAMN FRÅN LAGID
         public async Task<string> HamtaLagnamnFranLagId(int lagId)
         {
             var turneringData = await HamtaSpecifikDataAsync("Turnering");
@@ -369,6 +382,99 @@ namespace Familjefejden.Service
                 }
             }
             return null;
+        }
+
+        public async Task<int> HamtaLagIdFranNamn(string lagnamn)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+
+            if (turneringData is JObject turneringObjekt)
+            {
+                var lagLista = turneringObjekt["Lag"] as JArray;
+
+                if (lagLista != null)
+                {
+                    foreach (var lag in lagLista)
+                    {
+                        if ((string)lag["Namn"] == lagnamn)
+                        {
+                            return (int)lag["Id"];
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
+        public async Task<bool> KontrolleraOmLagFinns(string lagnamn)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+
+            if (turneringData is JObject turneringObjekt)
+            {
+                var lagLista = turneringObjekt["Lag"] as JArray;
+                if (lagLista != null)
+                {
+                    return lagLista.Any(lag => (string)lag["Namn"] == lagnamn);
+                }
+            }
+            return false;
+        }
+
+        public async Task<string> HamtaTurneringsnamnFranId(int turneringId)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+
+            if (turneringData is JObject turneringObjekt)
+            {
+                if ((int)turneringObjekt["Id"] == turneringId)
+                {
+                    return (string)turneringObjekt["Namn"];
+                }
+            }
+            return null;
+        }
+
+        public async Task<string> HamtaGruppnamnFranId(int gruppId)
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+
+            if (gruppData is JObject gruppObjekt)
+            {
+                if ((int)gruppObjekt["Id"] == gruppId)
+                {
+                    return (string)gruppObjekt["Namn"];
+                }
+            }
+            return null;
+        }
+
+        public async Task<List<Lag>> HamtaAllaLagAsync()
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+            if (turneringData is JObject turneringObjekt)
+            {
+                var lagLista = turneringObjekt["Lag"] as JArray;
+                if (lagLista != null)
+                {
+                    return lagLista.Select(lag => lag.ToObject<Lag>()).ToList();
+                }
+            }
+            return new List<Lag>();
+        }
+
+        public async Task<List<Anvandare>> HamtaAllaAnvandareAsync()
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+            if (gruppData is JObject gruppObjekt)
+            {
+                var anvandareLista = gruppObjekt["Anvandare"] as JArray;
+                if (anvandareLista != null)
+                {
+                    return anvandareLista.Select(anvandare => anvandare.ToObject<Anvandare>()).ToList();
+                }
+            }
+            return new List<Anvandare>();
         }
     }
 }

@@ -20,7 +20,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Foreground="#8A8A8A" FontSize="22" Margin="10,15,0,0">SKAPA NY GRUPP</TextBlock>
+            <TextBlock Foreground="#8A8A8A" FontSize="22" Margin="10,15,0,0">SKAPA NY TURNERING</TextBlock>
             <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,10" Click="TillbakaKnapp_Klickad"
                     Height="30" Width="80" Background="#36BCDA" CornerRadius="5">Tillbaka</Button>
         </Grid>
@@ -29,15 +29,15 @@
         <Grid x:Name="BottenMeny" Grid.Row="1">
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,10">
-                <ComboBox x:Name="TurneringsLista" Height="30" Width="130" PlaceholderText="Välj turnering">
+                <ComboBox x:Name="TurneringsLista" Height="30" Width="130" PlaceholderText="Välj turnering" SelectionChanged="TurneringsLista_SelectionChanged">
                     <ComboBoxItem Content="JVM"/>
                     <!-- Fixa så man kan välja mellan olika turneringar med hjälp av ID? -->
-                    <ComboBoxItem Content="A-VM (NYI)"/>
+                    <ComboBoxItem Content="A-VM (NYI)" IsEnabled="False"/>
                 </ComboBox>
             </StackPanel>
 
-            <Button Height="30" Width="100" CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20" 
-                    Background="#0BE400" Click="AccepteraKnapp_Klickad">Acceptera</Button>
+            <Button x:Name="NastaKnapp" Height="30" Width="100" CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20" 
+                    Background="#0BE400" Click="NastaKnapp_Klickad" IsEnabled="False">Nästa ➔</Button>
         </Grid>
 
     </Grid>

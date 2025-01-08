@@ -42,7 +42,7 @@
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,410">
                 <TextBlock HorizontalAlignment="Center">Hemma</TextBlock>
-                <ComboBox x:Name="MatchListaHemma" BorderThickness="0" PlaceholderText="Välj Lag">
+                <ComboBox x:Name="Hemmalag" BorderThickness="0" PlaceholderText="Välj Lag">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -58,7 +58,7 @@
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,350">
                 <TextBlock HorizontalAlignment="Center">Borta</TextBlock>
-                <ComboBox x:Name="MatchListaBorta" BorderThickness="0" PlaceholderText="Välj Lag">
+                <ComboBox x:Name="Bortalag" BorderThickness="0" PlaceholderText="Välj Lag">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
