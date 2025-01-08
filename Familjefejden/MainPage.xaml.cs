@@ -165,5 +165,10 @@ namespace Familjefejden
             var hjalpDialog = new OverlayReglerPoang();
             await hjalpDialog.ShowAsync();
         }
+
+        private void RattaKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OverlayRattaMatcher));
+        }
     }
 }
