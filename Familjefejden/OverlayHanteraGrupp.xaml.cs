@@ -36,11 +36,13 @@ namespace Familjefejden
         private async void LaddaInBefintligData()
         {
             finnsGrupp = await jsonService.KollaOmDetRedanFinnsEnGrupp();
+            TaBortGruppKnapp.Visibility = Visibility.Collapsed;
             if (finnsGrupp)
             {
                 GruppnamnLabel.Text = "Redigerar grupp";
                 NyGrupp.Text = await jsonService.HamtaGruppnamnFranId(1);
                 NyGrupp.IsEnabled = false;
+                TaBortGruppKnapp.Visibility = Visibility.Visible;
             }
 
             spelarLista = await jsonService.HamtaAllaAnvandareAsync();
@@ -106,7 +108,8 @@ namespace Familjefejden
                 {
                     Title = "Fel",
                     Content = "Kunde inte skapa grupp.",
-                    CloseButtonText = "Ok"
+                    CloseButtonText = "Ok",
+                    CornerRadius = new CornerRadius(10)
                 };
                 await dialog.ShowAsync();
             }
@@ -129,6 +132,47 @@ namespace Familjefejden
             }   
         }
 
+        private async void TaBortGrupp_Klickad(object sender, RoutedEventArgs e)
+        {
+            bool finnsGrupp = await jsonService.KollaOmDetRedanFinnsEnGrupp();
+            int gruppId = 1; // Statiskt för tillfället
+
+            if (finnsGrupp)
+            {
+                string gruppNamn = await jsonService.HamtaGruppnamnFranId(gruppId);
+                var bekraftaDialog = new ContentDialog
+                {
+                    Title = "Bekräfta borttagning",
+                    Content = $"Är du säker på att du vill ta bort gruppen {gruppNamn}?",
+                    PrimaryButtonText = "Ja",
+                    CloseButtonText = "Avbryt",
+                    DefaultButton = ContentDialogButton.Close,
+                    CornerRadius = new CornerRadius(10)
+                };
+
+                var result = await bekraftaDialog.ShowAsync();
+                if (result == ContentDialogResult.Primary)
+                {
+                    bool borttagen = await jsonService.TaBortGruppAsync(gruppId);
+                    if (borttagen)
+                    {
+                        Frame.Navigate(typeof(MainPage));
+                    }
+                    else
+                    {
+                        var errorDialog = new ContentDialog
+                        {
+                            Title = "Fel",
+                            Content = "Kunde inte ta bort gruppen.",
+                            CloseButtonText = "Ok",
+                            CornerRadius = new CornerRadius(10)
+                        };
+                        await errorDialog.ShowAsync();
+                    }
+                }
+            }
+        }
+
         private async void TaBortSpelare_Klickad(object sender, RoutedEventArgs e)
         {
             // TODO: Om tillagd spelare enbart är tillagd i lokal lista och inte json
@@ -148,7 +192,8 @@ namespace Familjefejden
                         Content = $"Är du säker på att du vill ta bort {spelareAttTaBort.Namn}?",
                         PrimaryButtonText = "Ja",
                         CloseButtonText = "Avbryt",
-                        DefaultButton = ContentDialogButton.Close
+                        DefaultButton = ContentDialogButton.Close,
+                        CornerRadius = new CornerRadius(10)
                     };
 
                     var result = await bekraftaDialog.ShowAsync();

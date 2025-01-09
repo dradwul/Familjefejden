@@ -126,6 +126,24 @@ namespace Familjefejden.Service
             return false;
         }
 
+        public async Task<bool> TaBortGruppAsync(int gruppId)
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+            if (gruppData is JObject gruppObjekt)
+            {
+                if (!string.IsNullOrEmpty((string)gruppObjekt["Namn"]))
+                {
+
+                    gruppObjekt.RemoveAll();
+
+                    await SparaTillFilAsync("Grupp", gruppObjekt);
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
         public async Task<bool> KollaOmDetRedanFinnsEnGrupp()
         {
             var gruppData = await HamtaSpecifikDataAsync("Grupp");
