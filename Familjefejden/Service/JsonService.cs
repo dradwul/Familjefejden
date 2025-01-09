@@ -503,5 +503,19 @@ namespace Familjefejden.Service
             }
             return new List<Anvandare>();
         }
+
+        public async Task<List<Match>> HamtaAllaMatcherAsync()
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+            if (turneringData is JObject turneringObjekt)
+            {
+                var matcherLista = turneringObjekt["Matcher"] as JArray;
+                if (matcherLista != null)
+                {
+                    return matcherLista.Select(match => match.ToObject<Match>()).ToList();
+                }
+            }
+            return new List<Match>();
+        }
     }
 }

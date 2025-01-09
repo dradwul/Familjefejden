@@ -36,7 +36,7 @@ namespace Familjefejden
             LaddaData(); //Dummy metod
         }
         // DUMMY METOD för att fylle RESULTAT och KOMMANDE listorna med matcher
-        private void LaddaData()
+        private async void LaddaData()
         {
             var allaMatcher = DummyData.GetDummyMatches();
             var avslutadeMatcher = DummyData.GetFinishedMatches();
