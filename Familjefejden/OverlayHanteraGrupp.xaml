@@ -46,10 +46,11 @@
                     <TextBox x:Name="NyGrupp" PlaceholderText="Ange gruppnamn" Height="40"  Margin="0,0,10,0" BorderThickness="0" SelectionChanged="NyGrupp_SelectionChanged"/>
 
                     <FontIcon Name="KollaGruppInputIkon" Grid.Column="1" FontFamily="Segoe MDL2 Assets"  Glyph="&#xE8FB;" Foreground="#8A8A8A"/>
-                    <Button Name="TaBortGruppKnapp" Click="TaBortGrupp_Klickad" Visibility="Collapsed" HorizontalAlignment="Right" Margin="0,0,15,0" CornerRadius="3" Background="#EA3737">
-                        <StackPanel Orientation="Horizontal">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" FontSize="18" Margin="0,0,5,0"/>
-                            <TextBlock Text="Ta bort grupp"/>
+
+                    <Button Name="TaBortGruppKnapp" PointerEntered="TaBortGruppKnapp_PointerEntered" PointerExited="TaBortGruppKnapp_PointerExited" Width="40" Click="TaBortGrupp_Klickad" Visibility="Collapsed" HorizontalAlignment="Right" Margin="0,0,15,0" CornerRadius="3" Background="#EA3737">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" FontSize="18" Margin="0,0,3,0"/>
+                            <TextBlock Name="TaBortGruppText" Text="Ta bort grupp" Visibility="Collapsed"/>
                         </StackPanel>
                     </Button>
                 </Grid>

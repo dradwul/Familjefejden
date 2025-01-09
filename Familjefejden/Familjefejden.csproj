@@ -183,6 +183,7 @@
     <Content Include="Assets\Switzerland.png" />
     <Content Include="Assets\USA.png" />
     <Content Include="Assets\WelcomeDisplay.png" />
+    <Content Include="Assets\xWelcomeDisplay.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>

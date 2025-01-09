@@ -104,14 +104,17 @@ namespace Familjefejden
             }
             else
             {
-                var dialog = new ContentDialog
+                if (string.IsNullOrEmpty(NyGrupp.Text.Trim()))
                 {
-                    Title = "Fel",
-                    Content = "Kunde inte skapa grupp.",
-                    CloseButtonText = "Ok",
-                    CornerRadius = new CornerRadius(10)
-                };
-                await dialog.ShowAsync();
+                    var dialog = new ContentDialog
+                    {
+                        Title = "Fel",
+                        Content = "Vänligen ange namn på grupp",
+                        CloseButtonText = "Ok",
+                        CornerRadius = new CornerRadius(10)
+                    };
+                    await dialog.ShowAsync();
+                }
             }
         }
 
@@ -175,9 +178,6 @@ namespace Familjefejden
 
         private async void TaBortSpelare_Klickad(object sender, RoutedEventArgs e)
         {
-            // TODO: Om tillagd spelare enbart är tillagd i lokal lista och inte json
-            // fuckas det upp. Ändra här så den inte går via json om den bara finns lokalt.
-
             var button = sender as Button;
             if (button != null && button.Tag != null)
             {
@@ -200,27 +200,44 @@ namespace Familjefejden
 
                     if (result == ContentDialogResult.Primary)
                     {
-                        bool borttagen = await jsonService.TaBortAnvandareIGruppAsync(spelarId);
-
-                        if (borttagen)
+                        if (nyaSpelareAttSpara.Contains(spelareAttTaBort))
                         {
-                            spelarLista.Remove(spelareAttTaBort);
-                            SpelarListView.ItemsSource = null;
-                            SpelarListView.ItemsSource = spelarLista;
+                            nyaSpelareAttSpara.Remove(spelareAttTaBort);
                         }
                         else
                         {
-                            var errorDialog = new ContentDialog
+                            bool borttagen = await jsonService.TaBortAnvandareIGruppAsync(spelarId);
+
+                            if (!borttagen)
                             {
-                                Title = "Fel",
-                                Content = "Kunde inte ta bort spelaren.",
-                                CloseButtonText = "Ok"
-                            };
-                            await errorDialog.ShowAsync();
+                                var errorDialog = new ContentDialog
+                                {
+                                    Title = "Fel",
+                                    Content = "Kunde inte ta bort spelaren från gruppen i JSON.",
+                                    CloseButtonText = "Ok"
+                                };
+                                await errorDialog.ShowAsync();
+                                return;
+                            }
                         }
+                        spelarLista.Remove(spelareAttTaBort);
+                        SpelarListView.ItemsSource = null;
+                        SpelarListView.ItemsSource = spelarLista;
                     }
                 }
             }
+        }
+
+        private void TaBortGruppKnapp_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            TaBortGruppKnapp.Width = 140;
+            TaBortGruppText.Visibility = Visibility.Visible;
+        }
+
+        private void TaBortGruppKnapp_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            TaBortGruppKnapp.Width = 40;
+            TaBortGruppText.Visibility = Visibility.Collapsed;
         }
     }
 }
