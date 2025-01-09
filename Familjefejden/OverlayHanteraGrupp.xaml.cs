@@ -131,6 +131,9 @@ namespace Familjefejden
 
         private async void TaBortSpelare_Klickad(object sender, RoutedEventArgs e)
         {
+            // TODO: Om tillagd spelare enbart är tillagd i lokal lista och inte json
+            // fuckas det upp. Ändra här så den inte går via json om den bara finns lokalt.
+
             var button = sender as Button;
             if (button != null && button.Tag != null)
             {
