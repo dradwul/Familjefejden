@@ -47,12 +47,37 @@
 
                     <FontIcon Name="KollaGruppInputIkon" Grid.Column="1" FontFamily="Segoe MDL2 Assets"  Glyph="&#xE8FB;" Foreground="#8A8A8A"/>
 
-                    <Button Name="TaBortGruppKnapp" PointerEntered="TaBortGruppKnapp_PointerEntered" PointerExited="TaBortGruppKnapp_PointerExited" Width="40" Click="TaBortGrupp_Klickad" Visibility="Collapsed" HorizontalAlignment="Right" Margin="0,0,15,0" CornerRadius="3" Background="#EA3737">
+                    <Button Name="TaBortGruppKnapp" PointerEntered="TaBortGruppKnapp_PointerEntered" PointerExited="TaBortGruppKnapp_PointerExited"  Width="40" Click="TaBortGrupp_Klickad" Visibility="Collapsed" HorizontalAlignment="Right" Margin="0,0,15,0"  CornerRadius="3" Background="#EA3737">
+                        <Button.Resources>
+                            <Storyboard x:Name="ExpandButtonStoryboard">
+                                <DoubleAnimation Storyboard.TargetName="TaBortGruppKnapp" Storyboard.TargetProperty="Width" To="140" Duration="0:0:0.1" EnableDependentAnimation="True"/>
+                            </Storyboard>
+                            <Storyboard x:Name="CollapseButtonStoryboard">
+                                <DoubleAnimation Storyboard.TargetName="TaBortGruppKnapp" Storyboard.TargetProperty="Width" To="40" Duration="0:0:0.2" EnableDependentAnimation="True"/>
+                            </Storyboard>
+                        </Button.Resources>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="TaBortGruppKnapp" Storyboard.TargetProperty="Width" To="140" Duration="0:0:0.3" EnableDependentAnimation="True"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="TaBortGruppKnapp" Storyboard.TargetProperty="Width" To="40" Duration="0:0:0.3" EnableDependentAnimation="True"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" FontSize="18" Margin="0,0,3,0"/>
                             <TextBlock Name="TaBortGruppText" Text="Ta bort grupp" Visibility="Collapsed"/>
                         </StackPanel>
                     </Button>
+
                 </Grid>
                 
             </StackPanel>

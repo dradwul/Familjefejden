@@ -230,13 +230,13 @@ namespace Familjefejden
 
         private void TaBortGruppKnapp_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            TaBortGruppKnapp.Width = 140;
+            ExpandButtonStoryboard.Begin();
             TaBortGruppText.Visibility = Visibility.Visible;
         }
 
         private void TaBortGruppKnapp_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            TaBortGruppKnapp.Width = 40;
+            CollapseButtonStoryboard.Begin();
             TaBortGruppText.Visibility = Visibility.Collapsed;
         }
     }
