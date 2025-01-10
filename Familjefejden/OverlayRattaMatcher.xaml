@@ -29,8 +29,12 @@
                 <RowDefinition Height="680"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
-                <ComboBox x:Name="RattaMatcherLista" Height="30" Width="120" BorderThickness="0" PlaceholderText="Välj Match">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                        VerticalAlignment="Top" Margin="0,10,0,0">
+                
+                <ComboBox x:Name="RattaMatcherLista" Height="30" Width="120"
+                          BorderThickness="0" PlaceholderText="Välj Match"
+                          SelectionChanged="RattaMatcherLista_SelectionChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
@@ -38,11 +42,16 @@
                                 <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
                                 <!--<Image Source="{Binding Team1Flaggor}" Width="150" Height="100" Grid.Column="0" Margin="0,0,0,10"/>-->
 
-                                <TextBlock Text="{Binding HemmalagId}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" 
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 
-                                <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                           
+                                <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" 
+                                           HorizontalAlignment="Center"/>
+                         
 
-                                <TextBlock Text="{Binding BortalagId}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" 
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 
                                 <!--<Image Source="{Binding Team2Flaggor}" Width="150" Height="100" Grid.Column="2" Margin="0,0,0,10"/>-->
                             </StackPanel>
@@ -63,25 +72,62 @@
                                 </Grid.ColumnDefinitions>
                                 <!--DUMMYVÄRDEN HÄR NEDANFÖR-->
                                 <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
-                                <Image Source="{Binding Team1Flaggor}" Width="150" Height="100" Grid.Column="0" Margin="0,0,0,10"/>
+                                <Image Source="{Binding HemmalagFlagga}" Width="150" Height="100" 
+                                       Grid.Column="0" Margin="0,0,0,10"/>
 
-                                <TextBlock Text="{Binding HemmalagId}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" 
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 
-                                <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Datum}" Grid.Column="1" 
+                                            VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                            Margin="0,0,0,35"/>
+                                <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" 
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Tid}" Grid.Column="1" 
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                           Margin="0,40,0,0" FontSize="16"/>
 
-                                <TextBlock Text="{Binding BortalagId}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" 
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 
 
-                                <Image Source="{Binding Team2Flaggor}" Width="150" Height="100" Grid.Column="2" Margin="0,0,0,10"/>
+                                <Image Source="{Binding BortalagFlagga}" Width="150" Height="100" 
+                                       Grid.Column="2" Margin="0,0,0,10"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
 
+            <Grid Background="#555555" Height="50" Width="500" Margin="0,0,0,250" CornerRadius="5">
 
-            <Button Grid.Row="1" Height="30" Width="100" CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20" 
-                    Background="#0BE400" Click="AccepteraKnapp_Klickad">Acceptera</Button>
+                <TextBox Text="{Binding RattaHemmalag}" Height="40" Width="40"
+                                      VerticalAlignment="Center" HorizontalAlignment="Left"
+                                      Background="White" BorderThickness="0" Margin="0,0,0,0" 
+                                      Foreground="#222222" FontSize="18" FontWeight="Bold"
+                                      />
+
+                <TextBlock Text="-" Foreground="White" VerticalAlignment="Center" 
+                                        HorizontalAlignment="Center" Margin="0,0,0,0" 
+                                        FontSize="36" FontWeight="Bold"/>
+
+                <TextBox Text="{Binding RattaBortalag}" Height="40" Width="40" 
+                                      Background="White" BorderThickness="0" Margin="0,0,0,0" 
+                                      Foreground="#222222" FontSize="18" FontWeight="Bold"
+                                      VerticalAlignment="Center" HorizontalAlignment="Right"
+                                      />
+            </Grid>
+
+            <Button Content="Rätta Match" Height="50" Width="120"
+                                        HorizontalAlignment="Center" Margin="0,0,0,100"
+                                        Click="RattaMatchKnapp_Klickad" Background="#B7FFAD"
+                                        Foreground="#555555" CornerRadius="5" FontSize="12"                                        
+                                        />
+
+            <Button Content="Acceptera" Grid.Row="1" Height="30" Width="100" 
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                    Margin="0,0,20,20" CornerRadius="5" 
+                    Background="#0BE400" Click="AccepteraKnapp_Klickad"/>
         </Grid>
 
     </Grid>

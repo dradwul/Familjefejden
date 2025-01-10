@@ -1,4 +1,5 @@
-﻿using Klasser;
+﻿using Familjefejden.Service;
+using Klasser;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,32 +21,38 @@ using static Familjefejden.OverlaySpelschema;
 
 namespace Familjefejden
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class OverlayRattaMatcher : Page
-    {        
+    {
+        JsonService jsonService = new JsonService();
+
         public OverlayRattaMatcher()
         {
             this.InitializeComponent();
-            LaddaDummyData();            
+            HamtaInMatcher();            
         }
 
-        private void LaddaDummyData()
+        private async void HamtaInMatcher()
         {
-            var matcher = DummyData.GetDummyMatches();
-            var flaggor = DummyData.GetCountryFlags();            
+            var matcher = await jsonService.HamtaAllaMatcherAsync();
+            var flaggor = LagForemal.HamtaLagForemal();
 
             var matchViewModels = new List<dynamic>();
             foreach (var match in matcher)
             {
+                var hemmalagNamn = await jsonService.HamtaLagnamnFranLagId(match.HemmalagId);
+                var bortalagNamn = await jsonService.HamtaLagnamnFranLagId(match.BortalagId);
+                var hemmalagFlagga = flaggor.FirstOrDefault(l => l.Lag == hemmalagNamn)?.LagFlagga;
+                var bortalagFlagga = flaggor.FirstOrDefault(l => l.Lag == bortalagNamn)?.LagFlagga;
+
                 matchViewModels.Add(new
                 {
-                    match.HemmalagId,
-                    match.BortalagId,
-                    Team1Flaggor = flaggor[match.HemmalagId],
-                    Team2Flaggor = flaggor[match.BortalagId],
-                    match.Id
+                    HemmalagNamn = hemmalagNamn,
+                    BortalagNamn = bortalagNamn,
+                    HemmalagFlagga = hemmalagFlagga,
+                    BortalagFlagga = bortalagFlagga,
+                    match.Id,
+                    Datum = match.Date.ToString("dd/MM/yyyy"),
+                    Tid = match.Date.ToString("HH:mm"),
                 });
             }
 
@@ -59,6 +66,21 @@ namespace Familjefejden
         private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
+        }
+
+        private void RattaMatcherLista_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var valdMatch = RattaMatcherLista.SelectedItem;
+            if (valdMatch != null)
+            {
+                VisaMatch.ItemsSource = new List<dynamic> { valdMatch };                
+                RattaMatcherLista.SelectedItem = null;
+            }
+        }
+
+        private void RattaMatchKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+         
         }
     }
 }
