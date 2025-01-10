@@ -88,63 +88,6 @@ namespace Familjefejden
             await topplistaPopup.ShowAsync();
         }
 
-        private void AvslutaKnapp_Klickad(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Exit();
-        }
-
-
-
-        // // //  TESTKNAPPAR:
-        private async void TestaLaggaTillGrupp_Klickad(object sender, RoutedEventArgs e)
-        {
-            Grupp nyGrupp = gruppService.SkapaGrupp("OOP2-Familjefejden");
-            await jsonService.LaggTillNyGruppAsync(nyGrupp);
-        }
-
-        private async void TestaLaggaTillTurnering_Klickad(object sender, RoutedEventArgs e)
-        {
-            Turnering nyTurnering = turneringService.SkapaTurnering("JVM2025");
-            await jsonService.LaggaTillNyTurneringAsync(nyTurnering);
-        }
-
-        private async void TestaLaggaTillAnvandare_Klickad(object sender, RoutedEventArgs e)
-        {
-            Anvandare nyAnvandare = gruppService.SkapaAnvandare("TestAnvändare");
-            await jsonService.LaggTillAnvandareIGruppAsync(nyAnvandare);
-        }
-
-        private async void TestaLaggaTillLag_Klickad(object sender, RoutedEventArgs e)
-        {
-            Lag nyttLag = turneringService.SkapaLag("TestLag");
-            await jsonService.LaggTillLagAsync(nyttLag);
-        }
-
-        private async void TestaLaggaTillMatch_Klickad(object sender, RoutedEventArgs e)
-        {
-            DateTime datum = DateTime.UtcNow;
-            Random random = new Random();
-            Match nyMatch = turneringService.SkapaMatch(datum, random.Next(0,10), random.Next(0, 10));
-            await jsonService.LaggTillMatchAsync(nyMatch);
-        }
-
-        private async void TestaLaggaTillBet_Klickad(object sender, RoutedEventArgs e)
-        {
-            // Testar felhantering med slumpade IDn för användare och match
-            Random random = new Random();
-            int anvandareId = random.Next(0, 6);
-            int matchId = random.Next(0, 10); 
-            int hemmaMal = random.Next(0, 8);
-            int bortaMal = random.Next(0, 8);
-            Debug.WriteLine($"[anvId:{anvandareId}|matchId:{matchId}|resultat:{hemmaMal}-{bortaMal}]");
-            Bet nyttBet = gruppService.LaggBetPaMatch(matchId, hemmaMal, bortaMal);
-            await jsonService.LaggTillBetAsync(anvandareId, nyttBet);
-        }
-
-        private async void LaggTillPoangForAnvandarIdEtt_Klickad(object sender, RoutedEventArgs e)
-        {
-            await jsonService.UppdateraPoangForAnvandareAsync(1, 25);
-        }
         private void NyGrupp_Klickad(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(OverlayHanteraGrupp));
@@ -169,6 +112,11 @@ namespace Familjefejden
         private void RattaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(OverlayRattaMatcher));
+        }
+
+        private void AvslutaKnapp_Klickad(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Exit();
         }
     }
 }
