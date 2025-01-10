@@ -172,13 +172,8 @@ namespace Familjefejden
             return new DateTime(datum.Year, datum.Month, datum.Day, tid.Hours, tid.Minutes, 0, DateTimeKind.Utc);
         }
 
-        private async void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            //foreach(Match match in matcherAttLaggaTill)
-            //{
-            //    await jsonService.LaggTillMatchAsync(match);
-            //}
-
             Frame.Navigate(typeof(MainPage));
         }
 

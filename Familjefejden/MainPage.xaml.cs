@@ -28,55 +28,66 @@ namespace Familjefejden
         JsonService jsonService = new JsonService();
         GruppService gruppService = new GruppService();
         TurneringService turneringService = new TurneringService();
+        List<Match> allaMatcher = new List<Match>();
 
         public MainPage()
         {
             this.InitializeComponent();
             HamtaDataAsync();
-            LaddaData(); //Dummy metod
+            LaddaDataAsync();
         }
-        // DUMMY METOD för att fylle RESULTAT och KOMMANDE listorna med matcher
-        private async void LaddaData()
+
+        private async void LaddaDataAsync()
         {
-            var allaMatcher = DummyData.GetDummyMatches();
-            var avslutadeMatcher = DummyData.GetFinishedMatches();
-            var flaggor = DummyData.GetCountryFlags();
+            allaMatcher = await jsonService.HamtaAllaMatcherAsync();
+            var matchObjekt = new List<dynamic>();
 
-            var resultatMatcher = avslutadeMatcher
-                .Where(m => m.Date < DateTime.Now)
-                .OrderByDescending(m => m.Date.Date)
-                .ThenBy(m => m.Date.TimeOfDay)
-                .ToList();
-
-            var kommandeMatcher = allaMatcher
-                .Where(m => m.Date >= DateTime.Now)
-                .OrderBy(m => m.Date.Date)
-                .ThenBy(m => m.Date.TimeOfDay)
-                .ToList();
-
-            ResultatMatcher.ItemsSource = resultatMatcher.Select(match => new
+            foreach (var match in allaMatcher)
             {
-                match.HemmalagId,
-                match.BortalagId,
-                Team1Flaggor = flaggor[match.HemmalagId],
-                Team2Flaggor = flaggor[match.BortalagId],                
-                Datum = match.Date.ToString("dd/MM/yyyy"),
-                Tid = match.Date.ToString("HH:mm"),
-                ResultatHemma = $"{match.HemmalagMal}",
-                ResultatBorta = $"{match.BortalagMal}"
-            }).ToList();
+                var hemmalagNamn = await jsonService.HamtaLagnamnFranLagId(match.HemmalagId);
+                var hemmalagFlagga = LagForemal.HamtaLagForemal()
+                    .FirstOrDefault(l => l.Lag == hemmalagNamn)?.LagFlagga;
 
-            KommandeMatcher.ItemsSource = kommandeMatcher.Select(match => new
+                var bortalagNamn = await jsonService.HamtaLagnamnFranLagId(match.BortalagId);
+                var bortalagFlagga = LagForemal.HamtaLagForemal()
+                    .FirstOrDefault(l => l.Lag == bortalagNamn)?.LagFlagga;
+
+                matchObjekt.Add(new
+                {
+                    HemmalagNamn = hemmalagNamn,
+                    BortalagNamn = bortalagNamn,
+                    HemmalagFlagga = hemmalagFlagga,
+                    BortalagFlagga = bortalagFlagga,
+                    HemmalagMal = match.HemmalagMal,
+                    BortalagMal = match.BortalagMal,
+                    match.Id,
+                    MatchDatum = match.Date,
+                    Datum = match.Date.ToString("dd/MM/yyyy"),
+                    Tid = match.Date.ToString("HH:mm")
+                });
+            }
+
+            var kommande = matchObjekt
+                .Where(m => m.MatchDatum >= DateTime.Today.Date)
+                .OrderBy(m => m.MatchDatum);
+
+            var resultat = matchObjekt
+                .Where(m => m.MatchDatum < DateTime.Today.Date)
+                .OrderByDescending(m => m.MatchDatum);
+
+            foreach (var match in kommande)
             {
-                match.HemmalagId,
-                match.BortalagId,
-                Team1Flaggor = flaggor[match.HemmalagId],
-                Team2Flaggor = flaggor[match.BortalagId],
-                Datum = match.Date.ToString("dd/MM/yyyy"),
-                Tid = match.Date.ToString("HH:mm")
-            }).ToList();
+                KommandeMatcher.Items.Add(match);
+            }
+
+            foreach (var match in resultat)
+            {
+                ResultatMatcher.Items.Add(match);
+            }
         }
 
+        // Denna metod skapar en lokal kopia av datafilen
+        // om den inte redan finns
         private async void HamtaDataAsync()
         {
             await jsonService.KopieraFilTillLokalMappAsync("dataFil.json");
