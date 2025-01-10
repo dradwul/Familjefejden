@@ -336,6 +336,32 @@ namespace Familjefejden.Service
             }
             return false;
         }
+
+        public async Task<Bet> HamtaBetForMatchAsync(int anvandareId, int matchId)
+        {
+            var gruppData = await HamtaSpecifikDataAsync("Grupp");
+            if (gruppData is JObject gruppObjekt)
+            {
+                var anvandareLista = gruppObjekt["Anvandare"] as JArray;
+                if (anvandareLista != null)
+                {
+                    var anvandare = anvandareLista
+                        .FirstOrDefault(a => (int)a["Id"] == anvandareId) as JObject;
+                    if (anvandare != null)
+                    {
+                        var anvandarensBets = anvandare["Bets"] as JArray;
+                        var anvandarensBet = anvandarensBets
+                            .FirstOrDefault(bet => (int)bet["MatchId"] == matchId) as JObject;
+                        if (anvandarensBet != null)
+                        {
+                            return anvandarensBet.ToObject<Bet>();
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
         // //////// GRUPP SLUTAR HÄR //////////
 
 

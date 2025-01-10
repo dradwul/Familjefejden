@@ -21,7 +21,7 @@ namespace Familjefejden
 {
     public sealed partial class OverlayBetVy : Page
     {
-        private List<Anvandare> spelare;
+        private List<Anvandare> allaSpelare;
         private JsonService jsonService = new JsonService();
         private List<Bet> nyaBets = new List<Bet>();
 
@@ -56,14 +56,18 @@ namespace Familjefejden
 
             MatchBettingLista.ItemsSource = matchViewModels;
         }
+
         private async void HamtaInSpelare()
         {
-            spelare = await jsonService.HamtaAllaAnvandareAsync();
-            SpelareBettingLista.ItemsSource = spelare.Select(s => new
+            allaSpelare = await jsonService.HamtaAllaAnvandareAsync();
+            var valdMatch = (VisaMatch.ItemsSource as IEnumerable<dynamic>)?.FirstOrDefault();
+
+            SpelareBettingLista.ItemsSource = allaSpelare.Select(s => new
             {
                 Anvandare = s.Namn,
-                GissningHemma = 0,
-                GissningBorta = 0,
+                GissningHemma = s.Bets.FirstOrDefault(b => b.MatchId == valdMatch.Id)?.GissningHemma ?? 0,
+                GissningBorta = s.Bets.FirstOrDefault(b => b.MatchId == valdMatch.Id)?.GissningBorta ?? 0,
+                HarExisterandeBet = s.Bets.Any(b => b.MatchId == valdMatch.Id)
             }).ToList();
         }
 
@@ -104,7 +108,7 @@ namespace Familjefejden
                     {
                         if (int.TryParse(gissningHemmaTextBox.Text, out int gissningHemma) && int.TryParse(gissningBortaTextBox.Text, out int gissningBorta))
                         {
-                            var anvandare = spelare.FirstOrDefault(s => s.Namn == anvandarNamn);
+                            var anvandare = allaSpelare.FirstOrDefault(s => s.Namn == anvandarNamn);
                             if (anvandare != null)
                             {
                                 var valdMatch = (VisaMatch.ItemsSource as IEnumerable<dynamic>)?.FirstOrDefault();
@@ -115,7 +119,7 @@ namespace Familjefejden
                                     {
                                         var dialog = new ContentDialog
                                         {
-                                            Title = "Bet redan existerar",
+                                            Title = "Bet existerar redan",
                                             Content = "Du har redan placerat ett bet för denna match.",
                                             CloseButtonText = "OK"
                                         };
@@ -132,6 +136,8 @@ namespace Familjefejden
 
                                         anvandare.Bets.Add(nyttBet);
                                         await jsonService.LaggTillBetAsync(anvandare.Id, nyttBet);
+
+                                        // TODO: GRÅA UT KNAPP OCH TEXTBOXES NÄR BET LAGTS?
                                     }
                                 }
                             }

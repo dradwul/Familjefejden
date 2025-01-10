@@ -120,6 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Klasser\DatumKonvertering.cs" />
+    <Compile Include="Klasser\InverteraBoolKonverterare.cs" />
     <Compile Include="Klasser\TidsKonvertering.cs" />
     <Compile Include="Klasser\LagForemal.cs" />
     <Compile Include="OverlayNyTurnering.xaml.cs">

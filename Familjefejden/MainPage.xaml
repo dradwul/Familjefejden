@@ -23,9 +23,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!-- Original
-            <TextBlock Foreground="#8A8A8A" FontSize="22" Margin="10,15,0,0">GRUPP</TextBlock>
-            <Button Height="30" Width="80" Background="#B7FFAD" Foreground="#555555" CornerRadius="5" Margin="90,0,0,25" FontSize="12" Click="NyGrupp_Klickad">Ny Grupp</Button>-->
+
             <Button Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#555" Click="NyGrupp_Klickad">
                 <StackPanel Orientation="Vertical">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE902;" Foreground="#D9D9D9" FontSize="35"/>
@@ -52,6 +50,7 @@
             </Button>
 
         </Grid>
+        
         <!-- Bottenmenyn med funktionalitet och diverse element -->
         <Grid x:Name="MittenMeny" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -59,29 +58,34 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <!-- En tabview för att kunna växla mellan resultat och kommande matcher -->
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="30,10,0,0">
-                <Pivot Width="350">
-                    <PivotItem Header="Resultat" Width="400">
+            <StackPanel Grid.Column="1" Width="440" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <Pivot HorizontalAlignment="Center">
+                    <PivotItem Header="Resultat">
                         <ListView x:Name="ResultatMatcher">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid>
+                                    <Grid Margin="-7,3,0,3" Height="120" Background="#333" CornerRadius="0">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="135"/>
+                                            <ColumnDefinition Width="150"/>
+                                            <ColumnDefinition Width="135"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Image Source="{Binding HemmalagFlagga}" Width="100" Height="100" Grid.Column="0" Margin="0,20,0,10"/>
-                                        <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="{Binding HemmalagMal}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,-30,30" FontSize="28"/>
+                                        <Border Grid.Column="0" CornerRadius="5" Width="100" Height="50">
+                                            <Image Source="{Binding HemmalagFlagga}" Width="120"/>
+                                        </Border>
+                                        <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="8" Foreground="#e9e9e9"/>
+                                        <TextBlock Text="{Binding HemmalagMal}" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,-45,0" FontSize="42" FontWeight="SemiBold" Foreground="#e9e9e9"/>
 
-                                        <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,30"/>
-                                        <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0" FontSize="18"/>
+                                        <TextBlock Text="JVM" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,8,0,0" FontSize="14" Foreground="#888" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,5" FontSize="14" Foreground="#666"/>
+                                        <TextBlock Text=":" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="24" Foreground="#888"/>
 
-                                        <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="{Binding BortalagMal}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="-30,0,0,30" FontSize="28"/>
-                                        <Image Source="{Binding BortalagFlagga}" Width="100" Height="100" Grid.Column="2" Margin="0,20,0,10"/>
+                                        <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="8"/>
+                                        <TextBlock Text="{Binding BortalagMal}" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-45,0,0,0" FontSize="42" FontWeight="SemiBold" Foreground="#e9e9e9"/>
+                                        <Border Grid.Column="2" CornerRadius="5" Width="100" Height="50">
+                                            <Image Source="{Binding BortalagFlagga}" Width="120"/>
+                                        </Border>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -92,22 +96,27 @@
                         <ListView x:Name="KommandeMatcher">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid>
+                                    <Grid Margin="-7,3,0,3" Height="120" Background="#333" CornerRadius="18">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="135"/>
+                                            <ColumnDefinition Width="150"/>
+                                            <ColumnDefinition Width="135"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Image Source="{Binding HemmalagFlagga}" Width="100" Height="100" Grid.Column="0" Margin="0,20,0,10"/>
-                                        <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                        <Border Grid.Column="0" CornerRadius="5" Width="100" Height="50">
+                                            <Image Source="{Binding HemmalagFlagga}" Width="120"/>
+                                        </Border>
+                                        <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="8" Foreground="#e9e9e9"/>
 
-                                        <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Margin="0,0,0,30"/>
-                                        <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,35,0,15"/>
-                                        <TextBlock Text="{Binding Tid}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,70,0,0" FontSize="16"/>
+                                        <TextBlock Text="JVM" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0" FontSize="14" Foreground="#888" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,6" FontSize="14" Foreground="#666"/>
+                                        <TextBlock Text="{Binding Tid}" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,22" FontSize="20" Foreground="#e9e9e9"/>
+                                        <TextBlock Text="" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="24" Foreground="#888"/>
 
-                                        <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                                        <Image Source="{Binding BortalagFlagga}" Width="100" Height="100" Grid.Column="2" Margin="0,20,0,10"/>
+                                        <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="8"/>
+                                        <Border Grid.Column="2" CornerRadius="5" Width="100" Height="50">
+                                            <Image Source="{Binding BortalagFlagga}" Width="120"/>
+                                        </Border>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
