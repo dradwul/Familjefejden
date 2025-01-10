@@ -38,11 +38,11 @@
                                 <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
                                 <!--<Image Source="{Binding Team1Flaggor}" Width="150" Height="100" Grid.Column="0" Margin="0,0,0,10"/>-->
 
-                                <TextBlock Text="{Binding HemmalagId}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 
                                 <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                                <TextBlock Text="{Binding BortalagId}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 
                                 <!--<Image Source="{Binding Team2Flaggor}" Width="150" Height="100" Grid.Column="2" Margin="0,0,0,10"/>-->
                             </StackPanel>
@@ -63,16 +63,16 @@
                                 </Grid.ColumnDefinitions>
                                 <!--DUMMYVÄRDEN HÄR NEDANFÖR-->
                                 <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
-                                <Image Source="{Binding Team1Flaggor}" Width="150" Height="100" Grid.Column="0" Margin="0,0,0,10"/>
+                                <Image Source="{Binding HemmalagFlagga}" Width="150" Height="100" Grid.Column="0" Margin="0,0,0,10"/>
 
-                                <TextBlock Text="{Binding HemmalagId}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 
                                 <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                                <TextBlock Text="{Binding BortalagId}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 
 
-                                <Image Source="{Binding Team2Flaggor}" Width="150" Height="100" Grid.Column="2" Margin="0,0,0,10"/>
+                                <Image Source="{Binding BortalagFlagga}" Width="150" Height="100" Grid.Column="2" Margin="0,0,0,10"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -84,14 +84,29 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Background="#555555" Height="50" Width="400" Margin="0,10,0,0" CornerRadius="5">
-                                <TextBlock Text="{Binding Anvandare}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                                <Border Height="35" Width="35" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="220,0,0,0" BorderThickness="0" Background="#D9D9D9" CornerRadius="5">
-                                    <TextBox Text="{Binding GissningHemma}" Background="Transparent" Foreground="#222222" FontSize="18" FontWeight="Bold"/>
-                                </Border>
-                                <TextBlock Text="-" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,50,10" FontSize="36" FontWeight="Bold"/>
-                                <Border Height="35" Width="35" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" BorderThickness="0" Background="#D9D9D9" CornerRadius="5">
-                                    <TextBox Text="{Binding GissningBorta}"  Background="Transparent" Foreground="#222222" FontSize="18" FontWeight="Bold"/>
-                                </Border>
+                                <TextBlock Text="{Binding Anvandare}" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                           x:Name="AnvandarNamn" Margin="10,0,0,0"/>
+                                
+                                <TextBox Text="{Binding GissningHemma}" Height="40" Width="40"
+                                         Background="White" BorderThickness="0" Margin="220,0,0,0" 
+                                         Foreground="#222222" FontSize="18" FontWeight="Bold"
+                                         />
+
+                                <TextBlock Text="-" Foreground="White" VerticalAlignment="Center" 
+                                           HorizontalAlignment="Right" Margin="0,0,50,10" 
+                                           FontSize="36" FontWeight="Bold"/>
+                                
+                                <TextBox Text="{Binding GissningBorta}" Height="40" Width="40" 
+                                         Background="White" BorderThickness="0" Margin="350,0,0,0" 
+                                         Foreground="#222222" FontSize="18" FontWeight="Bold"
+                                         />
+
+                                <Button Content="Lägg Bet" Height="35" Width="77"
+                                        HorizontalAlignment="Center" Margin="0,0,0,0"
+                                        Click="LaggBetKnapp_Klickad" Background="#B7FFAD"
+                                        Foreground="#555555" CornerRadius="5" FontSize="12"                                        
+                                        />
+
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
