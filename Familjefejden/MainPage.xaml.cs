@@ -68,22 +68,31 @@ namespace Familjefejden
             }
 
             var kommande = matchObjekt
+                .Select(m => new
+                {
+                    m.HemmalagNamn,
+                    m.BortalagNamn,
+                    m.HemmalagFlagga,
+                    m.BortalagFlagga,
+                    m.HemmalagMal,
+                    m.BortalagMal,
+                    m.Id,
+                    m.MatchDatum,
+                    m.Datum,
+                    m.Tid,
+                    SpelasJustNu = (DateTime.Now - m.MatchDatum).TotalHours >= 0 && (DateTime.Now - m.MatchDatum).TotalHours <= 2,
+                    SpelasJustNuText = (DateTime.Now - m.MatchDatum).TotalHours >= 0 && (DateTime.Now - m.MatchDatum).TotalHours <= 2 ? "Spelas just nu!" : ""
+                })
                 .Where(m => m.MatchDatum >= DateTime.Today.Date)
                 .OrderBy(m => m.MatchDatum);
+
+            KommandeMatcher.ItemsSource = kommande.ToList();
 
             var resultat = matchObjekt
                 .Where(m => m.MatchDatum < DateTime.Today.Date)
                 .OrderByDescending(m => m.MatchDatum);
 
-            foreach (var match in kommande)
-            {
-                KommandeMatcher.Items.Add(match);
-            }
-
-            foreach (var match in resultat)
-            {
-                ResultatMatcher.Items.Add(match);
-            }
+            ResultatMatcher.ItemsSource = resultat.ToList();
         }
 
         // Denna metod skapar en lokal kopia av datafilen
