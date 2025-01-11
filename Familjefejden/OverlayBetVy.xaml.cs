@@ -60,6 +60,14 @@ namespace Familjefejden
         private async void HamtaInSpelare()
         {
             allaSpelare = await jsonService.HamtaAllaAnvandareAsync();
+            if (allaSpelare.Count < 1)
+            {
+                HittadeIngaSpelareText.Visibility = Visibility.Visible;
+                return;
+            }
+
+            HittadeIngaSpelareText.Visibility = Visibility.Collapsed;
+
             var valdMatch = (VisaMatch.ItemsSource as IEnumerable<dynamic>)?.FirstOrDefault();
 
             SpelareBettingLista.ItemsSource = allaSpelare.Select(s => new

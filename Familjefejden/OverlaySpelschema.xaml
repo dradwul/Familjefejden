@@ -99,11 +99,15 @@
             </StackPanel>
 
             <Button Content="Lägga Till" Height="35" Width="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                    Margin="0,0,0,300" Background="#0BE400" CornerRadius="5" 
+                    Margin="0,0,0,300" Background="#28C95E" CornerRadius="5" 
                     Click="LaggTillMatchKnapp_Klickad"/>
 
-            <Button Content="Acceptera" x:Name="AccepteraKnapp" Height="35" Width="80" HorizontalAlignment="Right" VerticalAlignment="Bottom" 
-                    Margin="0,0,10,10" Background="#0BE400" CornerRadius="5" Click="AccepteraKnapp_Klickad" IsEnabled="False"/>
+            <Button x:Name="AccepteraKnapp" Grid.Row="3" Height="40"  Width="120" CornerRadius="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,20,20,20" Background="#28C95E" Click="AccepteraKnapp_Klickad" IsEnabled="False">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8FB;" Margin="0,0,8,0"/>
+                    <TextBlock Text="Acceptera"/>
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
 </Page>

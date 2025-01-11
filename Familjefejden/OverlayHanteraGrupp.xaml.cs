@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -192,6 +193,8 @@ namespace Familjefejden
                         Content = $"Är du säker på att du vill ta bort {spelareAttTaBort.Namn}?",
                         PrimaryButtonText = "Ja",
                         CloseButtonText = "Avbryt",
+                        //PrimaryButtonStyle = Application.Current.Resources["PopupHjalpKnapp"] as Style, // DENNA FUNGERAR
+                        //CloseButtonStyle  = Application.Current.Resources["PopupHjalpKnapp"] as Style, // DENNA FUNGERAR INTE
                         DefaultButton = ContentDialogButton.Close,
                         CornerRadius = new CornerRadius(10)
                     };

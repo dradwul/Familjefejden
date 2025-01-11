@@ -42,7 +42,7 @@
                     </Grid.ColumnDefinitions>
                     <ComboBox x:Name="TurneringsLista" Height="40" PlaceholderText="Välj turnering" 
                             SelectionChanged="TurneringsLista_SelectionChanged" 
-                            BorderThickness="0" Margin="0,0,10,0">
+                            BorderThickness="0" Margin="0,0,10,0" HorizontalAlignment="Stretch">
                         <ComboBox.Resources>
                             <SolidColorBrush x:Key="ComboBoxItemBackgroundSelected" Color="#36BCDA"/>
                         </ComboBox.Resources>
@@ -58,9 +58,9 @@
             <Button Grid.Row="2" x:Name="NastaKnapp" Height="40" Width="120" 
                     CornerRadius="5" HorizontalAlignment="Right" 
                     Margin="0,20,20,20" Background="#28C95E" 
-                    Click="NastaKnapp_Klickad" IsEnabled="False">
+                    Click="NastaKnapp_Klickad">
                 <StackPanel Orientation="Horizontal">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8FB;" Margin="0,0,8,0"/>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72A;" Margin="0,0,8,0"/>
                     <TextBlock Text="Nästa"/>
                 </StackPanel>
             </Button>

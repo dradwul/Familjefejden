@@ -34,8 +34,6 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-
-
             <StackPanel Grid.Row="0" Margin="20">
                 <TextBlock Name="GruppnamnLabel" Text="Lägg till ny grupp" Margin="0,0,0,8" Foreground="#8A8A8A"/>
                 <Grid>
@@ -111,7 +109,7 @@
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE77B;" Foreground="#8A8A8A" Margin="0,0,12,0"/>
                             <TextBlock Text="{Binding Namn}" Grid.Column="1" Foreground="White" VerticalAlignment="Center"/>
                             <Button Grid.Column="2" Click="TaBortSpelare_Klickad" Tag="{Binding Id}" Width="32" Height="32" Background="Transparent" BorderThickness="0" Margin="10,0,0,0">
-                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" Foreground="#FF4444" FontSize="14"/>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" Foreground="#EA3737" FontSize="14"/>
                             </Button>
                         </Grid>
                     </DataTemplate>

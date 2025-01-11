@@ -9,8 +9,8 @@
             <Style x:Key="PopupHjalpKnapp" TargetType="Button">
                 <Setter Property="Height" Value="40"/>
                 <Setter Property="Width" Value="60"/>
-                <Setter Property="Background" Value="#0BE400"/>
-                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#28C95E"/>
+                <Setter Property="Foreground" Value="#fff"/>
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="CornerRadius" Value="5"/>
             </Style>

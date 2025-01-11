@@ -48,7 +48,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ComboBox x:Name="LagLista" Height="40" BorderThickness="0" 
+                    <ComboBox x:Name="LagLista" Height="40" BorderThickness="0" HorizontalAlignment="Stretch"
                             PlaceholderText="Välj lag" Margin="0,0,10,0"
                             SelectionChanged="LagLista_SelectionChanged">
                         <ComboBox.ItemTemplate>
@@ -84,14 +84,13 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="{Binding LagFlagga}" Width="60" Height="40" Margin="0,0,12,0"/>
+
+                            <Image Grid.Column="0" Source="{Binding LagFlagga}" Width="60" Height="40" Margin="0,0,12,0"/>
                             <TextBlock Grid.Column="1" Text="{Binding Lag}" Foreground="White" 
                                      VerticalAlignment="Center"/>
-                            <Button Grid.Column="2" Click="TabortKnapp_Klickad" Tag="{Binding Lag}" 
-                                    Width="32" Height="32" Background="Transparent" BorderThickness="0" 
-                                    Margin="10,0,0,0">
-                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" 
-                                         Foreground="#FF4444" FontSize="14"/>
+                            <Button Grid.Column="2" Width="32" Height="32" Click="TabortKnapp_Klickad" Tag="{Binding Lag}" 
+                                    Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" Foreground="#FF4444" FontSize="14"/>
                             </Button>
                         </Grid>
                     </DataTemplate>

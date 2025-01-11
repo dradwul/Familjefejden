@@ -7,21 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="TOPPLISTA"
-    PrimaryButtonText="Stäng"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+    Background="#222222"
     CornerRadius="10"
-    Background="#333">
-
-    <ContentDialog.Resources>
-        <Style TargetType="Button" x:Key="DialogButtonStyle">
-            <Setter Property="CornerRadius" Value="3" />
-        </Style>
-    </ContentDialog.Resources>
-
-    <ContentDialog.PrimaryButtonStyle>
-        <StaticResource ResourceKey="DialogButtonStyle" />
-    </ContentDialog.PrimaryButtonStyle>
+    PrimaryButtonText="OK"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    PrimaryButtonStyle="{StaticResource PopupHjalpKnapp}">
 
     <Grid>
         <ListView x:Name="topplistaVy">
