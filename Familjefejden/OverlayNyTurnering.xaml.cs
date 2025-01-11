@@ -1,27 +1,12 @@
 ﻿using Familjefejden.Service;
 using Klasser;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Familjefejden
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class OverlayNyTurnering : Page
     {
         TurneringService turneringService = new TurneringService();
@@ -30,6 +15,12 @@ namespace Familjefejden
         public OverlayNyTurnering()
         {
             this.InitializeComponent();
+            InitializePage();
+        }
+
+        private void InitializePage()
+        {
+            KollaTurneringInputIkon.Foreground = new SolidColorBrush(Windows.UI.Colors.Gray);
         }
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
@@ -39,19 +30,45 @@ namespace Familjefejden
 
         private async void NastaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-            // TODO: Fixa så att den hämtar värde från ComboBox
-            string turneringensNamn = "JVM"; // OBS! STATISKT VÄRDE JUST NU
-            Turnering nyTurnering = turneringService.SkapaTurnering(turneringensNamn);
-            await jsonService.LaggaTillNyTurneringAsync(nyTurnering);
+            if (TurneringsLista.SelectedItem is ComboBoxItem selectedItem)
+            {
+                string turneringensNamn = selectedItem.Content.ToString();
+                Turnering nyTurnering = turneringService.SkapaTurnering(turneringensNamn);
 
-            Frame.Navigate(typeof(OverlayLaggaTillLag));
+                bool sparad = await jsonService.LaggaTillNyTurneringAsync(nyTurnering);
+
+                if (sparad)
+                {
+                    Frame.Navigate(typeof(OverlayLaggaTillLag));
+                }
+                else
+                {
+                    Frame.Navigate(typeof(OverlayLaggaTillLag));
+                    //var errorDialog = new ContentDialog
+                    //{
+                    //    Title = "Fel",
+                    //    Content = "Kunde inte skapa turneringen. Försök igen.",
+                    //    CloseButtonText = "Ok",
+                    //    CornerRadius = new CornerRadius(10)
+                    //};
+                    //await errorDialog.ShowAsync();
+                }
+            }
         }
 
         private void TurneringsLista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (TurneringsLista.SelectedItem is ComboBoxItem selectedItem)
             {
-                NastaKnapp.IsEnabled = selectedItem.Content.ToString() == "JVM";
+                bool isValid = selectedItem.Content.ToString() == "JVM";
+                NastaKnapp.IsEnabled = isValid;
+                KollaTurneringInputIkon.Foreground = new SolidColorBrush(
+                    isValid ? Windows.UI.Colors.LightGreen : Windows.UI.Colors.Gray);
+            }
+            else
+            {
+                NastaKnapp.IsEnabled = false;
+                KollaTurneringInputIkon.Foreground = new SolidColorBrush(Windows.UI.Colors.Gray);
             }
         }
     }

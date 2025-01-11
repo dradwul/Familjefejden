@@ -444,6 +444,33 @@ namespace Familjefejden.Service
             return false;
         }
 
+        public async Task<bool> TaBortLagAsync(int lagId)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+            if (turneringData is JObject turneringObjekt)
+            {
+                if (string.IsNullOrEmpty((string)turneringObjekt["Namn"]))
+                {
+                    return false;
+                }
+
+                var befintligaLag = turneringObjekt["Lag"] as JArray ?? new JArray();
+                var lagAttTaBort = befintligaLag.FirstOrDefault(a => (int)a["Id"] == lagId);
+
+                if (lagAttTaBort == null)
+                {
+                    return false;
+                }
+
+                befintligaLag.Remove(lagAttTaBort);
+                turneringObjekt["Lag"] = befintligaLag;
+
+                await SparaTillFilAsync("Turnering", turneringObjekt);
+                return true;
+            }
+            return false;
+        }
+
         public async Task<string> HamtaLagnamnFranLagId(int lagId)
         {
             var turneringData = await HamtaSpecifikDataAsync("Turnering");

@@ -8,12 +8,12 @@
     mc:Ignorable="d"
     Background="#222222">
 
-
     <Grid x:Name="HuvudGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
+
         <!-- Topmenyn med den ljusgråa boarden -->
         <Grid x:Name="TopMeny" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Width="Auto" Background="#555555">
             <Grid.ColumnDefinitions>
@@ -27,19 +27,43 @@
 
         <!-- Bottenmenyn med funktionalitet och diverse element -->
         <Grid x:Name="BottenMeny" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,10">
-                <ComboBox x:Name="TurneringsLista" Height="30" Width="130" PlaceholderText="Välj turnering" SelectionChanged="TurneringsLista_SelectionChanged">
-                    <ComboBoxItem Content="JVM"/>
-                    <!-- Fixa så man kan välja mellan olika turneringar med hjälp av ID? -->
-                    <ComboBoxItem Content="A-VM (NYI)" IsEnabled="False"/>
-                </ComboBox>
+            <StackPanel Grid.Row="0" Margin="20">
+                <TextBlock Text="Välj turneringstyp" Margin="0,0,0,8" Foreground="#8A8A8A"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="TurneringsLista" Height="40" PlaceholderText="Välj turnering" 
+                            SelectionChanged="TurneringsLista_SelectionChanged" 
+                            BorderThickness="0" Margin="0,0,10,0">
+                        <ComboBox.Resources>
+                            <SolidColorBrush x:Key="ComboBoxItemBackgroundSelected" Color="#36BCDA"/>
+                        </ComboBox.Resources>
+                        <ComboBoxItem Content="JVM"/>
+                        <ComboBoxItem Content="A-VM (NYI)" IsEnabled="False"/>
+                    </ComboBox>
+                    <FontIcon Name="KollaTurneringInputIkon" Grid.Column="1" 
+                             FontFamily="Segoe MDL2 Assets" Glyph="&#xE8FB;" 
+                             Foreground="#8A8A8A"/>
+                </Grid>
             </StackPanel>
 
-            <Button x:Name="NastaKnapp" Height="30" Width="100" CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20" 
-                    Background="#0BE400" Click="NastaKnapp_Klickad" IsEnabled="False">Nästa ➔</Button>
+            <Button Grid.Row="2" x:Name="NastaKnapp" Height="40" Width="120" 
+                    CornerRadius="5" HorizontalAlignment="Right" 
+                    Margin="0,20,20,20" Background="#28C95E" 
+                    Click="NastaKnapp_Klickad" IsEnabled="False">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8FB;" Margin="0,0,8,0"/>
+                    <TextBlock Text="Nästa"/>
+                </StackPanel>
+            </Button>
         </Grid>
-
     </Grid>
-
 </Page>
