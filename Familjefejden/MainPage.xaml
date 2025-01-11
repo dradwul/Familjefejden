@@ -57,13 +57,13 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <!-- En tabview för att kunna växla mellan resultat och kommande matcher -->
-            <StackPanel Grid.Column="1" Width="440" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <StackPanel Grid.Column="1" Width="440" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,-12">
                 <Pivot HorizontalAlignment="Center">
                     <PivotItem Header="Resultat">
                         <ListView x:Name="ResultatMatcher">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Margin="-7,3,0,3" Height="120" Background="#333" CornerRadius="0">
+                                    <Grid Margin="-7,3,0,3" Height="120" Background="#333" CornerRadius="8">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="135"/>
                                             <ColumnDefinition Width="150"/>
@@ -95,7 +95,7 @@
                         <ListView x:Name="KommandeMatcher">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Margin="-7,3,0,3" Height="120" Background="#333" CornerRadius="18">
+                                    <Grid Margin="-7,3,0,3" Height="120" Background="#333" CornerRadius="8">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="135"/>
                                             <ColumnDefinition Width="150"/>
@@ -107,7 +107,7 @@
                                         </Border>
                                         <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="8" Foreground="#e9e9e9"/>
 
-                                        <TextBlock Text="JVM" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0" FontSize="14" Foreground="#888" FontWeight="SemiBold"/>
+                                        <TextBlock Text="JVM" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0" FontSize="16" Foreground="#555" FontWeight="SemiBold"/>
                                         <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,6" FontSize="14" Foreground="#666"/>
                                         <TextBlock Text="{Binding Tid}" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,22" FontSize="20" Foreground="#e9e9e9"/>
                                         <TextBlock Text="" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="24" Foreground="#888"/>
