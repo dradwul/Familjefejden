@@ -67,7 +67,7 @@
                     <Button Grid.Column="1" x:Name="LaggTillLagKnapp" Click="TillagdKnapp_KlickadAsync" 
                             Height="40" Background="#36BCDA" CornerRadius="5" IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE710;" Margin="0,0,8,0"/>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE710;" Margin="0,0,8,0" FontSize="14"/>
                             <TextBlock Text="Lägg till"/>
                         </StackPanel>
                     </Button>

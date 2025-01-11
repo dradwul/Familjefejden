@@ -98,9 +98,13 @@
                 </ListView>
             </StackPanel>
 
-            <Button Content="Lägga Till" Height="35" Width="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                    Margin="0,0,0,300" Background="#28C95E" CornerRadius="5" 
-                    Click="LaggTillMatchKnapp_Klickad"/>
+            <Button Grid.Column="1" x:Name="LaggTillMatchKnapp" Click="LaggTillMatchKnapp_Klickad" 
+                    Height="40" Background="#36BCDA" CornerRadius="5" HorizontalAlignment="Center" Margin="0,100,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE710;" Margin="0,0,8,0" FontSize="14"/>
+                    <TextBlock Text="Lägg till match"/>
+                </StackPanel>
+            </Button>
 
             <Button x:Name="AccepteraKnapp" Grid.Row="3" Height="40"  Width="120" CornerRadius="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,20,20,20" Background="#28C95E" Click="AccepteraKnapp_Klickad" IsEnabled="False">
                 <StackPanel Orientation="Horizontal">

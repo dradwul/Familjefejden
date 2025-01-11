@@ -58,7 +58,7 @@
             <Button Grid.Row="2" x:Name="NastaKnapp" Height="40" Width="120" 
                     CornerRadius="5" HorizontalAlignment="Right" 
                     Margin="0,20,20,20" Background="#28C95E" 
-                    Click="NastaKnapp_Klickad">
+                    Click="NastaKnapp_Klickad" IsEnabled="False">
                 <StackPanel Orientation="Horizontal">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72A;" Margin="0,0,8,0"/>
                     <TextBlock Text="Nästa"/>
