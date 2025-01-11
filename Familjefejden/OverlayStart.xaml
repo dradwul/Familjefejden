@@ -6,13 +6,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="#222222">
 
-    <Grid>
-        <Image x:Name="StartBild" Source="ms-appx:///Assets/WelcomeDisplay.png" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,120">
-            <Button Height="50" Width="120" CornerRadius="5" Background="#0BE400" FontSize="22" Click="SpelaKnapp_Klickad">SPELA</Button>
+	<Page.Resources>
+		<Storyboard x:Name="FadeInStoryboard">
+			<DoubleAnimation
+                Storyboard.TargetName="StartBild"
+                Storyboard.TargetProperty="Opacity"
+                From="0" To="1" Duration="0:0:0.5" />
+		</Storyboard>
+	</Page.Resources>
 
-        </StackPanel>
-    </Grid>
+	<Grid>
+		<Image x:Name="StartBild" Source="ms-appx:///Assets/FamiljeFejdenLogo.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="250" Opacity="0"/>
+
+		<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,120">
+			<Button Height="50" Width="120" CornerRadius="5" Background="#28C95E" Click="SpelaKnapp_Klickad">
+				<TextBlock Text="Spela" Foreground="#fff" FontSize="22"/>
+			</Button>
+		</StackPanel>
+	</Grid>
 </Page>
