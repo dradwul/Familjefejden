@@ -28,6 +28,7 @@ namespace Familjefejden
         TurneringService turneringService = new TurneringService();
         JsonService jsonService = new JsonService();
         private ObservableCollection<MatchForemal> tillagdaMatcher;
+        List<Match> listaMedMatcherSomSkaSparas = new List<Match>();
 
         public OverlaySpelschema()
         {
@@ -41,32 +42,8 @@ namespace Familjefejden
 
         private void OverlaySpelschema_Loaded(object sender, RoutedEventArgs e)
         {
-            var lagBildHemma = new List<LagForemal>
-            {
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Canada.png", Lag = "Kanada" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Czech_Republic.png", Lag = "Tjeckien" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Finland.png", Lag = "Finland" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Germany.png", Lag = "Tyskland" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Kazakhstan.png", Lag = "Kazakhstan" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Latvia.png", Lag = "Lettland" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Slovakia.png", Lag = "Slovakien" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Sweden.png", Lag = "Sverige" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Switzerland.png", Lag = "Schweiz" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/USA.png", Lag = "USA" }
-            };
-            var lagBildBorta = new List<LagForemal>
-            {
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Canada.png", Lag = "Kanada" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Czech_Republic.png", Lag = "Tjeckien" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Finland.png", Lag = "Finland" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Germany.png", Lag = "Tyskland" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Kazakhstan.png", Lag = "Kazakhstan" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Latvia.png", Lag = "Lettland" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Slovakia.png", Lag = "Slovakien" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Sweden.png", Lag = "Sverige" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/Switzerland.png", Lag = "Schweiz" },
-                new LagForemal { LagFlagga = "ms-appx:///Assets/USA.png", Lag = "USA" }
-            };
+            var lagBildHemma = LagForemal.HamtaLagForemal();
+            var lagBildBorta = LagForemal.HamtaLagForemal();
 
             Hemmalag.ItemsSource = lagBildHemma;
             Bortalag.ItemsSource = lagBildBorta;
@@ -99,14 +76,7 @@ namespace Familjefejden
                 }
 
                 Match nyMatch = turneringService.SkapaMatch(matchDatum, hemmalagId, bortalagId);
-
-                bool laggaTillMatch = await jsonService.LaggTillMatchAsync(nyMatch);
-                if(!laggaTillMatch)
-                {
-                    var dialog = new MessageDialog("Matchen kunde inte läggas till");
-                    await dialog.ShowAsync();
-                    return;
-                }
+                listaMedMatcherSomSkaSparas.Add(nyMatch);
 
                 tillagdaMatcher.Add(new MatchForemal
                 {
@@ -172,8 +142,19 @@ namespace Familjefejden
             return new DateTime(datum.Year, datum.Month, datum.Day, tid.Hours, tid.Minutes, 0, DateTimeKind.Utc);
         }
 
-        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        private async void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
         {
+            foreach(var match in listaMedMatcherSomSkaSparas)
+            {
+                bool laggaTillMatch = await jsonService.LaggTillMatchAsync(match);
+                if (!laggaTillMatch)
+                {
+                    var dialog = new MessageDialog("Matchen kunde inte läggas till");
+                    await dialog.ShowAsync();
+                    return;
+                }
+            }
+
             Frame.Navigate(typeof(MainPage));
         }
 
