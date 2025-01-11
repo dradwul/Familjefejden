@@ -34,7 +34,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Margin="20">
-                <TextBlock Text="Välj turneringstyp" Margin="0,0,0,8" Foreground="#8A8A8A"/>
+                <TextBlock Text="Välj turnering" Margin="0,0,0,8" Foreground="#8A8A8A"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
