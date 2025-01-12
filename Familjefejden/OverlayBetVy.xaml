@@ -31,34 +31,38 @@
         <Grid x:Name="BottenMeny" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
-                <ComboBox x:Name="MatchBettingLista" Height="30" Width="120" BorderThickness="0" PlaceholderText="Välj Match" SelectionChanged="MatchBettingLista_SelectionChanged">
+
+            <StackPanel Grid.Row="0" Margin="20">
+                <ComboBox x:Name="MatchBettingLista" HorizontalAlignment="Stretch" Height="40" BorderThickness="0" PlaceholderText="Välj Match" SelectionChanged="MatchBettingLista_SelectionChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
                                 <!--DUMMYVÄRDEN HÄR NEDANFÖR-->
                                 <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
                                 <!--<Image Source="{Binding Team1Flaggor}" Width="150" Height="100" Grid.Column="0" Margin="0,0,0,10"/>-->
 
-                                <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding HemmalagNamn}" FontSize="16" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Right"/>
 
-                                <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Text="vs" Margin="10,2,10,0" Grid.Column="1" HorizontalAlignment="Center"/>
 
-                                <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding BortalagNamn}" FontSize="16" FontWeight="Bold" Grid.Column="2"/>
 
                                 <!--<Image Source="{Binding Team2Flaggor}" Width="150" Height="100" Grid.Column="2" Margin="0,0,0,10"/>-->
-                            </StackPanel>
+                            </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
             
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,60,20,0">
                 <ListView x:Name="VisaMatch">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -87,8 +91,8 @@
 
                 <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Name="HittadeIngaSpelareText" Text="Hittade inga spelare" Foreground="#EA3737" FontWeight="Bold" FontSize="16" Visibility="Collapsed"/>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Margin="0,40,0,0">
-                <ItemsControl x:Name="SpelareBettingLista" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Margin="0,50,0,0">
+                <ItemsControl x:Name="SpelareBettingLista" VerticalAlignment="Top">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Background="#333" Height="50" Width="400" Margin="0,10,0,0" CornerRadius="5" Padding="0">

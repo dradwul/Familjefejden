@@ -43,9 +43,6 @@
                     <ComboBox x:Name="TurneringsLista" Height="40" PlaceholderText="Välj turnering" 
                             SelectionChanged="TurneringsLista_SelectionChanged" 
                             BorderThickness="0" Margin="0,0,10,0" HorizontalAlignment="Stretch">
-                        <ComboBox.Resources>
-                            <SolidColorBrush x:Key="ComboBoxItemBackgroundSelected" Color="#36BCDA"/>
-                        </ComboBox.Resources>
                         <ComboBoxItem Content="JVM"/>
                         <ComboBoxItem Content="A-VM (NYI)" IsEnabled="False"/>
                     </ComboBox>
