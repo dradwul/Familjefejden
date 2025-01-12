@@ -79,7 +79,7 @@ namespace Familjefejden
             Frame.Navigate(typeof(MainPage));
         }
 
-        private async void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        private async void SparaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             finnsGrupp = await jsonService.KollaOmDetRedanFinnsEnGrupp();
 

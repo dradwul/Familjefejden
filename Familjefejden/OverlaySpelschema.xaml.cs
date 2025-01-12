@@ -91,7 +91,7 @@ namespace Familjefejden
                 Hemmalag.SelectedItem = null;
                 Bortalag.SelectedItem = null;
 
-                AccepteraKnapp.IsEnabled = true;
+                SparaKnapp.IsEnabled = true;
             }
             else
             {
@@ -142,7 +142,7 @@ namespace Familjefejden
             return new DateTime(datum.Year, datum.Month, datum.Day, tid.Hours, tid.Minutes, 0, DateTimeKind.Utc);
         }
 
-        private async void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        private async void SparaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             foreach(var match in listaMedMatcherSomSkaSparas)
             {
