@@ -84,8 +84,8 @@ namespace Familjefejden
                     HemmaLag = valtLagHemma.Lag,
                     BortaLagFlagga = valtLagBorta.LagFlagga,
                     BortaLag = valtLagBorta.Lag,
-                    Datum = datum,
-                    Tid = tid
+                    Datum = nyMatch.Date.ToString("dd/MM/yyyy"),
+                    Tid = nyMatch.Date.ToString("HH:mm"),
                 });
 
                 Hemmalag.SelectedItem = null;
@@ -174,8 +174,8 @@ namespace Familjefejden
             public string HemmaLag { get; set; }
             public string BortaLagFlagga { get; set; }
             public string BortaLag { get; set; }
-            public DateTime Datum { get; set; }
-            public TimeSpan Tid { get; set; }
+            public string Datum { get; set; }
+            public string Tid { get; set; }
         }
     }
 }

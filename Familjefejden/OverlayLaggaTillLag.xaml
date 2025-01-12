@@ -25,9 +25,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Foreground="#8A8A8A" FontSize="22" Margin="10,15,0,0">LÄGG TILL LAG</TextBlock>
-            <TextBlock x:Name="TurneringNamn" Grid.Row="1" Foreground="#ddd" FontSize="28" Margin="10,0,0,10" FontWeight="Bold"/>
+            <TextBlock x:Name="TurneringNamn" Grid.Column="0" Grid.Row="1" Foreground="#ddd" FontSize="28" Margin="10,0,0,10" FontWeight="Bold"/>
             <Button Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" 
-                    Margin="0,0,10,10" Height="30" Width="80" Background="#36BCDA" 
+                    Margin="0,0,10,0" Height="30" Width="80" Background="#36BCDA" 
                     CornerRadius="5" Click="TillbakaKnapp_Klickad">
                 <TextBlock Text="Tillbaka"/>
             </Button>
