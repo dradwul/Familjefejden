@@ -158,12 +158,19 @@ namespace Familjefejden
             Frame.Navigate(typeof(MainPage));
         }
 
-        private void TabortKnapp_Klickad(object sender, RoutedEventArgs e)
+        private async void TabortKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             var knapp = sender as Button;
             var matchForemal = knapp.DataContext as MatchForemal;
-            if (matchForemal != null)
+            if (matchForemal == null) return;
+
+            int hemmaLagID = await jsonService.HamtaLagIdFranNamn(matchForemal.HemmaLag);
+            int bortaLagID = await jsonService.HamtaLagIdFranNamn(matchForemal.BortaLag);
+            var matchAttTaBort = listaMedMatcherSomSkaSparas.FirstOrDefault(m => m.HemmalagId == hemmaLagID && m.BortalagId == bortaLagID && m.Date.ToString("dd/MM/yyyy") == matchForemal.Datum);
+            
+            if (matchAttTaBort != null)
             {
+                listaMedMatcherSomSkaSparas.Remove(matchAttTaBort);
                 tillagdaMatcher.Remove(matchForemal);
             }
         }
