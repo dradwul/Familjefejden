@@ -50,11 +50,14 @@ namespace Familjefejden
                     BortalagNamn = bortalagNamn,
                     HemmalagFlagga = hemmalagFlagga,
                     BortalagFlagga = bortalagFlagga,
+                    Datum = match.Date.ToString("yyyy/MM/dd"),
+                    Tid = match.Date.ToString("HH:mm"),
                     match.Id
                 });
             }
 
-            MatchBettingLista.ItemsSource = matchViewModels;
+            MatchBettingLista.ItemsSource = matchViewModels
+                .OrderBy(m => m.Datum);
         }
 
         private async void HamtaInSpelare()
@@ -84,7 +87,7 @@ namespace Familjefejden
             Frame.Navigate(typeof(MainPage));
         }
 
-        private void AccepteraKnapp_Klickad(object sender, RoutedEventArgs e)
+        private void SparaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
         }

@@ -42,18 +42,22 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="3*"/>
                                     <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="3*"/>
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
                                 <!--DUMMYVÄRDEN HÄR NEDANFÖR-->
                                 <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
                                 <!--<Image Source="{Binding Team1Flaggor}" Width="150" Height="100" Grid.Column="0" Margin="0,0,0,10"/>-->
 
-                                <TextBlock Text="{Binding HemmalagNamn}" FontSize="16" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Right"/>
+                                <TextBlock Text="{Binding Datum}" Grid.Column="0" HorizontalAlignment="Left" Margin="10,3,0,0" Foreground="#555"/>
 
-                                <TextBlock Text="vs" Margin="10,2,10,0" Grid.Column="1" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding HemmalagNamn}" FontSize="16" FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,8,0"/>
 
-                                <TextBlock Text="{Binding BortalagNamn}" FontSize="16" FontWeight="Bold" Grid.Column="2"/>
+                                <TextBlock Text="vs" Margin="10,2,10,0" Grid.Column="2" HorizontalAlignment="Center"/>
+
+                                <TextBlock Text="{Binding BortalagNamn}" FontSize="16" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Left" Margin="8,0,0,0"/>
 
                                 <!--<Image Source="{Binding Team2Flaggor}" Width="150" Height="100" Grid.Column="2" Margin="0,0,0,10"/>-->
                             </Grid>
@@ -62,27 +66,30 @@
                 </ComboBox>
             </StackPanel>
             
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,60,20,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,70,20,0">
                 <ListView x:Name="VisaMatch">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Margin="-7,3,0,3" Height="120" Background="#333" CornerRadius="8">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="240"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="240"/>
+                                    <ColumnDefinition Width="135"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="135"/>
                                 </Grid.ColumnDefinitions>
-                                <!--DUMMYVÄRDEN HÄR NEDANFÖR-->
-                                <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
-                                <Image Source="{Binding HemmalagFlagga}" Width="150" Height="100" Grid.Column="0" Margin="0,0,0,10"/>
 
-                                <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <Border Grid.Column="0" CornerRadius="5" Width="100" Height="50">
+                                    <Image Source="{Binding HemmalagFlagga}" Width="120"/>
+                                </Border>
+                                <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="8" Foreground="#e9e9e9"/>
 
-                                <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Text="JVM" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0" FontSize="16" Foreground="#555" FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30,0,0" FontSize="14" Foreground="#666"/>
+                                <TextBlock Text="{Binding Tid}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="20" Foreground="#e9e9e9"/>
 
-                                <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-
-                                <Image Source="{Binding BortalagFlagga}" Width="150" Height="100" Grid.Column="2" Margin="0,0,0,10"/>
+                                <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="8"/>
+                                <Border Grid.Column="2" CornerRadius="5" Width="100" Height="50">
+                                    <Image Source="{Binding BortalagFlagga}" Width="120"/>
+                                </Border>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -125,10 +132,10 @@
                 </ItemsControl>
             </StackPanel>
             
-            <Button Grid.Row="3" Height="40"  Width="120" CornerRadius="5" HorizontalAlignment="Right" Margin="0,20,20,20" Background="#28C95E" Click="AccepteraKnapp_Klickad">
+            <Button Grid.Row="3" Height="40"  Width="120" CornerRadius="5" HorizontalAlignment="Right" Margin="0,20,20,20" Background="#28C95E" Click="SparaKnapp_Klickad">
                 <StackPanel Orientation="Horizontal">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8FB;" Margin="0,0,8,0"/>
-                    <TextBlock Text="Acceptera"/>
+                    <TextBlock Text="Spara"/>
                 </StackPanel>
             </Button>
         </Grid>

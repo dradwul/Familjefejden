@@ -62,7 +62,7 @@ namespace Familjefejden
                     BortalagMal = match.BortalagMal,
                     match.Id,
                     MatchDatum = match.Date,
-                    Datum = match.Date.ToString("dd/MM/yyyy"),
+                    Datum = match.Date.ToString("yyyy/MM/dd"),
                     Tid = match.Date.ToString("HH:mm")
                 });
             }

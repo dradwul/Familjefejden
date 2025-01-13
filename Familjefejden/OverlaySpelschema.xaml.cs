@@ -84,7 +84,7 @@ namespace Familjefejden
                     HemmaLag = valtLagHemma.Lag,
                     BortaLagFlagga = valtLagBorta.LagFlagga,
                     BortaLag = valtLagBorta.Lag,
-                    Datum = nyMatch.Date.ToString("dd/MM/yyyy"),
+                    Datum = nyMatch.Date.ToString("yyyy/MM/dd"),
                     Tid = nyMatch.Date.ToString("HH:mm"),
                 });
 
@@ -166,7 +166,7 @@ namespace Familjefejden
 
             int hemmaLagID = await jsonService.HamtaLagIdFranNamn(matchForemal.HemmaLag);
             int bortaLagID = await jsonService.HamtaLagIdFranNamn(matchForemal.BortaLag);
-            var matchAttTaBort = listaMedMatcherSomSkaSparas.FirstOrDefault(m => m.HemmalagId == hemmaLagID && m.BortalagId == bortaLagID && m.Date.ToString("dd/MM/yyyy") == matchForemal.Datum);
+            var matchAttTaBort = listaMedMatcherSomSkaSparas.FirstOrDefault(m => m.HemmalagId == hemmaLagID && m.BortalagId == bortaLagID && m.Date.ToString("yyyy/MM/dd") == matchForemal.Datum);
             
             if (matchAttTaBort != null)
             {

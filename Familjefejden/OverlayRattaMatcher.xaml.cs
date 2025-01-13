@@ -51,7 +51,7 @@ namespace Familjefejden
                     HemmalagFlagga = hemmalagFlagga,
                     BortalagFlagga = bortalagFlagga,
                     match.Id,
-                    Datum = match.Date.ToString("dd/MM/yyyy"),
+                    Datum = match.Date.ToString("yyyy/MM/dd"),
                     Tid = match.Date.ToString("HH:mm"),
                 });
             }
