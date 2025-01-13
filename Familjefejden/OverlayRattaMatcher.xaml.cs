@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -58,6 +59,28 @@ namespace Familjefejden
 
             RattaMatcherLista.ItemsSource = matchViewModels;
         }
+        private async Task<List<dynamic>> HamtaBetsForMatch(int matchId)
+        {
+            var spelareLista = await jsonService.HamtaAllaAnvandareAsync();
+            var bets = new List<dynamic>();
+
+            foreach (var spelare in spelareLista)
+            {
+                var bet = spelare.Bets.FirstOrDefault(b => b.MatchId == matchId);
+                if (bet != null)
+                {
+                    bets.Add(new
+                    {
+                        Spelare = spelare.Namn,
+                        GissningHemma = bet.GissningHemma,
+                        GissningBorta = bet.GissningBorta
+                    });
+                }
+            }
+
+            return bets;
+        }
+
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
@@ -68,19 +91,126 @@ namespace Familjefejden
             Frame.Navigate(typeof(MainPage));
         }
 
-        private void RattaMatcherLista_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void RattaMatcherLista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var valdMatch = RattaMatcherLista.SelectedItem;
+            var valdMatch = RattaMatcherLista.SelectedItem as dynamic;
             if (valdMatch != null)
             {
                 VisaMatch.ItemsSource = new List<dynamic> { valdMatch };                
                 RattaMatcherLista.SelectedItem = null;
+
+                var matchId = valdMatch.Id;
+                var bets = await HamtaBetsForMatch(matchId);
+                SpelarPoangPanel.ItemsSource = bets;
+
+                RattaMatcherLista.SelectedItem = null;
             }
         }
 
-        private void RattaMatchKnapp_Klickad(object sender, RoutedEventArgs e)
+        private async void RattaMatchKnapp_Klickad(object sender, RoutedEventArgs e)
         {
-         
+            var itemsSource = VisaMatch.ItemsSource as IEnumerable<dynamic>;
+            var valdMatch = itemsSource?.FirstOrDefault();
+            if (valdMatch != null)
+            {
+                // Hämta slutresultatet från TextBoxar
+                var listViewItem = VisaMatch.ContainerFromItem(valdMatch) as ListViewItem;
+                var hemmalagResultatTextBox = FindChild<TextBox>(listViewItem, "RattaHemmalag");
+                var bortalagResultatTextBox = FindChild<TextBox>(listViewItem, "RattaBortalag");
+
+                if (hemmalagResultatTextBox != null && bortalagResultatTextBox != null &&
+                    int.TryParse(hemmalagResultatTextBox.Text, out int hemmalagResultat) &&
+                    int.TryParse(bortalagResultatTextBox.Text, out int bortalagResultat))
+                {
+                    // Hämta alla spelare
+                    var spelareLista = await jsonService.HamtaAllaAnvandareAsync();
+
+                    foreach (var spelare in spelareLista)
+                    {
+                        var bet = spelare.Bets.FirstOrDefault(b => b.MatchId == valdMatch.Id);
+                        if (bet != null)
+                        {
+                            int poang = 0;
+
+                            // Rätt antal mål för hemmalag
+                            if (bet.GissningHemma == hemmalagResultat)
+                            {
+                                poang += 1;
+                            }
+
+                            // Rätt antal mål för bortalag
+                            if (bet.GissningBorta == bortalagResultat)
+                            {
+                                poang += 1;
+                            }
+
+                            // Rätt slutresultat
+                            if (bet.GissningHemma == hemmalagResultat && bet.GissningBorta == bortalagResultat)
+                            {
+                                poang += 1;
+                            }
+
+                            // Uppdatera poäng för spelaren
+                            await jsonService.UppdateraPoangForAnvandareAsync(spelare.Id, poang);
+                        }
+                    }
+
+                    // Navigera tillbaka till huvudmenyn eller visa ett meddelande om att poängen har uppdaterats
+                    var dialog = new ContentDialog
+                    {
+                        Title = "Poäng uppdaterade",
+                        Content = "Poängen har uppdaterats för alla spelare.",
+                        CloseButtonText = "OK"
+                    };
+                    await dialog.ShowAsync();
+                }
+            }
+        }
+
+        private T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
+        {
+            // Confirm parent and childName are valid. 
+            if (parent == null) return null;
+
+            T foundChild = null;
+
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < childrenCount; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child == null) continue;
+
+                // If the child is not of the request child type child
+                T childType = child as T;
+                if (childType == null)
+                {
+                    // recursively drill down the tree
+                    foundChild = FindChild<T>(child, childName);
+
+                    // If the child is found, break so we do not overwrite the found child. 
+                    if (foundChild != null) break;
+                }
+                else if (!string.IsNullOrEmpty(childName))
+                {
+                    var frameworkElement = child as FrameworkElement;
+                    // If the child's name is set for search
+                    if (frameworkElement != null && frameworkElement.Name == childName)
+                    {
+                        // if the child's name is of the request name
+                        foundChild = (T)child;
+                        break;
+                    }
+                }
+                else
+                {
+                    // child element found.
+                    foundChild = (T)child;
+                    break;
+                }
+            }
+
+            return foundChild;
         }
     }
+    
 }
