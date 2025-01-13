@@ -31,7 +31,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                         VerticalAlignment="Top" Margin="0,10,0,0">
-                
+
                 <ComboBox x:Name="RattaMatcherLista" Height="30" Width="120"
                           BorderThickness="0" PlaceholderText="Välj Match"
                           SelectionChanged="RattaMatcherLista_SelectionChanged">
@@ -45,10 +45,8 @@
                                 <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" 
                                            VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 
-                           
                                 <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" 
                                            HorizontalAlignment="Center"/>
-                         
 
                                 <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" 
                                            VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
@@ -74,7 +72,6 @@
                                 <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
                                 <Image Source="{Binding HemmalagFlagga}" Width="150" Height="100" 
                                        Grid.Column="0" Margin="0,0,0,10"/>
-
                                 <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" 
                                            VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 
@@ -89,8 +86,6 @@
 
                                 <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" 
                                            VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-
-
                                 <Image Source="{Binding BortalagFlagga}" Width="150" Height="100" 
                                        Grid.Column="2" Margin="0,0,0,10"/>
                             </Grid>
@@ -102,17 +97,17 @@
             <Grid Background="#555555" Height="50" Width="500" Margin="0,0,0,250" CornerRadius="5">
 
                 <TextBox Text="{Binding RattaHemmalag}" Height="40" Width="40"
-                                      VerticalAlignment="Center" HorizontalAlignment="Left"
-                                      Background="White" BorderThickness="0" Margin="0,0,0,0" 
-                                      Foreground="#222222" FontSize="18" FontWeight="Bold"
-                                      />
+                        VerticalAlignment="Center" HorizontalAlignment="Left"
+                        Background="White" BorderThickness="0" Margin="60,0,0,0" 
+                        Foreground="#222222" FontSize="18" FontWeight="Bold"                        
+                        />
 
                 <TextBlock Text="-" Foreground="White" VerticalAlignment="Center" 
-                                        HorizontalAlignment="Center" Margin="0,0,0,0" 
-                                        FontSize="36" FontWeight="Bold"/>
+                                        HorizontalAlignment="Center" Margin="0,0,0,10" 
+                                        FontSize="52" FontWeight="Bold"/>
 
                 <TextBox Text="{Binding RattaBortalag}" Height="40" Width="40" 
-                                      Background="White" BorderThickness="0" Margin="0,0,0,0" 
+                                      Background="White" BorderThickness="0" Margin="0,0,60,0" 
                                       Foreground="#222222" FontSize="18" FontWeight="Bold"
                                       VerticalAlignment="Center" HorizontalAlignment="Right"
                                       />
