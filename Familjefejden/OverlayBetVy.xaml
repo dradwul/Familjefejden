@@ -99,7 +99,7 @@
                 <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Name="HittadeIngaSpelareText" Text="Hittade inga spelare" Foreground="#EA3737" FontWeight="Bold" FontSize="16" Visibility="Collapsed"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Margin="0,50,0,0">
-                <ScrollViewer>
+                <ScrollViewer Width="440" ScrollViewer.VerticalScrollBarVisibility="Visible">
                     <ItemsControl x:Name="SpelareBettingLista" VerticalAlignment="Top">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>

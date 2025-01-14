@@ -48,6 +48,7 @@ namespace Familjefejden
                 }
             }
             LagLista.ItemsSource = bildText;
+            UpdateraLagRaknare();
         }
 
         private async Task LaddaInBefintligaLag()
@@ -74,6 +75,7 @@ namespace Familjefejden
             }
 
             UpdateNastaButtonState();
+            UpdateraLagRaknare();
         }
 
         private async void TillagdKnapp_KlickadAsync(object sender, RoutedEventArgs e)
@@ -122,6 +124,7 @@ namespace Familjefejden
             LagLista.ItemsSource = bildText;
 
             UpdateNastaButtonState();
+            UpdateraLagRaknare();
             LagLista.SelectedItem = null;
         }
 
@@ -175,6 +178,7 @@ namespace Familjefejden
             LagLista.ItemsSource = bildText;
 
             UpdateNastaButtonState();
+            UpdateraLagRaknare();
         }
 
         private void UpdateNastaButtonState()
@@ -192,6 +196,11 @@ namespace Familjefejden
             {
                 LaggTillLagKnapp.IsEnabled = false;
             }
+        }
+
+        private void UpdateraLagRaknare()
+        {
+            LagRaknare.Text = $"{tillagdaLag.Count}/10";
         }
     }
 }
