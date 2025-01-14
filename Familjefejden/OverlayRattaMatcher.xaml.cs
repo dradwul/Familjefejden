@@ -64,6 +64,11 @@ namespace Familjefejden
                     RattaBortalag = string.Empty
                 });
             }
+            // Sortera matcherna efter datum och tid
+            matchViewModels = matchViewModels
+               .OrderBy(m => DateTime.Parse($"{m.Datum} {m.Tid}"))
+               .ToList();
+
             // Om inga matcher finns att visa, visa meddelande
             if (!matchViewModels.Any())
             {
@@ -76,6 +81,16 @@ namespace Familjefejden
             }
 
             RattaMatcherLista.ItemsSource = matchViewModels;
+
+            // Visa den översta matchen i ComboBox
+            if (matchViewModels.Any())
+            {
+                RattaMatcherLista.SelectedIndex = 0;
+                VisaMatch.ItemsSource = new List<dynamic> { matchViewModels.First() };
+                var matchId = matchViewModels.First().Id;
+                var bets = await HamtaBetsForMatch(matchId);
+                SpelarPoangPanel.ItemsSource = bets;
+            }
         }
 
         private async Task<List<dynamic>> HamtaBetsForMatch(int matchId)

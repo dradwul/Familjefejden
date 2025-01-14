@@ -133,7 +133,8 @@ namespace Familjefejden
                                         {
                                             Title = "Bet existerar redan",
                                             Content = "Du har redan placerat ett bet för denna match.",
-                                            CloseButtonText = "OK"
+                                            CloseButtonText = "Ok",
+                                            CornerRadius = new CornerRadius(10)
                                         };
                                         await dialog.ShowAsync();
                                     }
