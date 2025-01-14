@@ -156,6 +156,22 @@ namespace Familjefejden
                     int.TryParse(hemmalagResultatTextBox.Text, out int hemmalagResultat) &&
                     int.TryParse(bortalagResultatTextBox.Text, out int bortalagResultat))
                 {
+                    // Kontrollera om alla spelare har lagt sitt bet
+                    var spelareBetLista = await jsonService.HamtaAllaAnvandareAsync();
+                    var allaHarLagtBet = spelareBetLista.All(s => s.Bets.Any(b => b.MatchId == valdMatch.Id));
+
+                    if (!allaHarLagtBet)
+                    {
+                        var dialogBet = new ContentDialog
+                        {
+                            Title = "Alla spelare har inte lagt sitt bet",
+                            Content = "Du kan inte rätta matchen förrän alla spelare har lagt sitt bet.",
+                            CloseButtonText = "Ok",
+                            CornerRadius = new CornerRadius(10)
+                        };
+                        await dialogBet.ShowAsync();
+                        return;
+                    }
 
                     await jsonService.UppdateraMatchResultatAsync(valdMatch.Id, hemmalagResultat, bortalagResultat);
 

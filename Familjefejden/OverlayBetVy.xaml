@@ -124,7 +124,8 @@
                                     <Button x:Name="LaggBetKnapp" Height="25" Width="30"
                                             HorizontalAlignment="Center" Margin="120,0,0,0"
                                             Click="LaggBetKnapp_Klickad" Background="#28C95E"
-                                            Foreground="#fff" CornerRadius="5">
+                                            Foreground="#fff" CornerRadius="5"
+                                            IsEnabled="{Binding FinnsBet}">
                                         <StackPanel Orientation="Horizontal">
                                             <FontIcon x:Name="BetIcon" Glyph="&#xE710;" FontSize="18" Margin="-5"/>
                                         </StackPanel>
