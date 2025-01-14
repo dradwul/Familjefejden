@@ -111,7 +111,7 @@
                                         <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30,0,0" FontSize="14" Foreground="#666"/>
                                         <TextBlock Text="{Binding Tid}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="20" Foreground="#e9e9e9"/>
                                         <TextBlock Text="" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="24" Foreground="#888"/>
-                                        <TextBlock Text="{Binding SpelasJustNuText}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                        <TextBlock Text="{Binding SpelasJustNuText}" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"
                                             Foreground="Red" FontWeight="Bold" />
 
                                         <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="8"/>

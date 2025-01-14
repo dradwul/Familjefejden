@@ -581,6 +581,38 @@ namespace Familjefejden.Service
             return false;
         }
 
+        public async Task<bool> UppdateraMatchResultatAsync(int matchId, int hemmalagMal, int bortalagMal)
+        {
+            var turneringData = await HamtaSpecifikDataAsync("Turnering");
+            if (turneringData is JObject turneringObjekt)
+            {
+                var matcher = turneringObjekt["Matcher"] as JArray;
+                if (matcher == null)
+                {
+                    return false;
+                }
+
+                var match = matcher.FirstOrDefault(m => (int)m["Id"] == matchId);
+                if (match == null)
+                {
+                    return false;
+                }
+
+                var matchDatum = match["Date"].ToObject<DateTime>();
+                if (matchDatum > DateTime.Now)
+                {
+                    return false;
+                }
+
+                match["HemmalagMal"] = hemmalagMal;
+                match["BortalagMal"] = bortalagMal;
+
+                await SparaTillFilAsync("Turnering", turneringObjekt);
+                return true;
+            }
+            return false;
+        }
+
         public async Task<List<Match>> HamtaAllaMatcherAsync()
         {
             var turneringData = await HamtaSpecifikDataAsync("Turnering");
