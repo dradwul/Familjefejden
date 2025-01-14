@@ -47,16 +47,19 @@ namespace Familjefejden
             // Lägg till befintliga lag i UI-listan
             foreach (var lag in befintligaLag)
             {
-                var motsvarandeLagForemal = LagForemal.HamtaLagForemal()
-                    .FirstOrDefault(l => l.Lag == lag.Namn);
-
-                if (motsvarandeLagForemal != null)
+                if (!tillagdaLag.Any(l => l.Lag == lag.Namn))
                 {
-                    tillagdaLag.Add(new LagForemal
+                    var motsvarandeLagForemal = LagForemal.HamtaLagForemal()
+                        .FirstOrDefault(l => l.Lag == lag.Namn);
+
+                    if (motsvarandeLagForemal != null)
                     {
-                        LagFlagga = motsvarandeLagForemal.LagFlagga,
-                        Lag = lag.Namn
-                    });
+                        tillagdaLag.Add(new LagForemal
+                        {
+                            LagFlagga = motsvarandeLagForemal.LagFlagga,
+                            Lag = lag.Namn
+                        });
+                    }
                 }
             }
 

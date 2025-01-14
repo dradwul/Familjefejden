@@ -107,25 +107,28 @@
                                     <TextBlock Text="{Binding Anvandare}" VerticalAlignment="Center" HorizontalAlignment="Left" 
                                                x:Name="AnvandarNamn" Margin="10,0,0,0"/>
 
-                                        <TextBox Text="{Binding GissningHemma}" Height="40" Width="40"
-                                             Background="White" BorderThickness="0" Margin="220,0,0,0" 
-                                             Foreground="#222222" FontSize="18" FontWeight="Bold"
-                                             x:Name="GissningHemmaBox" IsEnabled="{Binding HarExisterandeBet, Converter={StaticResource InverteraBoolKonverterare}}"/>
+                                    <TextBox Text="{Binding GissningHemma}" Height="40" Width="40"
+                                            Background="White" BorderThickness="0" Margin="220,0,0,0" 
+                                            Foreground="#222222" FontSize="18" FontWeight="Bold"
+                                            x:Name="GissningHemmaBox" IsEnabled="{Binding HarExisterandeBet, Converter={StaticResource InverteraBoolKonverterare}}"/>
 
-                                        <TextBlock Text="-" Foreground="White" VerticalAlignment="Center" 
-                                               HorizontalAlignment="Right" Margin="0,0,50,10" 
-                                               FontSize="36" FontWeight="Bold"/>
+                                    <TextBlock Text="-" Foreground="White" VerticalAlignment="Center" 
+                                            HorizontalAlignment="Right" Margin="0,0,50,10" 
+                                            FontSize="36" FontWeight="Bold"/>
 
-                                        <TextBox Text="{Binding GissningBorta}" Height="40" Width="40" 
-                                             Background="White" BorderThickness="0" Margin="350,0,0,0" 
-                                             Foreground="#222222" FontSize="18" FontWeight="Bold"
-                                             x:Name="GissningBortaBox" IsEnabled="{Binding HarExisterandeBet, Converter={StaticResource InverteraBoolKonverterare}}"/>
+                                    <TextBox Text="{Binding GissningBorta}" Height="40" Width="40" 
+                                            Background="White" BorderThickness="0" Margin="350,0,0,0" 
+                                            Foreground="#222222" FontSize="18" FontWeight="Bold"
+                                            x:Name="GissningBortaBox" IsEnabled="{Binding HarExisterandeBet, Converter={StaticResource InverteraBoolKonverterare}}"/>
 
-                                        <Button Content="Lägg Bet" Height="35" Width="77"
-                                            HorizontalAlignment="Center" Margin="0,0,0,0"
-                                            Click="LaggBetKnapp_Klickad" Background="#36BCDA"
-                                            Foreground="#fff" CornerRadius="5" FontSize="12"                                        
-                                            x:Name="LaggBetKnapp" IsEnabled="{Binding HarExisterandeBet, Converter={StaticResource InverteraBoolKonverterare}}"/>
+                                    <Button x:Name="LaggBetKnapp" Height="25" Width="30"
+                                            HorizontalAlignment="Center" Margin="120,0,0,0"
+                                            Click="LaggBetKnapp_Klickad" Background="#28C95E"
+                                            Foreground="#fff" CornerRadius="5">
+                                        <StackPanel Orientation="Horizontal">
+                                            <FontIcon x:Name="BetIcon" Glyph="&#xE710;" FontSize="18" Margin="-5"/>
+                                        </StackPanel>
+                                    </Button>
 
                                 </Grid>
                             </DataTemplate>

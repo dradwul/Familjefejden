@@ -2,6 +2,7 @@
 using Klasser;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -148,7 +149,9 @@ namespace Familjefejden
                                         anvandare.Bets.Add(nyttBet);
                                         await jsonService.LaggTillBetAsync(anvandare.Id, nyttBet);
 
-                                        // TODO: GRÅA UT KNAPP OCH TEXTBOXES NÄR BET LAGTS?
+                                        button.IsEnabled = false;
+                                        gissningHemmaTextBox.IsEnabled = false;
+                                        gissningBortaTextBox.IsEnabled = false;
                                     }
                                 }
                             }

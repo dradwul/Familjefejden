@@ -61,6 +61,20 @@ namespace Familjefejden
 
             if(valtLagHemma != null && valtLagBorta != null)
             {
+                if (!MatchDag.SelectedDate.HasValue)
+                {
+                    var dialog = new ContentDialog
+                    {
+                        Title = "Välj datum",
+                        Content = "Vänligen välj ett datum för matchen.",
+                        CloseButtonText = "Ok",
+                        CornerRadius = new CornerRadius(10)
+                    };
+
+                    await dialog.ShowAsync();
+                    return;
+                }
+
                 var datum = MatchDag.Date.DateTime.Date;
                 var tid = MatchStart.Time;
                 var matchDatum = new DateTime(datum.Year, datum.Month, datum.Day, tid.Hours, tid.Minutes, 0);
@@ -70,7 +84,13 @@ namespace Familjefejden
 
                 if(hemmalagId == -1 || bortalagId == -1)
                 {
-                    var dialog = new MessageDialog("Ett av lagen kunde inte hittas");
+                    var dialog = new ContentDialog
+                    {
+                        Title = "Fel",
+                        Content = "Ett av lagen kunde inte hittas.",
+                        CloseButtonText = "Ok",
+                        CornerRadius = new CornerRadius(10)
+                    };
                     await dialog.ShowAsync();
                     return;
                 }
@@ -95,8 +115,15 @@ namespace Familjefejden
             }
             else
             {
-                var dialog = new MessageDialog("Vänligen välj både hemmalag och bortalag.");
+                var dialog = new ContentDialog
+                {
+                    Title = "Välj lag",
+                    Content = "Vänligen välj både hemmalag och bortalag.",
+                    CloseButtonText = "Ok",
+                    CornerRadius = new CornerRadius(10)
+                };
                 await dialog.ShowAsync();
+                return;
             }
            
 
@@ -149,7 +176,14 @@ namespace Familjefejden
                 bool laggaTillMatch = await jsonService.LaggTillMatchAsync(match);
                 if (!laggaTillMatch)
                 {
-                    var dialog = new MessageDialog("Matchen kunde inte läggas till");
+                    var dialog = new ContentDialog
+                    {
+                        Title = "Fel",
+                        Content = "Matchen gick inte att lägga till.",
+                        CloseButtonText = "Ok",
+                        CornerRadius = new CornerRadius(10)
+                    };
+
                     await dialog.ShowAsync();
                     return;
                 }

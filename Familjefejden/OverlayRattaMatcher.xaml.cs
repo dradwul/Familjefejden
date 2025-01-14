@@ -54,6 +54,8 @@ namespace Familjefejden
                     match.Id,
                     Datum = match.Date.ToString("yyyy/MM/dd"),
                     Tid = match.Date.ToString("HH:mm"),
+                    RattaHemmalag = string.Empty, // Lägg till denna egenskap
+                    RattaBortalag = string.Empty
                 });
             }
 
