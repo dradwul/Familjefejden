@@ -40,13 +40,17 @@ namespace Familjefejden
             ListaSpelschema.ItemsSource = tillagdaMatcher;
         }
 
-        private void OverlaySpelschema_Loaded(object sender, RoutedEventArgs e)
+        private async void OverlaySpelschema_Loaded(object sender, RoutedEventArgs e)
         {
-            var lagBildHemma = LagForemal.HamtaLagForemal();
-            var lagBildBorta = LagForemal.HamtaLagForemal();
+            var sparadeLag = await jsonService.HamtaAllaLagAsync();
+            var ursprungligaLagForemal = LagForemal.HamtaLagForemal();
 
-            Hemmalag.ItemsSource = lagBildHemma;
-            Bortalag.ItemsSource = lagBildBorta;
+            var tillgangligaLag = ursprungligaLagForemal
+                .Where(l => sparadeLag.Any(s => s.Namn == l.Lag))
+                .ToList();
+
+            Hemmalag.ItemsSource = tillgangligaLag;
+            Bortalag.ItemsSource = tillgangligaLag;
         }
 
         private void TillbakaKnapp_Klickad(object sender, RoutedEventArgs e)
@@ -98,48 +102,6 @@ namespace Familjefejden
                 var dialog = new MessageDialog("Vänligen välj både hemmalag och bortalag.");
                 await dialog.ShowAsync();
             }
-           
-
-            //TODO: Logik för att lägga till lag i listview
-            //TODO: Logik för att spara match i json
-            //Match nyMatch = turneringService.SkapaMatch(Datum, hemmalagId, bortalagId);
-            //jsonService.LaggTillMatchAsync(nyMatch);
-
-            //var dialog = new MessageDialog("Laget är redan tillagt.");
-            //await dialog.ShowAsync();
-
-            //var dialog = new MessageDialog("Du kan inte lägga till fler än 10 lag.");
-            //await dialog.ShowAsync();
-
-            //Lag nyttLag = turneringService.SkapaLag(valtForemal.Lag);
-            //await jsonService.LaggTillLagAsync(nyttLag);
-
-            //var valtForemalHemma = Hemmalag.SelectedItem as LagForemal;
-            //var valtForemalBorta = Bortalag.SelectedItem as LagForemal;
-
-            //if (valtForemalHemma != null && valtForemalBorta != null)
-            //{
-            //    var datum = MatchDag.Date.DateTime.Date; // Endast datumdelen
-            //    var tid = MatchStart.Time;
-
-            //    tillagdaMatcher.Add(new MatchForemal
-            //    {
-            //        HemmaLagFlagga = valtForemalHemma.LagFlagga,
-            //        HemmaLag = valtForemalHemma.Lag,
-            //        BortaLagFlagga = valtForemalBorta.LagFlagga,
-            //        BortaLag = valtForemalBorta.Lag,
-            //        Datum = datum,
-            //        Tid = tid
-            //    });
-            //}
-        }
-
-        private DateTime GetSelectedDateTime()
-        {
-            var datum = MatchDag.Date.DateTime;
-            var tid = MatchStart.Time;
-
-            return new DateTime(datum.Year, datum.Month, datum.Day, tid.Hours, tid.Minutes, 0, DateTimeKind.Utc);
         }
 
         private async void SparaKnapp_Klickad(object sender, RoutedEventArgs e)

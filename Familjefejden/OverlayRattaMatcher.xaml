@@ -29,114 +29,122 @@
                 <RowDefinition Height="680"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
-                        VerticalAlignment="Top" Margin="0,10,0,0">
-
-                <ComboBox x:Name="RattaMatcherLista" Height="30" Width="120"
-                          BorderThickness="0" PlaceholderText="Välj Match"
-                          SelectionChanged="RattaMatcherLista_SelectionChanged">
+            <StackPanel Grid.Row="0" Margin="20">
+                <ComboBox x:Name="RattaMatcherLista" HorizontalAlignment="Stretch" Height="40" BorderThickness="0" PlaceholderText="Välj Match" SelectionChanged="RattaMatcherLista_SelectionChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
                                 <!--DUMMYVÄRDEN HÄR NEDANFÖR-->
                                 <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
                                 <!--<Image Source="{Binding Team1Flaggor}" Width="150" Height="100" Grid.Column="0" Margin="0,0,0,10"/>-->
 
-                                <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" 
-                                           VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Datum}" Grid.Column="0" HorizontalAlignment="Left" Margin="10,3,0,0" Foreground="#555"/>
 
-                                <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" 
-                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding HemmalagNamn}" FontSize="16" FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,8,0"/>
 
-                                <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" 
-                                           VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                <TextBlock Text="vs" Margin="10,2,10,0" Grid.Column="2" HorizontalAlignment="Center"/>
+
+                                <TextBlock Text="{Binding BortalagNamn}" FontSize="16" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Left" Margin="8,0,0,0"/>
 
                                 <!--<Image Source="{Binding Team2Flaggor}" Width="150" Height="100" Grid.Column="2" Margin="0,0,0,10"/>-->
-                            </StackPanel>
+                            </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Height="210">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,70,20,0">
                 <ListView x:Name="VisaMatch">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="240"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="240"/>
-                                </Grid.ColumnDefinitions>
-                                <!--DUMMYVÄRDEN HÄR NEDANFÖR-->
-                                <!--Vi kan eventuellt använda denna struktur senare med vårt json objekt-->
-                                <Image Source="{Binding HemmalagFlagga}" Width="150" Height="100" 
-                                       Grid.Column="0" Margin="0,0,0,150"/>
-                                <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" Margin="0,0,0,40"
-                                           VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+                            <StackPanel Height="250">
+                                <Grid Margin="-7,3,0,3" Height="120" CornerRadius="8" Background="#333" HorizontalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="135"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="135"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{Binding Datum}" Grid.Column="1" 
-                                            VerticalAlignment="Top" HorizontalAlignment="Center" 
-                                            Margin="0,10,0,0" FontSize="18"/>
-                                <TextBlock Text="vs" Grid.Column="1" VerticalAlignment="Center" 
-                                           HorizontalAlignment="Center" Margin="0,0,0,160" FontSize="32"/>
-                                <TextBlock Text="{Binding Tid}" Grid.Column="1" 
-                                           VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                           Margin="0,0,0,90" FontSize="18"/>
+                                    <Border Grid.Column="0" CornerRadius="5" Width="100" Height="50">
+                                        <Image Source="{Binding HemmalagFlagga}" Width="120"/>
+                                    </Border>
+                                    <TextBlock Text="{Binding HemmalagNamn}" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="8" Foreground="#e9e9e9"/>
 
-                                <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" Margin="0,93,0,0"
-                                           VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="18"/>
-                                <Image Source="{Binding BortalagFlagga}" Width="150" Height="100" 
-                                       Grid.Column="2" Margin="0,0,0,150"/>
+                                    <TextBlock Text="JVM" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0" FontSize="16" Foreground="#555" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding Datum}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30,0,0" FontSize="14" Foreground="#666"/>
+                                    <TextBlock Text="{Binding Tid}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="20" Foreground="#e9e9e9"/>
 
-                                <StackPanel x:Name="RattaMatch" Orientation="Horizontal" Background="#555555" Grid.ColumnSpan="3" Height="50" Width="480" Margin="0,100,0,0" CornerRadius="5">
+                                    <TextBlock Text="{Binding BortalagNamn}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="8"/>
+                                    <Border Grid.Column="2" CornerRadius="5" Width="100" Height="50">
+                                        <Image Source="{Binding BortalagFlagga}" Width="120"/>
+                                    </Border>
+                                </Grid>
+
+                                <Grid x:Name="RattaMatch" HorizontalAlignment="Stretch" Height="50" VerticalAlignment="Center" Margin="0,0,0,0">
                                     <TextBox x:Name="RattaHemmalag" Text="{Binding RattaHemmalag}" Height="40" Width="40"
                                              VerticalAlignment="Center" HorizontalAlignment="Left"
-                                             Background="White" BorderThickness="0" Margin="60,0,0,0" 
-                                             Foreground="#222222" FontSize="18" FontWeight="Bold"/>     
-                                    <TextBlock Text="-" Foreground="White" VerticalAlignment="Center" 
-                                               HorizontalAlignment="Center" Margin="140,0,0,15" 
+                                             Background="White" BorderThickness="0" Margin="50,0,0,0" 
+                                             Foreground="#222222" FontSize="18" FontWeight="Bold"/>
+                                    <TextBlock Text="-" Foreground="#555" VerticalAlignment="Center" 
+                                               HorizontalAlignment="Center" Margin="0,0,0,15" 
                                                FontSize="52" FontWeight="Bold"/>
                                     <TextBox x:Name="RattaBortalag" Text="{Binding RattaBortalag}" Height="40" Width="40" 
-                                             Background="White" BorderThickness="0" Margin="135,0,0,0" 
+                                             Background="White" BorderThickness="0" Margin="0,0,50,0" 
                                              Foreground="#222222" FontSize="18" FontWeight="Bold"
                                              VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                </StackPanel>
-                            </Grid>
+                                </Grid>
+
+                                <Button Click="RattaMatchKnapp_Klickad" Height="40" Background="#36BCDA" 
+                                        CornerRadius="5" HorizontalAlignment="Center" Margin="0,20,0,20">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" Margin="0,0,8,0" FontSize="14"/>
+                                        <TextBlock Text="Rätta match"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
 
-            <StackPanel Grid.Row="0" Height="350" VerticalAlignment="Bottom">
+            <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Name="HittadeIngaSpelareText" Text="Hittade inga spelare" Foreground="#EA3737" FontWeight="Bold" FontSize="16" Visibility="Collapsed" Margin="0,100,0,0"/>
+            
+            <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center" Margin="0,300,0,0">
                 <ListView x:Name="SpelarPoangPanel" Height="330" ScrollViewer.VerticalScrollBarVisibility="Visible">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Background="#555555" Height="50" Width="450" Margin="0,5,0,0" CornerRadius="5">
-                                <TextBlock Text="{Binding Spelare}" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                           FontSize="18" Margin="10,0,0,0"/>
-                                <TextBlock Text="{Binding GissningHemma}" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                           FontSize="22" Margin="0,0,60,0"/>
-                                <TextBlock Text="-" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                           FontSize="42" Margin="0,0,35,8"/>
-                                <TextBlock Text="{Binding GissningBorta}" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                           FontSize="22" Margin="0,0,15,0"/>
+                            <Grid Background="#333" Height="50" Width="400" Margin="0,2,0,2" CornerRadius="5" Padding="0">
+
+                                <TextBlock Text="{Binding Spelare}" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                           x:Name="AnvandarNamn" Margin="10,0,0,0"/>
+
+                                <TextBlock Text="{Binding GissningHemma}" VerticalAlignment="Center" Width="40" Margin="0,0,70,0" 
+                                           HorizontalAlignment="Right" Foreground="#d9d9d9" FontSize="22" FontWeight="Bold"/>
+
+                                <TextBlock Text="-" Foreground="#555" VerticalAlignment="Center" Margin="0,0,60,5"  
+                                           HorizontalAlignment="Right" FontSize="36" FontWeight="Normal"/>
+
+                                <TextBlock Text="{Binding GissningBorta}" VerticalAlignment="Center" Width="40" Margin="0,0,0,0" 
+                                           HorizontalAlignment="Right" Foreground="#d9d9d9" FontSize="22" FontWeight="Bold"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
 
-            <Button Content="Rätta Match" Height="50" Width="120"
-                                        HorizontalAlignment="Center" Margin="0,0,0,100"
-                                        Click="RattaMatchKnapp_Klickad" Background="#B7FFAD"
-                                        Foreground="#555555" CornerRadius="5" FontSize="12"                                        
-                                        />
-
-            <Button Content="Acceptera" Grid.Row="1" Height="30" Width="100" 
-                    VerticalAlignment="Bottom" HorizontalAlignment="Right" 
-                    Margin="0,0,20,20" CornerRadius="5" 
-                    Background="#0BE400" Click="AccepteraKnapp_Klickad"/>
+            <Button Grid.Row="3" Height="40"  Width="120" CornerRadius="5" HorizontalAlignment="Right" Margin="0,20,20,20" Background="#28C95E" Click="AccepteraKnapp_Klickad">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8FB;" Margin="0,0,8,0"/>
+                    <TextBlock Text="Acceptera"/>
+                </StackPanel>
+            </Button>
         </Grid>
 
     </Grid>

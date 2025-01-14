@@ -38,6 +38,16 @@ namespace Familjefejden
             LagLista.ItemsSource = bildText;
             TurneringNamn.Text = await jsonService.HamtaTurneringsnamnFranId(1);
             await LaddaInBefintligaLag();
+
+            foreach(var lag in tillagdaLag)
+            {
+                var foremalAttFiltreraBort = bildText.FirstOrDefault(l => l.Lag == lag.Lag);
+                if(foremalAttFiltreraBort != null)
+                {
+                    bildText.Remove(foremalAttFiltreraBort);
+                }
+            }
+            LagLista.ItemsSource = bildText;
         }
 
         private async Task LaddaInBefintligaLag()
@@ -103,6 +113,11 @@ namespace Familjefejden
                 Lag = valtForemal.Lag
             });
 
+            var bildText = (List<LagForemal>)LagLista.ItemsSource;
+            bildText.Remove(valtForemal);
+            LagLista.ItemsSource = null;
+            LagLista.ItemsSource = bildText;
+
             UpdateNastaButtonState();
             LagLista.SelectedItem = null;
         }
@@ -151,6 +166,11 @@ namespace Familjefejden
             }
 
             tillagdaLag.Remove(lagForemal);
+            var bildText = (List<LagForemal>)LagLista.ItemsSource;
+            bildText.Add(lagForemal);
+            LagLista.ItemsSource = null;
+            LagLista.ItemsSource = bildText;
+
             UpdateNastaButtonState();
         }
 

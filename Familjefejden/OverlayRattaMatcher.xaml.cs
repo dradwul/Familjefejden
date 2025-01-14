@@ -36,15 +36,21 @@ namespace Familjefejden
         {
             var matcher = await jsonService.HamtaAllaMatcherAsync();
             var flaggor = LagForemal.HamtaLagForemal();
-
             var matchViewModels = new List<dynamic>();
             foreach (var match in matcher)
             {
+                // Skippa matcher som redan har resultat (är rättade)
+                if (match.HemmalagMal != null || match.BortalagMal != null)
+                    continue;
+
+                // Skippa matcher som inte har spelats än
+                if (match.Date > DateTime.Now)
+                    continue;
+
                 var hemmalagNamn = await jsonService.HamtaLagnamnFranLagId(match.HemmalagId);
                 var bortalagNamn = await jsonService.HamtaLagnamnFranLagId(match.BortalagId);
                 var hemmalagFlagga = flaggor.FirstOrDefault(l => l.Lag == hemmalagNamn)?.LagFlagga;
                 var bortalagFlagga = flaggor.FirstOrDefault(l => l.Lag == bortalagNamn)?.LagFlagga;
-
                 matchViewModels.Add(new
                 {
                     HemmalagNamn = hemmalagNamn,
@@ -54,11 +60,24 @@ namespace Familjefejden
                     match.Id,
                     Datum = match.Date.ToString("yyyy/MM/dd"),
                     Tid = match.Date.ToString("HH:mm"),
+                    RattaHemmalag = string.Empty,
+                    RattaBortalag = string.Empty
                 });
+            }
+            // Om inga matcher finns att visa, visa meddelande
+            if (!matchViewModels.Any())
+            {
+                HittadeIngaSpelareText.Text = "Inga matcher att rätta just nu";
+                HittadeIngaSpelareText.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                HittadeIngaSpelareText.Visibility = Visibility.Collapsed;
             }
 
             RattaMatcherLista.ItemsSource = matchViewModels;
         }
+
         private async Task<List<dynamic>> HamtaBetsForMatch(int matchId)
         {
             var spelareLista = await jsonService.HamtaAllaAnvandareAsync();
@@ -122,6 +141,9 @@ namespace Familjefejden
                     int.TryParse(hemmalagResultatTextBox.Text, out int hemmalagResultat) &&
                     int.TryParse(bortalagResultatTextBox.Text, out int bortalagResultat))
                 {
+
+                    await jsonService.UppdateraMatchResultatAsync(valdMatch.Id, hemmalagResultat, bortalagResultat);
+
                     // Hämta alla spelare
                     var spelareLista = await jsonService.HamtaAllaAnvandareAsync();
 
@@ -163,6 +185,7 @@ namespace Familjefejden
                         CloseButtonText = "OK"
                     };
                     await dialog.ShowAsync();
+                    Frame.Navigate(typeof(OverlayRattaMatcher));
                 }
             }
         }
