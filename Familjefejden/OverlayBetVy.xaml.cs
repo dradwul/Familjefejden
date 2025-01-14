@@ -35,7 +35,7 @@ namespace Familjefejden
         private async void HamtaInMatcher()
         {
             var matcher = await jsonService.HamtaAllaMatcherAsync();
-            var flaggor = LagForemal.HamtaLagForemal();            
+            var flaggor = LagForemal.HamtaLagForemal();
 
             var matchViewModels = new List<dynamic>();
             foreach (var match in matcher)
@@ -79,7 +79,8 @@ namespace Familjefejden
                 Anvandare = s.Namn,
                 GissningHemma = s.Bets.FirstOrDefault(b => b.MatchId == valdMatch.Id)?.GissningHemma ?? 0,
                 GissningBorta = s.Bets.FirstOrDefault(b => b.MatchId == valdMatch.Id)?.GissningBorta ?? 0,
-                HarExisterandeBet = s.Bets.Any(b => b.MatchId == valdMatch.Id)
+                HarExisterandeBet = s.Bets.Any(b => b.MatchId == valdMatch.Id),
+                FinnsBet = !s.Bets.Any(b => b.MatchId == valdMatch.Id)
             }).ToList();
         }
 
@@ -133,25 +134,45 @@ namespace Familjefejden
                                         {
                                             Title = "Bet existerar redan",
                                             Content = "Du har redan placerat ett bet för denna match.",
-                                            CloseButtonText = "OK"
+                                            CloseButtonText = "Ok",
+                                            CornerRadius = new CornerRadius(10)
                                         };
                                         await dialog.ShowAsync();
                                     }
                                     else
                                     {
-                                        var nyttBet = new Bet
+                                        // Kontrollera om samma resultat redan finns
+                                        var sammaResultatBet = allaSpelare
+                                            .SelectMany(s => s.Bets)
+                                            .FirstOrDefault(b => b.MatchId == valdMatch.Id && b.GissningHemma == gissningHemma && b.GissningBorta == gissningBorta);
+
+                                        if (sammaResultatBet != null)
                                         {
-                                            MatchId = valdMatch.Id,
-                                            GissningHemma = gissningHemma,
-                                            GissningBorta = gissningBorta
-                                        };
+                                            var dialog = new ContentDialog
+                                            {
+                                                Title = "Samma resultat",
+                                                Content = "En annan spelare har redan bettat samma resultat. Vänligen välj ett annat resultat.",
+                                                CloseButtonText = "Ok",
+                                                CornerRadius = new CornerRadius(10)
+                                            };
+                                            await dialog.ShowAsync();
+                                        }
+                                        else
+                                        {
+                                            var nyttBet = new Bet
+                                            {
+                                                MatchId = valdMatch.Id,
+                                                GissningHemma = gissningHemma,
+                                                GissningBorta = gissningBorta
+                                            };
 
-                                        anvandare.Bets.Add(nyttBet);
-                                        await jsonService.LaggTillBetAsync(anvandare.Id, nyttBet);
+                                            anvandare.Bets.Add(nyttBet);
+                                            await jsonService.LaggTillBetAsync(anvandare.Id, nyttBet);
 
-                                        button.IsEnabled = false;
-                                        gissningHemmaTextBox.IsEnabled = false;
-                                        gissningBortaTextBox.IsEnabled = false;
+                                            button.IsEnabled = false;
+                                            gissningHemmaTextBox.IsEnabled = false;
+                                            gissningBortaTextBox.IsEnabled = false;
+                                        }
                                     }
                                 }
                             }

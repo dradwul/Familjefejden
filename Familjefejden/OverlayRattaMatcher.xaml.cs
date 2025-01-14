@@ -64,6 +64,11 @@ namespace Familjefejden
                     RattaBortalag = string.Empty
                 });
             }
+            // Sortera matcherna efter datum och tid
+            matchViewModels = matchViewModels
+               .OrderBy(m => DateTime.Parse($"{m.Datum} {m.Tid}"))
+               .ToList();
+
             // Om inga matcher finns att visa, visa meddelande
             if (!matchViewModels.Any())
             {
@@ -76,6 +81,16 @@ namespace Familjefejden
             }
 
             RattaMatcherLista.ItemsSource = matchViewModels;
+
+            // Visa den översta matchen i ComboBox
+            if (matchViewModels.Any())
+            {
+                RattaMatcherLista.SelectedIndex = 0;
+                VisaMatch.ItemsSource = new List<dynamic> { matchViewModels.First() };
+                var matchId = matchViewModels.First().Id;
+                var bets = await HamtaBetsForMatch(matchId);
+                SpelarPoangPanel.ItemsSource = bets;
+            }
         }
 
         private async Task<List<dynamic>> HamtaBetsForMatch(int matchId)
@@ -141,6 +156,22 @@ namespace Familjefejden
                     int.TryParse(hemmalagResultatTextBox.Text, out int hemmalagResultat) &&
                     int.TryParse(bortalagResultatTextBox.Text, out int bortalagResultat))
                 {
+                    // Kontrollera om alla spelare har lagt sitt bet
+                    var spelareBetLista = await jsonService.HamtaAllaAnvandareAsync();
+                    var allaHarLagtBet = spelareBetLista.All(s => s.Bets.Any(b => b.MatchId == valdMatch.Id));
+
+                    if (!allaHarLagtBet)
+                    {
+                        var dialogBet = new ContentDialog
+                        {
+                            Title = "Alla spelare har inte lagt sitt bet",
+                            Content = "Du kan inte rätta matchen förrän alla spelare har lagt sitt bet.",
+                            CloseButtonText = "Ok",
+                            CornerRadius = new CornerRadius(10)
+                        };
+                        await dialogBet.ShowAsync();
+                        return;
+                    }
 
                     await jsonService.UppdateraMatchResultatAsync(valdMatch.Id, hemmalagResultat, bortalagResultat);
 
