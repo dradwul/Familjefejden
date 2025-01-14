@@ -71,6 +71,20 @@ namespace Familjefejden
                         CornerRadius = new CornerRadius(10)
                     };
 
+
+                    await dialog.ShowAsync();
+                    return;
+                }
+                if (valtLagHemma.Lag == valtLagBorta.Lag)
+                {
+                    var dialog = new ContentDialog
+                    {
+                        Title = "Ogiltigt val",
+                        Content = "Hemmalag och bortalag kan inte vara samma lag.",
+                        CloseButtonText = "Ok",
+                        CornerRadius = new CornerRadius(10)
+                    };
+
                     await dialog.ShowAsync();
                     return;
                 }
