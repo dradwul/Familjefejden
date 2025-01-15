@@ -43,6 +43,7 @@ namespace Familjefejden
                 }
                 else
                 {
+                    // Denna ska ändras om fler turneringar ska finnas
                     Frame.Navigate(typeof(OverlayLaggaTillLag));
                     //var errorDialog = new ContentDialog
                     //{

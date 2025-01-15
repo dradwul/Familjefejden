@@ -1,24 +1,11 @@
 ﻿using Familjefejden.Service;
-using Klasser;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using static Familjefejden.OverlaySpelschema;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Familjefejden
 {
@@ -156,7 +143,6 @@ namespace Familjefejden
                     int.TryParse(hemmalagResultatTextBox.Text, out int hemmalagResultat) &&
                     int.TryParse(bortalagResultatTextBox.Text, out int bortalagResultat))
                 {
-                    // Kontrollera om alla spelare har lagt sitt bet
                     var spelareBetLista = await jsonService.HamtaAllaAnvandareAsync();
                     var allaHarLagtBet = spelareBetLista.All(s => s.Bets.Any(b => b.MatchId == valdMatch.Id));
 
@@ -175,7 +161,6 @@ namespace Familjefejden
 
                     await jsonService.UppdateraMatchResultatAsync(valdMatch.Id, hemmalagResultat, bortalagResultat);
 
-                    // Hämta alla spelare
                     var spelareLista = await jsonService.HamtaAllaAnvandareAsync();
 
                     foreach (var spelare in spelareLista)
@@ -185,25 +170,21 @@ namespace Familjefejden
                         {
                             int poang = 0;
 
-                            // Rätt antal mål för hemmalag
                             if (bet.GissningHemma == hemmalagResultat)
                             {
                                 poang += 1;
                             }
 
-                            // Rätt antal mål för bortalag
                             if (bet.GissningBorta == bortalagResultat)
                             {
                                 poang += 1;
                             }
 
-                            // Rätt slutresultat
                             if (bet.GissningHemma == hemmalagResultat && bet.GissningBorta == bortalagResultat)
                             {
                                 poang += 1;
                             }
 
-                            // Uppdatera poäng för spelaren
                             await jsonService.UppdateraPoangForAnvandareAsync(spelare.Id, poang);
                         }
                     }

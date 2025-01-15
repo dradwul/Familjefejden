@@ -126,7 +126,6 @@
     <Compile Include="OverlayNyTurnering.xaml.cs">
       <DependentUpon>OverlayNyTurnering.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DummyData.cs" />
     <Compile Include="Klasser\Anvandare.cs" />
     <Compile Include="Klasser\Bet.cs" />
     <Compile Include="Klasser\Lag.cs" />

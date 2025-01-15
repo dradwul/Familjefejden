@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Familjefejden.Klasser
+﻿namespace Familjefejden.Klasser
 {
     public class Lag
     {
